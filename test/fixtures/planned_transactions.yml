@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account_id: 1
+  amount: 1
+  currency: MyString
+  category_id: 1
+  description: MyString
+  start: 2015-10-14 23:17:13
+  finish: 2015-10-14 23:17:13
+  cron: MyString
+  enabled: false
+
+two:
+  account_id: 1
+  amount: 1
+  currency: MyString
+  category_id: 1
+  description: MyString
+  start: 2015-10-14 23:17:13
+  finish: 2015-10-14 23:17:13
+  cron: MyString
+  enabled: false
