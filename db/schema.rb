@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20151014212949) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "currency",                 null: false
+    t.string   "title",                    null: false
     t.string   "description", default: "", null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
