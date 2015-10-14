@@ -11,8 +11,11 @@
 #
 
 class Account < ActiveRecord::Base
-  include AmountOfMoney
+  include Currency
+
+  monetize :amount_cents, with_model_currency: :currency
 
   has_many :transactions
   has_many :planned_transactions
+  has_many :balance_updates
 end

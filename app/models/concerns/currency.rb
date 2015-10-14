@@ -1,9 +1,7 @@
-module AmountOfMoney
+module Currency
   extend ActiveSupport::Concern
 
   included do
-    monetize :amount_cents, with_model_currency: :currency
-
     validates :currency, inclusion: {
       in: Const::ISO_CURRENCY_CODES,
       message: 'Invalid currency code'

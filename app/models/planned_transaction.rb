@@ -17,7 +17,8 @@
 #
 
 class PlannedTransaction < ActiveRecord::Base
-  include AmountOfMoney
+  include Currency
+  monetize :amount_cents, with_model_currency: :currency
 
   belong_to :category
   belong_to :account
