@@ -20,6 +20,6 @@ class PlannedTransaction < ActiveRecord::Base
   include Currency
   monetize :amount_cents, with_model_currency: :currency
 
-  belong_to :category
-  belong_to :account
+  belongs_to :category
+  belongs_to :account
 end
