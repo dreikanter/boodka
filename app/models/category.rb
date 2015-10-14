@@ -9,6 +9,8 @@
 #
 
 class Category < ActiveRecord::Base
+  validates :title, presence: true
+
   has_many :transactions
   has_many :planned_transactions
 end

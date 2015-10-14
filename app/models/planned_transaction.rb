@@ -18,7 +18,10 @@
 
 class PlannedTransaction < ActiveRecord::Base
   include Currency
+
   monetize :amount_cents, with_model_currency: :currency
+
+  validates :account_id, :amount_cents, :cron, :enabled, presence: true
 
   belongs_to :category
   belongs_to :account
