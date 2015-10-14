@@ -13,6 +13,8 @@
 class Account < ActiveRecord::Base
   include Currency
 
+  validates :title, presence: true
+
   has_many :transactions
   has_many :planned_transactions
   has_many :balance_updates

@@ -1,0 +1,11 @@
+<h1>Accounts</h1>
+
+<div class="list-group">
+  <% @accounts.each do |account| %>
+    <%= link_to account.title, '#', class: 'list-group-item' %>
+  <% end %>
+</div>
+
+<hr>
+
+<%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>

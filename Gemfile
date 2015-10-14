@@ -11,10 +11,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'money-rails'
-gem 'bootstrap-sass', '~> 3.3.4'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
+  gem 'rails-assets-bootstrap', '~> 3.3.5'
 end
 
 group :development, :test do
