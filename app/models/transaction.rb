@@ -13,5 +13,8 @@
 #
 
 class Transaction < ActiveRecord::Base
-  monetize :amount_cents, with_model_currency: :currency
+  include AmountOfMoney
+
+  belong_to :category
+  belong_to :account
 end

@@ -1,15 +1,15 @@
 class CreatePlannedTransactions < ActiveRecord::Migration
   def change
     create_table :planned_transactions do |t|
-      t.integer :account_id
-      t.integer :amount_cents
-      t.string :currency
+      t.integer :account_id, null: false
+      t.integer :amount_cents, null: false, default: 0
+      t.string :currency, null: false
       t.integer :category_id
-      t.string :description
+      t.string :description, null: false, default: ''
       t.datetime :start
       t.datetime :finish
-      t.string :cron
-      t.boolean :enabled
+      t.string :cron, null: false, default: ''
+      t.boolean :enabled, null: false, default: true
 
       t.timestamps null: false
     end

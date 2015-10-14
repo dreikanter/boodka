@@ -9,4 +9,6 @@
 #
 
 class Category < ActiveRecord::Base
+  has_many :transactions
+  has_many :planned_transactions
 end

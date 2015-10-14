@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(version: 20151014203816) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "currency"
-    t.integer  "amount"
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "currency",                null: false
+    t.integer  "amount",                  null: false
+    t.string   "title",      default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -28,35 +28,35 @@ ActiveRecord::Schema.define(version: 20151014203816) do
   end
 
   create_table "planned_transactions", force: :cascade do |t|
-    t.integer  "account_id"
-    t.integer  "amount_cents"
-    t.string   "currency"
+    t.integer  "account_id",                  null: false
+    t.integer  "amount_cents", default: 0,    null: false
+    t.string   "currency",                    null: false
     t.integer  "category_id"
-    t.string   "description"
+    t.string   "description",  default: "",   null: false
     t.datetime "start"
     t.datetime "finish"
-    t.string   "cron"
-    t.boolean  "enabled"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "cron",         default: "",   null: false
+    t.boolean  "enabled",      default: true, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "rates", force: :cascade do |t|
-    t.float    "rate"
-    t.string   "from"
-    t.string   "to"
+    t.float    "rate",       null: false
+    t.string   "from",       null: false
+    t.string   "to",         null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id"
-    t.integer  "amount_cents"
-    t.string   "currency"
+    t.integer  "account_id",                null: false
+    t.integer  "amount_cents", default: 0,  null: false
+    t.string   "currency",                  null: false
     t.integer  "category_id"
-    t.string   "description"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "description",  default: "", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end
