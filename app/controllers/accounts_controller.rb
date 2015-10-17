@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(account_id)
-    @account.assign_attributes(account_params)
+    @account.assign_attributes(edit_account_params)
     begin
       @account.save!
       redirect_to accounts_path, flash: { notify: 'Account updated' }
@@ -42,6 +42,14 @@ class AccountsController < ApplicationController
 
   def account_params
     params.require(:account).permit(permitted_params)
+  end
+
+  def permitted_params_edit
+    [:title, :description, :id, :currency]
+  end
+
+  def edit_account_params
+    params.require(:account).permit(permitted_params_edit)
   end
 
   def title
