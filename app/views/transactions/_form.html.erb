@@ -12,6 +12,14 @@
     <%= form.select :currency, options_for_select(Const::ISO_CURRENCY_CODES, transaction.account_id), {}, data: { width: '100%' }, class: 'currency-select' %>
   </div>
   <div class="form-group">
+    <div class="btn-group btn-group-sm" role="group">
+      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="USD">USD</a>
+      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="GBP">GBP</a>
+      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="EUR">EUR</a>
+      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="RUB">RUB</a>
+    </div>
+  </div>
+  <div class="form-group">
     <%= form.label :description %>
     <%= form.text_area :description, class: 'form-control', placeholder: 'Optional description' %>
   </div>
@@ -36,6 +44,10 @@
     $(".transaction-form .currency-select").select2({
       theme: "bootstrap",
       allowClear: false
+    });
+
+    $(".currency-switch").click(function() {
+      $(".currency-select").val($(this).data("value")).trigger("change")
     });
   });
 </script>
