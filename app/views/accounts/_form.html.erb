@@ -12,7 +12,7 @@
   <% else %>
     <div class="form-group">
       <%= form.label :currency %>
-      <%= form.select :currency, options_for_select(Const::ISO_CURRENCY_CODES, account.currency), {}, data: { width: '100%' }, class: 'currency-select' %>
+      <%= form.select :currency, options_for_select(Const::CURRENCY_CODES, account.currency), {}, data: { width: '100%' }, class: 'currency-select' %>
     </div>
   <% end %>
 

@@ -3,7 +3,7 @@ module Currency
 
   included do
     validates :currency, inclusion: {
-      in: Const::ISO_CURRENCY_CODES,
+      in: Const::CURRENCY_CODES,
       message: 'Invalid currency code'
     }
   end
