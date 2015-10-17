@@ -3,15 +3,15 @@
 # Table name: planned_transactions
 #
 #  id           :integer          not null, primary key
-#  account_id   :integer
-#  amount_cents :integer
-#  currency     :string
+#  account_id   :integer          not null
+#  amount_cents :integer          default(0), not null
+#  currency     :string           not null
 #  category_id  :integer
-#  description  :string
+#  description  :string           default(""), not null
 #  start        :datetime
 #  finish       :datetime
-#  cron         :string
-#  enabled      :boolean
+#  cron         :string           default(""), not null
+#  enabled      :boolean          default(TRUE), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

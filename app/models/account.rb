@@ -2,12 +2,12 @@
 #
 # Table name: accounts
 #
-#  id         :integer          not null, primary key
-#  currency   :string
-#  amount     :integer
-#  title      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  currency    :string           not null
+#  title       :string           not null
+#  description :string           default(""), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Account < ActiveRecord::Base

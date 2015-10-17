@@ -3,9 +3,9 @@
 # Table name: rates
 #
 #  id         :integer          not null, primary key
-#  rate       :float
-#  from       :string
-#  to         :string
+#  rate       :float            not null
+#  from       :string           not null
+#  to         :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
