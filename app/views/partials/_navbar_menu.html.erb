@@ -11,6 +11,9 @@
         <li class="<%= 'active' if params[:controller] == 'accounts/index' %>">
           <%= link_to 'Accounts', accounts_path %>
         </li>
+        <li class="<%= 'active' if params[:controller] == 'transactions/index' %>">
+          <%= link_to 'Transactions', transactions_path %>
+        </li>
       </ul>
     </div>
   </div>
