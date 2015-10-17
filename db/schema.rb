@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014212949) do
+ActiveRecord::Schema.define(version: 20151017190351) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "currency",                 null: false
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 20151014212949) do
     t.string   "description",  default: "", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer  "source_id",      null: false
+    t.integer  "destination_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end
