@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151017190934) do
+ActiveRecord::Schema.define(version: 20151017224925) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "currency",                 null: false
@@ -57,15 +57,21 @@ ActiveRecord::Schema.define(version: 20151017190934) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reconciliations", force: :cascade do |t|
+    t.integer  "account_id"
+    t.integer  "amount_cents"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id",                     null: false
-    t.integer  "amount_cents",   default: 0,     null: false
-    t.string   "currency",                       null: false
+    t.integer  "account_id",                null: false
+    t.integer  "amount_cents", default: 0,  null: false
+    t.string   "currency",                  null: false
     t.integer  "category_id"
-    t.string   "description",    default: "",    null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "reconsiliation", default: false
+    t.string   "description",  default: "", null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "transfers", force: :cascade do |t|

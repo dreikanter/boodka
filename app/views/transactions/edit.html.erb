@@ -1,2 +1,3 @@
-<h1>Transactions#edit</h1>
-<p>Find me in app/views/transactions/edit.html.erb</p>
+<h2>Edit transaction</h2>
+
+<%= render partial: 'form', locals: { transaction: @transaction, submit_url: transaction_path(@transaction.id), method: :patch, remote: false, submit_caption: 'Update transaction', cancel: true } %>

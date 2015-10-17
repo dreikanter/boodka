@@ -1,4 +1,4 @@
-<h1>New transaction</h1>
+<h2>New transaction</h2>
 
 <%= render partial: 'form', locals: { transaction: @transaction, submit_url: transactions_path, method: :post, remote: false, submit_caption: 'Add new transaction', cancel: false } %>
 
@@ -13,7 +13,11 @@
     <% Transaction.recent_history.each do |transaction| %>
       <tr>
         <td class="col-lg-2 text-muted"><%= transaction.created_at %></td>
-        <td class="col-lg-2 text-right"><b><%= transaction.amount %></b> <%= transaction.currency %></td>
+        <td class="col-lg-2 text-right"><b>
+          <%= link_to edit_transaction_path(transaction.id) do %>
+            <%= transaction.amount %></b> <%= transaction.currency %>
+          <% end %>
+        </td>
         <td class="col-lg-8"><%= transaction.description %></td>
       </tr>
     <% end %>

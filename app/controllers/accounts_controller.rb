@@ -19,11 +19,11 @@ class AccountsController < ApplicationController
   end
 
   def edit
-    @account = Account.find(id)
+    @account = Account.find(account_id)
   end
 
   def update
-    @account = Account.find(id)
+    @account = Account.find(account_id)
     @account.assign_attributes(account_params)
     begin
       @account.save!
@@ -42,10 +42,6 @@ class AccountsController < ApplicationController
 
   def account_params
     params.require(:account).permit(permitted_params)
-  end
-
-  def id
-    params.require(:id)
   end
 
   def title

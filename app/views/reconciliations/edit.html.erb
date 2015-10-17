@@ -1,0 +1,11 @@
+<h2>Edit reconciliation</h2>
+
+<%= render partial: 'form', locals: {
+  reconciliation: @reconciliation,
+  submit_url: reconciliation_path(@reconciliation.id),
+  method: :patch,
+  remote: false,
+  submit_caption: 'Update reconciliation',
+  edit: true,
+  cancel: true
+} %>
