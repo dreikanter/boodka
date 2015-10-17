@@ -13,7 +13,6 @@
 class Rate < ActiveRecord::Base
   validates :from, :to, :rate, presence: true
   validates :rate, numericality: { greater_than_or_equal_to: 0.0 }
-  validates :form, :to, length: { is: Const::ISO_CURRENCY_CODE_LENGTH }
   validates :from, :to, inclusion: {
     in: Const::ISO_CURRENCY_CODES,
     message: 'Invalid currency code'
