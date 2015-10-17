@@ -1,0 +1,21 @@
+<h1>New transaction</h1>
+
+<%= render partial: 'form', locals: { transaction: Transaction.new, submit_url: transactions_path, method: :post, remote: false, submit_caption: 'Add new transaction', cancel: false } %>
+
+<hr>
+
+<h2>Recent transactions</h2>
+
+<% if Transaction.recent_history.empty? %>
+  <p>There are no transaction yet.</p>
+<% else %>
+  <table class="table table-stripes table-bordered">
+    <% Transaction.recent_history.each do |transaction| %>
+      <tr>
+        <td class="col-lg-2 text-muted"><%= transaction.created_at %></td>
+        <td class="col-lg-2 text-right"><b><%= transaction.amount %></b> <%= transaction.currency %></td>
+        <td class="col-lg-8"><%= transaction.description %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

@@ -2,14 +2,15 @@
 #
 # Table name: transactions
 #
-#  id           :integer          not null, primary key
-#  account_id   :integer
-#  amount_cents :integer
-#  currency     :string
-#  category_id  :integer
-#  description  :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :integer          not null, primary key
+#  account_id     :integer          not null
+#  amount_cents   :integer          default(0), not null
+#  currency       :string           not null
+#  category_id    :integer
+#  description    :string           default(""), not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  reconsiliation :boolean          default(FALSE)
 #
 
 require 'test_helper'
