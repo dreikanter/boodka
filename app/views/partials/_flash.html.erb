@@ -1,7 +1,7 @@
 <div id="flash-messages">
   <% flash.each do |type, message| %>
     <div class="alert <%= flash_type_to_bs_class(type) %> alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="<%= t('commons.close') %>">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       <%= message %>

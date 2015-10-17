@@ -1,8 +1,3 @@
 <h1>New account</h1>
 
-<%= form_for Account.new, url: accounts_path, method: :post, html: { class: 'form-horizontal' } do |form| %>
-  <%= form.text_field :title, placeholder: 'Account title', class: 'form-control' %>
-  <%= form.text_area :description, class: 'form-control', placeholder: 'Optional account description' %>
-  <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-  <%= form.submit 'Create an account', class: 'btn btn-default', data: { disable_with: "Creating..." } %>
-<% end %>
+<%= render partial: 'form', locals: { submit_url: accounts_path, method: :post, submit_caption: 'Create new account' } %>

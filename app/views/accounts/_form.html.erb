@@ -1,0 +1,7 @@
+<%= form_for @account, url: submit_url, method: method, html: { class: 'form-horizontal' } do |form| %>
+  <%= form.text_field :title, placeholder: 'Account title', class: 'form-control' %>
+  <%= form.text_field :currency, placeholder: 'Currency code', class: 'form-control' %>
+  <%= form.text_area :description, class: 'form-control', placeholder: 'Optional account description' %>
+  <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
+  <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
+<% end %>

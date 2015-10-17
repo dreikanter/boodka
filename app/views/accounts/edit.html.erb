@@ -1,2 +1,3 @@
-<h1>Accounts#edit</h1>
-<p>Find me in app/views/accounts/edit.html.erb</p>
+<h1><%= @account.title %></h1>
+
+<%= render partial: 'form', locals: { submit_url: account_path(@account.id), method: :patch, submit_caption: 'Update' } %>

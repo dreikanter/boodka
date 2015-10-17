@@ -2,10 +2,16 @@
 
 <div class="list-group">
   <% @accounts.each do |account| %>
-    <%= link_to account.title, '#', class: 'list-group-item' %>
+      <%= link_to edit_account_path(account.id), class: 'list-group-item' do %>
+        <div class="row">
+          <div class="col-lg-6"><%= account.title %></div>
+          <div class="col-lg-6 text-right"><%= account.currency %></div>
+        </div>
+      <% end %>
+  <% end %>
+  <% if @accounts.empty? %>
+    <p>There are no accounts yet.</p>
   <% end %>
 </div>
-
-<hr>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
