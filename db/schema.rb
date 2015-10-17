@@ -36,17 +36,17 @@ ActiveRecord::Schema.define(version: 20151017224925) do
   end
 
   create_table "planned_transactions", force: :cascade do |t|
-    t.integer  "account_id",                  null: false
-    t.integer  "amount_cents", default: 0,    null: false
-    t.string   "currency",                    null: false
+    t.integer  "account_id",                                null: false
+    t.decimal  "amount_cents", precision: 8,                null: false
+    t.string   "currency",                                  null: false
     t.integer  "category_id"
-    t.string   "description",  default: "",   null: false
+    t.string   "description",                default: "",   null: false
     t.datetime "start"
     t.datetime "finish"
-    t.string   "cron",         default: "",   null: false
-    t.boolean  "enabled",      default: true, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "cron",                       default: "",   null: false
+    t.boolean  "enabled",                    default: true, null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "rates", force: :cascade do |t|
@@ -58,20 +58,20 @@ ActiveRecord::Schema.define(version: 20151017224925) do
   end
 
   create_table "reconciliations", force: :cascade do |t|
-    t.integer  "account_id"
-    t.integer  "amount_cents"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "account_id",                 null: false
+    t.decimal  "amount_cents", precision: 8, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id",                null: false
-    t.integer  "amount_cents", default: 0,  null: false
-    t.string   "currency",                  null: false
+    t.integer  "account_id",                              null: false
+    t.decimal  "amount_cents", precision: 8, default: 0,  null: false
+    t.string   "currency",                                null: false
     t.integer  "category_id"
-    t.string   "description",  default: "", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "description",                default: "", null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "transfers", force: :cascade do |t|
