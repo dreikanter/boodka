@@ -3,14 +3,17 @@
     <%= form.label :account_id, class: 'control-label' %>
     <%= form.select :account_id, options_for_select(Account.all.map { |account| [account.title, account.id] }, transaction.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
   </div>
+
   <div class="form-group">
     <%= form.label :amount %>
     <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control' %>
   </div>
+
   <div class="form-group">
     <%= form.label :currency %>
-    <%= form.select :currency, options_for_select(Const::ISO_CURRENCY_CODES, transaction.account_id), {}, data: { width: '100%' }, class: 'currency-select' %>
+    <%= form.select :currency, options_for_select(Const::ISO_CURRENCY_CODES, transaction.currency), {}, data: { width: '100%' }, class: 'currency-select' %>
   </div>
+
   <div class="form-group">
     <div class="btn-group btn-group-sm" role="group">
       <a href="#" class="btn btn-sm btn-default currency-switch" data-value="USD">USD</a>
@@ -19,10 +22,12 @@
       <a href="#" class="btn btn-sm btn-default currency-switch" data-value="RUB">RUB</a>
     </div>
   </div>
+
   <div class="form-group">
     <%= form.label :description %>
     <%= form.text_area :description, class: 'form-control', placeholder: 'Optional description' %>
   </div>
+
   <div class="form-group">
     <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
     <% if cancel %>

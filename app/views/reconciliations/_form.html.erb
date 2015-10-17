@@ -10,10 +10,12 @@
       <%= form.select :account_id, options_for_select(Account.all.map { |account| ["#{account.title} (#{account.currency})", account.id] }, reconciliation.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
     </div>
   <% end %>
+
   <div class="form-group">
     <%= form.label :amount %>
     <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control' %>
   </div>
+
   <div class="form-group">
     <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
     <% if cancel %>
@@ -30,10 +32,6 @@
       theme: "bootstrap",
       allowClear: false,
       minimumResultsForSearch: Infinity
-    });
-
-    $(".currency-switch").click(function() {
-      $(".currency-select").val($(this).data("value")).trigger("change")
     });
   });
 </script>
