@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'awesome_print'
 gem 'money-rails'
+gem 'select2-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
