@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 20151017224925) do
   end
 
   create_table "rates", force: :cascade do |t|
+    t.float    "ask",        null: false
+    t.float    "bid",        null: false
     t.float    "rate",       null: false
     t.string   "from",       null: false
     t.string   "to",         null: false
