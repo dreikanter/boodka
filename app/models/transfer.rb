@@ -25,6 +25,7 @@ class Transfer < ActiveRecord::Base
             :to_account_id, presence: true
 
   before_validation :build
+  after_destroy :drop_transactions
 
   scope :history, -> { order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
@@ -89,5 +90,9 @@ class Transfer < ActiveRecord::Base
 
   def to_account
     Account.find(to_account_id)
+  end
+
+  def drop_transactions
+    Transaction.delete_all(id: [from_transaction_id, to_transaction_id])
   end
 end
