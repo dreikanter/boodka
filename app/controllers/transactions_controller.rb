@@ -33,7 +33,7 @@ class TransactionsController < ApplicationController
   private
 
   def permitted_params
-    [:account_id, :amount, :currency, :description]
+    [:account_id, :amount, :currency, :description, :category_id]
   end
 
   def transaction_params
