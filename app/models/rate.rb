@@ -13,6 +13,8 @@
 #
 
 class Rate < ActiveRecord::Base
+  TTL_SECONDS = 600
+
   validates :ask, :bid, :rate, :from, :to, presence: true
   validates :from, :to, inclusion: {
     in: Const::CURRENCY_CODES,
@@ -31,5 +33,9 @@ class Rate < ActiveRecord::Base
 
   def convert(amount)
     rate * amount
+  end
+
+  def expired?
+    Time.now - created_at > TTL_SECONDS
   end
 end
