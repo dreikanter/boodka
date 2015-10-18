@@ -1,4 +1,4 @@
-<%= form_for(@category) do |f| %>
+<%= form_for @category, html: { class: 'form account-form' } do |form| %>
   <% if @category.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
@@ -11,19 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :code %><br>
-    <%= f.text_field :code %>
+  <div class="form-group">
+    <%= form.label :code, class: 'control-label' %>
+    <%= form.text_field :code, placeholder: 'Code', class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+
+  <div class="form-group">
+    <%= form.label :title, class: 'control-label' %>
+    <%= form.text_field :title, placeholder: 'Title', class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+
+  <div class="form-group">
+    <%= form.label :description, class: 'control-label' %>
+    <%= form.text_field :description, placeholder: 'Description', class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
+    <% if cancel %>
+      <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
+    <% end %>
   </div>
 <% end %>
