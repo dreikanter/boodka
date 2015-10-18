@@ -3,6 +3,8 @@
 # Table name: rates
 #
 #  id         :integer          not null, primary key
+#  ask        :float            not null
+#  bid        :float            not null
 #  rate       :float            not null
 #  from       :string           not null
 #  to         :string           not null

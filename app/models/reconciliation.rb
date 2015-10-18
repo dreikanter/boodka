@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: reconciliations
+#
+#  id           :integer          not null, primary key
+#  account_id   :integer          not null
+#  amount_cents :decimal(8, )     not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Reconciliation < ActiveRecord::Base
   validates :account_id, :amount, presence: true
 

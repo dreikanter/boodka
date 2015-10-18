@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  account_id   :integer          not null
-#  amount_cents :integer          default(0), not null
+#  amount_cents :decimal(8, )     not null
 #  currency     :string           not null
 #  category_id  :integer
 #  description  :string           default(""), not null
