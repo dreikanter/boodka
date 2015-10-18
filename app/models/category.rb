@@ -12,6 +12,8 @@
 
 class Category < ActiveRecord::Base
   validates :title, presence: true
+  validates :code, format: { with: /\w{1,10}/ }
+  validates :code, uniqueness: { case_sensitive: false }
 
   has_many :transactions, dependent: :nullify
   has_many :planned_transactions, dependent: :nullify
