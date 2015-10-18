@@ -31,6 +31,14 @@ class Rate < ActiveRecord::Base
     Const::CURRENCY_CODES_SET.include?(currency_code)
   end
 
+  def self.cleanup
+    where('created_at < ?', ttl_threshold).delete_all
+  end
+
+  def self.ttl_threshold
+    Time.now - TTL_SECONDS
+  end
+
   def convert(amount)
     rate * amount
   end

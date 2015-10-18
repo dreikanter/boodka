@@ -26,6 +26,7 @@ class RatesFetcher
   end
 
   def request_current_rate
+    Rate.cleanup
     rate = YahooRateMapper.new(load_rate_data).rate
     rate.save!
     rate
