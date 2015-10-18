@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :load_transaction, only: [:edit, :update]
+  before_action :load_transaction, only: [:edit, :update, :destroy]
 
   def index
     @transaction = Transaction.new
@@ -28,6 +28,11 @@ class TransactionsController < ApplicationController
       flash.now[:alert] = e.message
       render :edit
     end
+  end
+
+  def destroy
+    @transaction.destroy
+    redirect_to transactions_url, notice: 'Transaction destroyed'
   end
 
   private

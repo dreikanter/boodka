@@ -14,11 +14,15 @@
       <tr>
         <td class="col-lg-2 text-muted"><%= transaction.created_at %></td>
         <td class="col-lg-2 text-right"><b>
-          <%= link_to edit_transaction_path(transaction.id) do %>
+          <%= link_to edit_transaction_path(transaction) do %>
             <%= transaction.amount %></b> <%= transaction.currency %>
           <% end %>
+          <span class="text-muted"><%= transaction.description %></span>
         </td>
-        <td class="col-lg-8"><%= transaction.description %></td>
+        <td class="col-lg-2 text-right">
+          <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
+          <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+        </td>
       </tr>
     <% end %>
   </table>
