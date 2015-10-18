@@ -19,46 +19,48 @@ class Transfer < ActiveRecord::Base
 
   monetize :amount_cents, with_model_currency: :currency
 
-  validates :from_transaction_id, :to_transaction_id, presence: true
-  validates :from_account_id, :to_account_id, presence: true
+  validates :from_transaction_id,
+            :to_transaction_id,
+            :from_account_id,
+            :to_account_id, presence: true
 
-  has_one :from_account, class_name: Account, foreign_key: :id
-  has_one :to_account, class_name: Account, foreign_key: :id
-
-  has_one :from_transaction, class_name: Transaction,
-          foreign_key: :id, dependent: :destroy
-  has_one :to_transaction, class_name: Transaction,
-          foreign_key: :id, dependent: :destroy
-
-  before_validation :populate
+  before_validation :build
 
   scope :history, -> { order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
   def default_description
-    "Transfer #{amount} #{currency} from #{withdraw.account.title} to #{deposit.account.title}"
+    "Transfer #{amount} #{currency} from " \
+      "#{from_account.title} to #{to_account.title}"
   end
 
   private
 
   TRANSFER_CATEGORY_ID = 0
 
-  def populate
+  def build
+    return if persisted?
     create_transactions
     update_description
   end
 
+  private
+
   def create_transactions
     Transfer.transaction do
-      self.from_transaction_id = withdraw.id
-      self.to_transaction_id = deposit.id
-      self.from_account_id = withdraw.account_id
-      self.to_account_id = deposit.account_id
+      from = create_withdraw_transaction
+      to = create_deposit_transaction
+
+      self.from_transaction_id = from.id
+      self.to_transaction_id = to.id
+
+      self.from_account_id = from.account_id
+      self.to_account_id = to.account_id
     end
   end
 
-  def withdraw
-    @withdraw ||= Transaction.create!(
+  def create_withdraw_transaction
+    Transaction.create!(
       account_id: from_account_id,
       amount_cents: -amount_cents,
       currency: currency,
@@ -67,8 +69,8 @@ class Transfer < ActiveRecord::Base
     )
   end
 
-  def deposit
-    @deposit ||= Transaction.create!(
+  def create_deposit_transaction
+    Transaction.create!(
       account_id: to_account_id,
       amount_cents: amount_cents,
       currency: currency,
@@ -79,5 +81,13 @@ class Transfer < ActiveRecord::Base
 
   def update_description
     self.description = default_description if description.blank?
+  end
+
+  def from_account
+    Account.find(from_account_id)
+  end
+
+  def to_account
+    Account.find(to_account_id)
   end
 end
