@@ -16,3 +16,8 @@
  *= require select2-bootstrap
  *= require_self
  */
+
+.table-row-actions {
+  display: inline-block;
+  float: right;
+}

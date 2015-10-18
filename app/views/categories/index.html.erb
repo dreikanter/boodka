@@ -12,14 +12,14 @@
   <table class="table table-stripes table-bordered">
     <% @categories.each do |category| %>
       <tr>
-        <td class="col-lg-1 text-muted"><%= category.code %></td>
-        <td class="col-lg-9">
+        <td class="col-lg-2 text-muted"><%= category.code %></td>
+        <td class="col-lg-10">
           <%= link_to category.title, edit_category_path(category) %>
           <span class="text-muted"><%= category.description %></span>
-        </td>
-        <td class="col-lg-2 text-right">
-          <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-xs btn-default' %>
-          <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+          <div class="table-row-actions">
+            <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-xs btn-default' %>
+            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+          </div>
         </td>
       </tr>
     <% end %>

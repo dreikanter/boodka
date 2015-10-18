@@ -8,6 +8,7 @@ class Transfer < ActiveRecord::Base
 
   has_one :from_account, class_name: Account, foreign_key: :id
   has_one :to_account, class_name: Account, foreign_key: :id
+
   has_one :from_transaction, class_name: Transaction,
           foreign_key: :id, dependent: :destroy
   has_one :to_transaction, class_name: Transaction,
@@ -17,6 +18,10 @@ class Transfer < ActiveRecord::Base
 
   scope :history, -> { order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+
+  def default_description
+    "Transfer #{amount} #{currency} from #{withdraw.account.title} to #{deposit.account.title}"
+  end
 
   private
 
@@ -31,11 +36,13 @@ class Transfer < ActiveRecord::Base
     Transfer.transaction do
       self.from_transaction_id = withdraw.id
       self.to_transaction_id = deposit.id
+      self.from_account_id = withdraw.account_id
+      self.to_account_id = deposit.account_id
     end
   end
 
   def withdraw
-    Transaction.create!(
+    @withdraw ||= Transaction.create!(
       account_id: from_account_id,
       amount_cents: -amount_cents,
       currency: currency,
@@ -45,7 +52,7 @@ class Transfer < ActiveRecord::Base
   end
 
   def deposit
-    Transaction.create!(
+    @deposit ||= Transaction.create!(
       account_id: to_account_id,
       amount_cents: amount_cents,
       currency: currency,
@@ -56,9 +63,5 @@ class Transfer < ActiveRecord::Base
 
   def update_description
     self.description = default_description if description.blank?
-  end
-
-  def default_description
-    "Transfer #{amount} of #{currency}"
   end
 end

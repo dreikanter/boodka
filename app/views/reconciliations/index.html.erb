@@ -20,14 +20,15 @@
   <table class="table table-stripes table-bordered">
     <% Reconciliation.recent_history.each do |rec| %>
       <tr>
-        <td class="col-lg-2 text-muted"><%= rec.created_at %></td>
-        <td class="col-lg-5 text-right">
-          <%= rec.account.title %>
+        <td class="col-lg-2 text-muted">
+          <%= rec.created_at %>
         </td>
-        <td class="col-lg-5 text-right">
-          <%= link_to edit_reconciliation_path(rec.id) do %>
-            <b><%= rec.amount %></b> <%= rec.account.currency %>
-          <% end %>
+        <td class="col-lg-10">
+          <%= rec.account.title %> ← <b><%= rec.amount %></b> <%= rec.account.currency %>
+          <div class="table-row-actions">
+            <%= link_to 'Edit', edit_reconciliation_path(rec), class: 'btn btn-xs btn-default' %>
+            <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+          </div>
         </td>
       </tr>
     <% end %>

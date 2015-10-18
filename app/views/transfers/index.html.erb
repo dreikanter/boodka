@@ -12,10 +12,16 @@
   <table class="table table-stripes table-bordered">
     <% Transfer.recent_history.each do |transfer| %>
       <tr>
-        <td class="col-lg-2 text-muted"><%= transfer.created_at %></td>
-        <td class="col-lg-8 text-right"><span class="text-muted"><%= transfer.description %></span></td>
-        <td class="col-lg-2 text-right">
-          <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+        <td class="col-lg-2 text-muted">
+          <%= transfer.created_at %>
+        </td>
+        <td class="col-lg-10">
+          <span class="text-muted">
+            <%= "#{transfer.default_description}" %>
+          </span>
+          <div class="table-row-actions">
+            <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+          </div>
         </td>
       </tr>
     <% end %>
