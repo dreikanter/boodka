@@ -9,7 +9,7 @@
 <% if Transaction.recent_history.empty? %>
   <p>There are no transaction yet.</p>
 <% else %>
-  <table class="table table-stripes table-bordered">
+  <table class="table table-bordered table-hover">
     <% Transaction.recent_history.each do |transaction| %>
       <tr>
         <td class="col-lg-2 text-muted">

@@ -6,11 +6,11 @@
 
 <h2>Categories</h2>
 
-<% if @categories.empty? %>
+<% if Category.all.empty? %>
   <p>There are no categories yet.</p>
 <% else %>
-  <table class="table table-stripes table-bordered">
-    <% @categories.each do |category| %>
+  <table class="table table-bordered table-hover">
+    <% Category.all.each do |category| %>
       <tr>
         <td class="col-lg-2 text-muted"><%= category.code %></td>
         <td class="col-lg-10">
