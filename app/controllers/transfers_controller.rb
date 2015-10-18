@@ -7,11 +7,11 @@ class TransfersController < ApplicationController
   end
 
   def create
-    @transfer = Transfer.create!(transfer_params)
     begin
-      @transfer.save!
+      @transfer = Transfer.create!(transfer_params)
       redirect_to transfers_url, notice: 'Transfer was successfully created'
     rescue => e
+      @transfer = Transfer.new(transfer_params)
       flash.now[:alert] = e.message
       render :index
     end
