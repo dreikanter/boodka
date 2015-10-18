@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to @category, notice: 'Category was successfully updated.'
+      redirect_to categories_url, notice: 'Category was successfully updated.'
     else
       render :edit
     end
@@ -45,6 +45,6 @@ class CategoriesController < ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(permit)
+    params.require(:category).permit(permitted_params)
   end
 end
