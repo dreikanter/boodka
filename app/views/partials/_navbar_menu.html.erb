@@ -8,18 +8,11 @@
       </button>
       <%= link_to 'Boodka', root_path, class: 'navbar-brand' %>
       <ul class="nav navbar-nav navbar-right navbar-menu">
-        <li class="<%= 'active' if params[:controller] == 'accounts/index' %>">
-          <%= link_to 'Accounts', accounts_path %>
-        </li>
-        <li class="<%= 'active' if params[:controller] == 'reconciliations/index' %>">
-          <%= link_to 'Reconciliations', reconciliations_path %>
-        </li>
-        <li class="<%= 'active' if params[:controller] == 'transactions/index' %>">
-          <%= link_to 'Transactions', transactions_path %>
-        </li>
-        <li class="<%= 'active' if params[:controller] == 'categories/index' %>">
-          <%= link_to 'Categories', categories_path %>
-        </li>
+        <%= render partial: 'partials/navbar_item', locals: { path: accounts_path, action: 'accounts/index', title: 'Accounts' }  %>
+        <%= render partial: 'partials/navbar_item', locals: { path: reconciliations_path, action: 'reconciliations/index', title: 'Reconciliations' }  %>
+        <%= render partial: 'partials/navbar_item', locals: { path: transactions_path, action: 'transactions/index', title: 'Transactions' }  %>
+        <%= render partial: 'partials/navbar_item', locals: { path: categories_path, action: 'categories/index', title: 'Categories' }  %>
+        <%= render partial: 'partials/navbar_item', locals: { path: transfers_path, action: 'transfers/index', title: 'Transfers' }  %>
       </ul>
     </div>
   </div>

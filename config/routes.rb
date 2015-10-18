@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :transactions
   resources :reconciliations
   resources :categories, except: [:show, :new]
+  resources :transfers, except: [:show, :edit, :update]
 end
