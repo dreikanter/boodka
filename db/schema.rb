@@ -78,11 +78,4 @@ ActiveRecord::Schema.define(version: 20151018175927) do
     t.datetime "updated_at",                              null: false
   end
 
-  create_table "transfers", force: :cascade do |t|
-    t.integer  "source_id",      null: false
-    t.integer  "destination_id", null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
 end
