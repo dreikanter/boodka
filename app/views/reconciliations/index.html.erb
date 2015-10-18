@@ -21,7 +21,7 @@
     <% Reconciliation.recent_history.each do |rec| %>
       <tr>
         <td class="col-lg-2 text-muted">
-          <%= rec.created_at %>
+          <%= short_date rec.created_at %>
         </td>
         <td class="col-lg-10">
           <%= rec.account.title %> ← <b><%= rec.amount %></b> <%= rec.account.currency %>

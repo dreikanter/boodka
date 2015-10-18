@@ -15,4 +15,8 @@ module ApplicationHelper
   def current_action
     "#{params[:controller]}/#{params[:action]}"
   end
+
+  def short_date(datetime)
+    datetime.strftime(Const::DATE_FORMAT)
+  end
 end
