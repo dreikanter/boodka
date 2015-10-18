@@ -11,4 +11,8 @@ module ApplicationHelper
       'alert-info'
     end
   end
+
+  def current_action
+    "#{params[:controller]}/#{params[:action]}"
+  end
 end
