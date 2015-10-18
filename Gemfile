@@ -18,6 +18,7 @@ gem 'httparty'
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
   gem 'rails-assets-bootstrap', '~> 3.3.5'
+  gem 'rails-assets-bootstrap-datepicker', '~> 1.5.0'
 end
 
 group :development, :test do

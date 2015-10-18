@@ -38,11 +38,19 @@ class TransactionsController < ApplicationController
   private
 
   def permitted_params
-    [:account_id, :amount, :currency, :description, :category_id]
+    [:account_id, :amount, :currency, :description, :category_id, :created_at]
   end
 
   def transaction_params
     params.require(:transaction).permit(permitted_params)
+  end
+
+  def processed_params
+    transaction_params.merge(created_at: created_at)
+  end
+
+  def created_at
+    Date.strptime(params[:created_at], Const::DATEPICKER_FORMAT_PARSE)
   end
 
   def transaction_id
