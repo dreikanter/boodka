@@ -3,7 +3,6 @@ class CategoriesController < ApplicationController
 
   def index
     @category = Category.new
-    @categories = Category.all
   end
 
   def edit
@@ -11,10 +10,12 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    if @category.save
-      redirect_to categories_url, notice: 'Category was successfully created.'
-    else
-      render :new
+    begin
+      @category.save!
+      redirect_to categories_path, notice: 'Category created'
+    rescue => e
+      flash.now[:alert] = e.message
+      render :index
     end
   end
 
