@@ -1,5 +1,5 @@
 class ReconciliationsController < ApplicationController
-  before_action :load_reconciliation, only: [:edit, :update]
+  before_action :load_reconciliation, only: [:edit, :update, :destroy]
 
   def index
     @reconciliation = Reconciliation.new
@@ -30,6 +30,11 @@ class ReconciliationsController < ApplicationController
       flash.now[:alert] = e.message
       render :edit
     end
+  end
+
+  def destroy
+    @reconciliation.destroy
+    redirect_to reconciliations_path, notice: 'Reconciliation destroyed'
   end
 
   private
