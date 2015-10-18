@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :accounts
   resources :transactions
   resources :reconciliations
-  resources :categories, except: :show
+  resources :categories, except: [:show, :new]
 end

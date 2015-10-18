@@ -1,31 +1,27 @@
-<p id="notice"><%= notice %></p>
+<h2>New category</h2>
 
-<h1>Listing Categories</h1>
+<%= render partial: 'form', locals: { submit_caption: 'Add', cancel: false } %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<hr>
 
-  <tbody>
+<h2>Categories</h2>
+
+<% if @categories.empty? %>
+  <p>There are no categories yet.</p>
+<% else %>
+  <table class="table table-stripes table-bordered">
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.code %></td>
-        <td><%= category.title %></td>
-        <td><%= category.description %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="col-lg-1 text-muted"><%= category.code %></td>
+        <td class="col-lg-9">
+          <%= link_to category.title, edit_category_path(category) %>
+          <span class="text-muted"><%= category.description %></span>
+        </td>
+        <td class="col-lg-2 text-right">
+          <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-xs btn-default' %>
+          <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+        </td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Category', new_category_path %>
+  </table>
+<% end %>
