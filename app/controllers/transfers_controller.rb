@@ -7,9 +7,9 @@ class TransfersController < ApplicationController
   end
 
   def create
-    Transfer.build!(form)
+    TransferBuilder.build!(form)
     redirect_to transfers_url, notice: 'Transfer was successfully created'
-  rescue => e
+  rescue ActiveRecord::RecordInvalid => e
     @form = form
     flash.now[:alert] = e.message
     render :index
