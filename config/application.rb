@@ -9,5 +9,6 @@ Bundler.require(*Rails.groups)
 module Boodka
   class Application < Rails::Application
     config.active_record.raise_in_transactional_callbacks = true
+    config.autoload_paths << Rails.root.join('app', 'decorators')
   end
 end
