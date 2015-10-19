@@ -31,7 +31,13 @@ class Account < ActiveRecord::Base
 
   def total
     last_rec = Reconciliation.last_for(self)
-    ts = Transaction.where('created_at > ?', last_rec.created_at)
-    last_rec.amount + ts.map(&:calculated_amount).reduce(:+)
+    last_rec.amount + total_transactions(last_rec.created_at)
+  end
+
+  private
+
+  def total_transactions(since)
+    ts = Transaction.where('created_at > ?', since)
+    ts.map(&:calculated_amount).reduce(:+) || Money.new(0, currency)
   end
 end
