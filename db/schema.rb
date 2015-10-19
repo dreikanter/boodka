@@ -70,14 +70,16 @@ ActiveRecord::Schema.define(version: 20151018185207) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id",                              null: false
-    t.decimal  "amount_cents", precision: 8, default: 0,  null: false
-    t.string   "currency",                                null: false
+    t.integer  "account_id",                                          null: false
+    t.decimal  "amount_cents",            precision: 8, default: 0,   null: false
+    t.string   "currency",                                            null: false
+    t.decimal  "calculated_amount_cents", precision: 8, default: 0,   null: false
+    t.float    "rate",                                  default: 1.0, null: false
     t.integer  "category_id"
     t.integer  "transfer_id"
-    t.string   "description",                default: "", null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "description",                           default: "",  null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   create_table "transfers", force: :cascade do |t|
