@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+  before_action :load_account, only: [:edit,:update, :default]
+
   def index
     @accounts = Account.all
   end
@@ -19,11 +21,9 @@ class AccountsController < ApplicationController
   end
 
   def edit
-    @account = Account.find(account_id)
   end
 
   def update
-    @account = Account.find(account_id)
     @account.assign_attributes(edit_account_params)
     begin
       @account.save!
@@ -60,7 +60,11 @@ class AccountsController < ApplicationController
     account_params[:description]
   end
 
-  def account_id
+  def id
     params.require(:id)
+  end
+
+  def load_account
+    @account = Account.find(id)
   end
 end
