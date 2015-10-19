@@ -10,8 +10,6 @@
           <% if account.default %>
             <span class="label label-info">Default</span>
           <% end %>
-          </td>
-        <td class="col-lg-6">
           <div class="table-row-actions">
             <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>
             <%= link_to 'Edit', edit_account_path(account), class: 'btn btn-xs btn-default' %>
