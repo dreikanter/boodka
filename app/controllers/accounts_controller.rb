@@ -1,8 +1,7 @@
 class AccountsController < ApplicationController
-  before_action :load_account, only: [:edit,:update, :default]
+  before_action :load_account, only: [:edit,:update]
 
   def index
-    @accounts = Account.all
   end
 
   def new
@@ -34,6 +33,12 @@ class AccountsController < ApplicationController
     end
   end
 
+  def default
+    account = Account.default!(account_id)
+    message = "#{account.title} is now default"
+    redirect_to accounts_url, flash: { notify: message }
+  end
+
   private
 
   def permitted_params
@@ -62,6 +67,10 @@ class AccountsController < ApplicationController
 
   def id
     params.require(:id)
+  end
+
+  def account_id
+    params.require(:account_id)
   end
 
   def load_account
