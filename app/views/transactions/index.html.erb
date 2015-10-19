@@ -16,15 +16,17 @@
           <%= short_date transaction.created_at %>
         </td>
         <td class="col-lg-2 text-right">
-          <%= link_to edit_transaction_path(transaction) do %>
-            <%= transaction.amount %> <%= transaction.currency %>
-          <% end %>
+          <%= transaction.amount %> <%= transaction.currency %>
         </td>
         <td class="col-lg-8 text-muted">
           <%= transaction.description %>
           <div class="table-row-actions">
-            <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
-            <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            <% if transaction.transfer? %>
+              <span class="text-muted">Transfer</span>
+            <% else %>
+              <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
+              <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            <% end %>
           </div>
         </td>
       </tr>

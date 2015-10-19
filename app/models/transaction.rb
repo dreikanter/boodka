@@ -27,4 +27,8 @@ class Transaction < ActiveRecord::Base
   scope :with_account, -> { includes(:account) }
   scope :history, -> { with_account.order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+
+  def transfer?
+    transfer_id.present?
+  end
 end

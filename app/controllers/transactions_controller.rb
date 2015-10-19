@@ -31,6 +31,7 @@ class TransactionsController < ApplicationController
   end
 
   def destroy
+    fail if @transaction.transfer
     @transaction.destroy
     redirect_to transactions_url, notice: 'Transaction destroyed'
   end
