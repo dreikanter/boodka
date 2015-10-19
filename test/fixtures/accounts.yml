@@ -6,6 +6,7 @@
 #  currency    :string           not null
 #  title       :string           not null
 #  description :string           default(""), not null
+#  default     :boolean          default(FALSE), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

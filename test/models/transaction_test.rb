@@ -7,6 +7,7 @@
 #  amount_cents :decimal(8, )     default(0), not null
 #  currency     :string           not null
 #  category_id  :integer
+#  transfer_id  :integer
 #  description  :string           default(""), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
