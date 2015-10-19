@@ -12,10 +12,9 @@
 #
 
 class Account < ActiveRecord::Base
-  include Currency
-
   validates :title, presence: true
   validates :default, inclusion: { in: [true, false] }
+  validates :currency, inclusion: { in: Const::CURRENCY_CODES }
 
   has_many :transactions
   has_many :planned_transactions

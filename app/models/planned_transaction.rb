@@ -17,9 +17,10 @@
 #
 
 class PlannedTransaction < ActiveRecord::Base
-  include Currency
-
   monetize :amount_cents, with_model_currency: :currency
+  validates :amount_currency,
+            :calculated_amount_currency,
+            inclusion: { in: Const::CURRENCY_CODES }
 
   validates :account_id, :amount_cents, :cron, :enabled, presence: true
 
