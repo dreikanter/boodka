@@ -13,7 +13,9 @@
 </head>
 <body class="<%= "#{controller_name}-#{action_name}-body" %>">
   <div class="wrapper wrapper--admin">
-    <%= render partial: 'partials/navbar_menu' %>
+    <% cache do %>
+      <%= render partial: 'partials/navbar_menu' %>
+    <% end %>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">

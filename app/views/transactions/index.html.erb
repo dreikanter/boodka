@@ -17,7 +17,7 @@
         </td>
         <td class="col-lg-2 text-right">
           <%= link_to edit_transaction_path(transaction) do %>
-            <b><%= transaction.amount %></b> <%= transaction.currency %>
+            <%= transaction.amount %> <%= transaction.currency %>
           <% end %>
         </td>
         <td class="col-lg-8 text-muted">

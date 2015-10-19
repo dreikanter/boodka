@@ -24,7 +24,7 @@
           <%= short_date rec.created_at %>
         </td>
         <td class="col-lg-10">
-          <%= rec.account.title %> ← <b><%= rec.amount %></b> <%= rec.account.currency %>
+          <%= rec.account.title %> ← <%= rec.amount %> <%= rec.account.currency %>
           <div class="table-row-actions">
             <%= link_to 'Edit', edit_reconciliation_path(rec), class: 'btn btn-xs btn-default' %>
             <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
