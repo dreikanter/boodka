@@ -23,6 +23,8 @@ class Transaction < ActiveRecord::Base
   monetize :calculated_amount_cents,
            with_model_currency: :calculated_amount_currency
 
+  validates :abs_amount, numericality: { greater_than: 0 }
+
   validates :amount_currency,
             :calculated_amount_currency,
             inclusion: { in: Const::CURRENCY_CODES }
@@ -42,8 +44,24 @@ class Transaction < ActiveRecord::Base
 
   delegate :currency, to: :account, prefix: :account
 
+  def abs_amount
+    amount.abs
+  end
+
+  def abs_calculated_amount
+    calculated_amount.abs
+  end
+
   def transfer?
     transfer_id.present?
+  end
+
+  def inflow?
+    amount_cents > 0
+  end
+
+  def outflow?
+    amount_cents < 0
   end
 
   private
