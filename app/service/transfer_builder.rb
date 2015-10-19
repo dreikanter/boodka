@@ -29,7 +29,11 @@ class TransferBuilder
 
   def generated_description
     return description unless description.blank?
-    "#{amount} #{currency} from #{from_account.title} to #{to_account.title}"
+    "#{formatted_amount} from #{from_account.title} to #{to_account.title}"
+  end
+
+  def formatted_amount
+    Money.new(amount * 100, currency).format
   end
 
   def with_description(params)
