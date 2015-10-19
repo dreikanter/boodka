@@ -5,6 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.decimal :amount_cents, null: false, default: 0, precision: 8, scale: 0
       t.string :currency, null: false
       t.integer :category_id
+      t.integer :transfer_id
       t.string :description, null: false, default: ''
 
       t.timestamps null: false

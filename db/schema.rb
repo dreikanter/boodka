@@ -74,21 +74,16 @@ ActiveRecord::Schema.define(version: 20151018185207) do
     t.decimal  "amount_cents", precision: 8, default: 0,  null: false
     t.string   "currency",                                null: false
     t.integer  "category_id"
+    t.integer  "transfer_id"
     t.string   "description",                default: "", null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
 
   create_table "transfers", force: :cascade do |t|
-    t.integer  "from_transaction_id",                           null: false
-    t.integer  "to_transaction_id",                             null: false
-    t.integer  "from_account_id",                               null: false
-    t.integer  "to_account_id",                                 null: false
-    t.decimal  "amount_cents",        precision: 8, default: 0, null: false
-    t.string   "currency",                                      null: false
     t.string   "description"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
