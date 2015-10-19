@@ -1,20 +1,9 @@
-# == Schema Information
-#
-# Table name: accounts
-#
-#  id          :integer          not null, primary key
-#  currency    :string           not null
-#  title       :string           not null
-#  description :string           default(""), not null
-#  default     :boolean          default(FALSE), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
+require "test_helper"
 
-require 'test_helper'
+describe Account do
+  let(:account) { Account.new(title: 'Test', currency: 'USD') }
 
-class AccountTest < ActiveSupport::TestCase
-  def total
-
+  it "must be valid" do
+    value(account).must_be :valid?
   end
 end

@@ -34,6 +34,10 @@ group :development, :test do
   gem 'spring'
   gem 'web-console', '~> 2.0'
   gem 'minitest-rails'
+  gem 'minitest-reporters'
+  gem "guard", ">= 2.2.2", :require => false
+  gem "guard-minitest", :require => false
+  gem "rb-fsevent", :require => false
 end
 
 group :development do
