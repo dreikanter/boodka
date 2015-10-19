@@ -14,6 +14,7 @@ gem 'awesome_print'
 gem 'money-rails'
 gem 'select2-rails'
 gem 'httparty'
+gem 'figaro'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
