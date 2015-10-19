@@ -1,0 +1,14 @@
+AllCops:
+  RunRailsCops: true
+
+Documentation:
+  Enabled: false
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Style/SpaceAfterComma:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false
