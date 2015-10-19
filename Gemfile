@@ -41,3 +41,7 @@ group :development do
   gem 'guard-rubocop', require: false
   gem 'quiet_assets'
 end
+
+group :production do
+  gem 'rails_12factor'
+end
