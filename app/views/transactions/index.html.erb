@@ -16,7 +16,7 @@
           <%= short_date transaction.created_at %>
         </td>
         <td class="col-lg-2 text-right">
-          <%= transaction.amount %> <%= transaction.currency %>
+          <%= transaction.amount.format %>
         </td>
         <td class="col-lg-8 text-muted">
           <%= transaction.description %>

@@ -9,8 +9,8 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     begin
       @transaction.save!
-      redirect_to transactions_path
-    rescue => e
+      redirect_to transactions_path, notice: 'Transaction created'
+    rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :index
     end
@@ -23,7 +23,7 @@ class TransactionsController < ApplicationController
     @transaction.assign_attributes(transaction_params)
     begin
       @transaction.save!
-      redirect_to transactions_path, flash: { notify: 'Transaction updated' }
+      redirect_to transactions_path, notice: 'Transaction updated'
     rescue => e
       flash.now[:alert] = e.message
       render :edit
@@ -39,7 +39,14 @@ class TransactionsController < ApplicationController
   private
 
   def permitted_params
-    [:account_id, :amount, :currency, :description, :category_id, :created_at]
+    [
+      :account_id,
+      :amount,
+      :amount_currency,
+      :description,
+      :category_id,
+      :created_at
+    ]
   end
 
   def transaction_params

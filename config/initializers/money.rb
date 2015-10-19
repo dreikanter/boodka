@@ -1,5 +1,3 @@
-# encoding : utf-8
-
 MoneyRails.configure do |config|
 
   # To set the default currency
@@ -9,7 +7,7 @@ MoneyRails.configure do |config|
   # Set default bank object
   #
   # Example:
-  # config.default_bank = EuCentralBank.new
+  config.default_bank = Money::Bank::RussianCentralBank.new
 
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)
