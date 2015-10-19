@@ -17,7 +17,11 @@
 #
 
 class Transaction < ActiveRecord::Base
-  monetize :amount_cents, with_model_currency: :currency
+  monetize :amount_cents,
+           with_model_currency: :amount_cents_currency
+
+  monetize :calculated_amount_cents,
+           with_model_currency: :calculated_amount_currency
 
   validates :amount_currency,
             :calculated_amount_currency,
@@ -33,7 +37,18 @@ class Transaction < ActiveRecord::Base
   scope :history, -> { with_account.order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
+  before_create :convert_amount
+
+  delegate :currency, to: :account, prefix: :account
+
   def transfer?
     transfer_id.present?
+  end
+
+  private
+
+  def convert_amount
+    self.calculated_amount = amount.exchange_to(account_currency)
+    self.rate = Money.default_bank.get_rate(amount_currency, account_currency)
   end
 end
