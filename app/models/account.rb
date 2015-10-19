@@ -18,7 +18,7 @@ class Account < ActiveRecord::Base
 
   has_many :transactions
   has_many :planned_transactions
-  has_many :balance_updates
+  has_many :reconciliations
 
   scope :ordered, -> { order(:created_at) }
 
@@ -27,5 +27,11 @@ class Account < ActiveRecord::Base
       Account.update_all(default: false)
       Account.update(id, default: true)
     end
+  end
+
+  def total
+    last_rec = Reconciliation.last_for(self)
+    ts = Transaction.where('created_at > ?', last_rec.created_at)
+    last_rec.amount + ts.map(&:calculated_amount).reduce(:+)
   end
 end
