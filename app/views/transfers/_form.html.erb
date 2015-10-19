@@ -1,12 +1,12 @@
-<%= form_for @transfer, html: { class: 'form transfer-form' } do |form| %>
+<%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' } do |form| %>
   <div class="form-group">
     <%= form.label :from_account_id, class: 'control-label' %>
-    <%= form.select :from_account_id, options_for_select(Account.all.map { |account| [account.title, account.id] }, @transfer.from_account_id), {}, data: { width: '100%' }, class: 'account-select' %>
+    <%= form.select :from_account_id, options_for_select(Account.all.map { |account| [account.title, account.id] }), {}, data: { width: '100%' }, class: 'account-select' %>
   </div>
 
   <div class="form-group">
     <%= form.label :to_account_id, class: 'control-label' %>
-    <%= form.select :to_account_id, options_for_select(Account.all.map { |account| [account.title, account.id] }, @transfer.to_account_id), {}, data: { width: '100%' }, class: 'account-select' %>
+    <%= form.select :to_account_id, options_for_select(Account.all.map { |account| [account.title, account.id] }), {}, data: { width: '100%' }, class: 'account-select' %>
   </div>
 
   <div class="form-group">
@@ -16,7 +16,7 @@
 
   <div class="form-group">
     <%= form.label :currency %>
-    <%= form.select :currency, options_for_select(Const::CURRENCY_CODES, @transfer.currency), {}, data: { width: '100%' }, class: 'currency-select' %>
+    <%= form.select :currency, options_for_select(Const::CURRENCY_CODES), {}, data: { width: '100%' }, class: 'currency-select' %>
   </div>
 
   <div class="form-group">
