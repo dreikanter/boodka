@@ -23,4 +23,8 @@ class Reconciliation < ActiveRecord::Base
   def currency
     account.try(:currency)
   end
+
+  def self.last_for(account)
+    where(account: account).last || ZeroReconciliation.new(account)
+  end
 end
