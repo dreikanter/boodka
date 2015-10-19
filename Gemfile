@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'awesome_print'
 gem 'money-rails'
+gem 'russian_central_bank'
 gem 'select2-rails'
 gem 'httparty'
 gem 'figaro'
