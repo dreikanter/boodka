@@ -37,7 +37,8 @@ class Transaction < ActiveRecord::Base
   scope :history, -> { with_account.order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
-  before_create :convert_amount
+  before_create :refresh_rate_and_convert_amount
+  before_update :convert_amount
 
   delegate :currency, to: :account, prefix: :account
 
@@ -47,8 +48,12 @@ class Transaction < ActiveRecord::Base
 
   private
 
-  def convert_amount
+  def refresh_rate_and_convert_amount
     self.calculated_amount = amount.exchange_to(account_currency)
     self.rate = Money.default_bank.get_rate(amount_currency, account_currency)
+  end
+
+  def convert_amount
+    self.calculated_amount_cents = Integer(amount_cents * rate)
   end
 end
