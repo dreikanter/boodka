@@ -14,7 +14,7 @@
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def total
+
+  end
 end

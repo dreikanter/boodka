@@ -33,6 +33,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'spring'
   gem 'web-console', '~> 2.0'
+  gem 'minitest-rails'
 end
 
 group :development do
