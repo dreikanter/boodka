@@ -1,3 +1,11 @@
 <h2>Account details</h2>
 
-<%= render partial: 'form', locals: { account: @form, submit_url: account_path(@form.id), method: :patch, submit_caption: 'Update', edit: true } %>
+<%=
+  render partial: 'form', locals: {
+    account_form: @form,
+    submit_url: account_path(@form.id),
+    method: :patch,
+    submit_caption: 'Update',
+    edit: true
+  }
+%>
