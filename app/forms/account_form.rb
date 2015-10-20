@@ -1,24 +1,11 @@
 class AccountForm < FormObject
   def account_params
-    {
-      title: title,
-      description: description,
-      currency: currency
-    }
+    pick(:title, :description, :currency, :default)
   end
 
   def reconciliation_params
-    {
-      amount: amount,
-      amount_date: amount_date
-    }
+    pick(:amount, :created_at)
   end
-
-  def default?
-    ['true', 't'].include? default.to_s.downcase
-  end
-
-  private
 
   def permitted_params
     [
@@ -28,7 +15,21 @@ class AccountForm < FormObject
       :currency,
       :default,
       :amount,
-      :amount_date
+      :created_at
     ]
+  end
+
+  def default?
+    ['true', 't'].include? default.to_s.downcase
+  end
+
+  def processed_default
+    default?
+  end
+
+  def processed_amount
+    Float(amount)
+  rescue
+    0.0
   end
 end

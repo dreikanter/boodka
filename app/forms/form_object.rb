@@ -21,4 +21,22 @@ class FormObject
   def permitted_params
     []
   end
+
+  def pick(*props)
+    Hash[property_values(props)]
+  end
+
+  def property_values(props)
+    props.map { |prop| [prop, pick_property(prop)] }
+  end
+
+  def property_filter_name(prop)
+    "processed_#{prop}".to_sym
+  end
+
+  def pick_property(prop)
+    filter = property_filter_name(prop)
+    puts(self.class.method_defined?(filter) ? filter : prop)
+    send(self.class.method_defined?(filter) ? filter : prop)
+  end
 end
