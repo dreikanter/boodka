@@ -20,11 +20,17 @@ class Reconciliation < ActiveRecord::Base
   scope :history, -> { with_account.order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
+  after_initialize :defaults
+
   def currency
     account.try(:currency)
   end
 
   def self.last_for(account)
     where(account: account).last || ZeroReconciliation.new(account)
+  end
+
+  def defaults
+    self.amount_cents ||= 0
   end
 end
