@@ -9,14 +9,15 @@ describe AccountForm do
     account_form.account_params.must_equal({
       title: account_form_params[:title],
       description: account_form_params[:description],
-      currency: account_form_params[:currency]
+      currency: account_form_params[:currency],
+      default: account_form_params[:default]
     })
   end
 
   it 'process reconciliation params' do
     account_form.reconciliation_params.must_equal({
       amount: account_form_params[:amount],
-      amount_date: account_form_params[:amount_date]
+      created_at: account_form_params[:created_at]
     })
   end
 

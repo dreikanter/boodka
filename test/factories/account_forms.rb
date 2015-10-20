@@ -5,7 +5,7 @@ FactoryGirl.define do
     currency 'USD'
     description 'Account description'
     amount '1000'
-    amount_date 1.day.ago
+    created_at 1.day.ago
     initialize_with { attributes }
   end
 

@@ -25,10 +25,7 @@ class Account < ActiveRecord::Base
   before_save :drop_old_default_if_needed
 
   def self.default!(id)
-    Account.transaction do
-      # Account.update_all(default: false)
-      Account.update(id, default: true)
-    end
+    Account.update(id, default: true)
   end
 
   def total

@@ -1,8 +1,6 @@
 class TransferForm < FormObject
   def transfer_params
-    {
-      description: description
-    }
+    pick(:description)
   end
 
   def from_transaction_params
