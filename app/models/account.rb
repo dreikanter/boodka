@@ -37,7 +37,7 @@ class Account < ActiveRecord::Base
   private
 
   def total_transactions(since)
-    ts = Transaction.where('created_at > ?', since)
-    ts.map(&:calculated_amount).reduce(:+) || Money.new(0, currency)
+    ts = transactions.where('created_at >= ?', since)
+    ts.sum(:calculated_amount_cents) || Money.new(0, currency)
   end
 end
