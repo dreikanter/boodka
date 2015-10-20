@@ -1,11 +1,4 @@
 class AccountForm < FormObject
-  attr_accessor :title,
-                :default,
-                :currency,
-                :amount,
-                :amount_date,
-                :description
-
   def account_params
     {
       title: title,
@@ -21,13 +14,21 @@ class AccountForm < FormObject
     }
   end
 
-  def set_as_default?
-    default == true
+  def default?
+    ['true', 't'].include? default.to_s.downcase
   end
 
   private
 
   def permitted_params
-    [:title, :description, :id, :currency, :default]
+    [
+      :title,
+      :description,
+      :id,
+      :currency,
+      :default,
+      :amount,
+      :amount_date
+    ]
   end
 end

@@ -2,8 +2,9 @@ class FormObject
   include ActiveModel::Model
 
   def initialize(params = nil)
-    process_params(params).each do |k, v|
-      instance_variable_set("@#{k}", v) unless v.nil?
+    permitted_params.each { |name| self.class.send(:attr_accessor, name) }
+    process_params(params).each do |name, value|
+      instance_variable_set("@#{name}", value)
     end
   end
 
@@ -18,6 +19,6 @@ class FormObject
   end
 
   def permitted_params
-    raise NotImplementedError
+    []
   end
 end

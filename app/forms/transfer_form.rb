@@ -1,12 +1,4 @@
 class TransferForm < FormObject
-  attr_accessor :amount,
-                :amount_currency,
-                :from_account_id,
-                :to_account_id,
-                :description
-
-  CENTS_IN_UNIT = 100
-
   def transfer_params
     {
       description: description

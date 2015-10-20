@@ -10,9 +10,10 @@ describe TransferForm do
   SAMPLE_AMOUNT = 1000
   WITHDRAW_TRANSACTION_ID = 1
   DEPOSIT_TRANSACTION_ID = 2
+  CENTS_IN_UNIT = 100
 
   let(:sample_amount) do
-    Money.new(SAMPLE_AMOUNT * TransferForm::CENTS_IN_UNIT, SAMPLE_CURRENCY)
+    Money.new(SAMPLE_AMOUNT * CENTS_IN_UNIT, SAMPLE_CURRENCY)
   end
 
   let(:request_params) do
