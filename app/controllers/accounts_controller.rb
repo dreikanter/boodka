@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
-  before_action :set_new_form, only: [:new, :create]
+  before_action :init_new_form, only: [:new, :create]
+  before_action :init_edit_form, only: [:edit, :update]
 
   def create
     if @form.validate(params[:account])
@@ -14,32 +15,30 @@ class AccountsController < ApplicationController
     end
   end
 
-  def edit
-    @form = edit_account_form(Account.find(id))
-  end
-
   def update
-    AccountBuilder.update!(id, @form)
-    redirect_to accounts_path, flash: { notify: 'Account updated' }
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.message
-    render :edit
+    if @form.validate(params[:edit_account])
+      @form.save
+      redirect_to accounts_path, notify: 'Account updated'
+    else
+      flash.now[:alert] = @form.errors.messages
+      render :new
+    end
   end
 
   def default
     account = Account.default!(account_id)
     message = "#{account.title} is now default"
-    redirect_to accounts_url, flash: { notify: message }
+    redirect_to accounts_url, notify: message
   end
 
   private
 
-  def account_id
-    params.require(:account_id)
-  end
-
   def id
     params.require(:id)
+  end
+
+  def account_id
+    params.require(:account_id)
   end
 
   def new_account_form(account, reconciliation)
@@ -50,7 +49,11 @@ class AccountsController < ApplicationController
     EditAccountForm.new(account)
   end
 
-  def set_new_form
+  def init_new_form
     @form = new_account_form(Account.new, Reconciliation.new)
+  end
+
+  def init_edit_form
+    @form = edit_account_form(Account.find(id))
   end
 end
