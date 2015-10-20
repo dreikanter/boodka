@@ -4,14 +4,21 @@
   <table class="table table-bordered table-hover">
     <% Account.ordered.each do |account| %>
       <tr>
-        <td>
-          <%= account.title %> — <%= account.currency %>
+        <td class="col-lg-2">
+          <%= account.title %>
           <% if account.default %>
             <span class="label label-info">Default</span>
           <% end %>
+        </td>
+        <td class="col-lg-1">
+          <%= account.currency %>
+        </td>
+        <td class="col-lg-9">
           <span class="text-muted"><%= account.description %></span>
           <div class="table-row-actions">
-            <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>
+            <% unless account.default %>
+              <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>
+            <% end %>
             <%= link_to 'Edit', edit_account_path(account), class: 'btn btn-xs btn-default' %>
           </div>
         </td>
