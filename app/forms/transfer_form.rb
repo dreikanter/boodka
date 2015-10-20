@@ -46,8 +46,4 @@ class TransferForm < FormObject
   def parsed_amount
     amount.to_f
   end
-
-  def process_params(params)
-    params ? params.require(:transfer_form).permit(permitted_params) : {}
-  end
 end
