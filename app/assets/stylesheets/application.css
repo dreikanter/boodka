@@ -22,3 +22,7 @@
   display: inline-block;
   float: right;
 }
+
+.emptyness {
+  margin: 15px 0;
+}
