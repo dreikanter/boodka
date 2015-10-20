@@ -15,14 +15,14 @@ class TransferForm < FormObject
 
   def from_transaction_params
     {
-      amount: -Money.new(parsed_amount, amount_currency) * CENTS_IN_UNIT,
+      amount: -processed_amount,
       account_id: from_account_id
     }
   end
 
   def to_transaction_params
     {
-      amount: Money.new(parsed_amount, amount_currency) * CENTS_IN_UNIT,
+      amount: processed_amount,
       account_id: to_account_id
     }
   end
@@ -39,7 +39,15 @@ class TransferForm < FormObject
     ]
   end
 
-  def parsed_amount
-    amount.to_f
+  def currency
+    amount_currency.blank? ? nil : Money::Currency.new(amount_currency)
+  end
+
+  def subunit_to_unit
+    currency ? currency.subunit_to_unit : 0
+  end
+
+  def processed_amount
+    Money.new(amount.to_f, currency) * subunit_to_unit
   end
 end
