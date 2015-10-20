@@ -23,9 +23,7 @@ class ReconciliationsController < ApplicationController
     @reconciliation.assign_attributes(rec_params)
     begin
       @reconciliation.save!
-      redirect_to reconciliations_path, flash: {
-        notify: 'Reconciliation updated'
-      }
+      redirect_to reconciliations_path, notify: 'Reconciliation updated'
     rescue => e
       flash.now[:alert] = e.message
       render :edit
@@ -34,7 +32,7 @@ class ReconciliationsController < ApplicationController
 
   def destroy
     @reconciliation.destroy
-    redirect_to reconciliations_path, notice: 'Reconciliation destroyed'
+    redirect_to reconciliations_path, notify: 'Reconciliation destroyed'
   end
 
   private
