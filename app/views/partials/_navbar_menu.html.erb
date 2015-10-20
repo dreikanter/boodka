@@ -8,11 +8,11 @@
       </button>
       <%= link_to 'Boodka', root_path, class: 'navbar-brand' %>
       <ul class="nav navbar-nav navbar-right navbar-menu">
-        <%= render partial: 'partials/navbar_item', locals: { path: accounts_path, action: 'accounts/index', title: 'Accounts' }  %>
-        <%= render partial: 'partials/navbar_item', locals: { path: categories_path, action: 'categories/index', title: 'Categories' }  %>
-        <%= render partial: 'partials/navbar_item', locals: { path: reconciliations_path, action: 'reconciliations/index', title: 'Reconciliations' }  %>
-        <%= render partial: 'partials/navbar_item', locals: { path: transactions_path, action: 'transactions/index', title: 'Transactions' }  %>
-        <%= render partial: 'partials/navbar_item', locals: { path: transfers_path, action: 'transfers/index', title: 'Transfers' }  %>
+        <li class="<%= 'active' if current_action == 'accounts/index' %>"><%= link_to 'Accounts', accounts_path %></li>
+        <li class="<%= 'active' if current_action == 'categories/index' %>"><%= link_to 'Categories', categories_path %></li>
+        <li class="<%= 'active' if current_action == 'transactions/index' %>"><%= link_to 'Transactions', transactions_path %></li>
+        <li class="<%= 'active' if current_action == 'reconciliations/index' %>"><%= link_to 'Reconciliations', reconciliations_path %></li>
+        <li class="<%= 'active' if current_action == 'transfers/index' %>"><%= link_to 'Transfers', transfers_path %></li>
       </ul>
     </div>
   </div>
