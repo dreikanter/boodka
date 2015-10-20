@@ -22,9 +22,11 @@ class Account < ActiveRecord::Base
 
   scope :ordered, -> { order(:created_at) }
 
+  before_save :drop_old_default_if_needed
+
   def self.default!(id)
     Account.transaction do
-      Account.update_all(default: false)
+      # Account.update_all(default: false)
       Account.update(id, default: true)
     end
   end
@@ -39,5 +41,10 @@ class Account < ActiveRecord::Base
   def total_transactions(since)
     ts = transactions.where('created_at >= ?', since)
     ts.sum(:calculated_amount_cents) || Money.new(0, currency)
+  end
+
+  def drop_old_default_if_needed
+    return unless default && default_changed?
+    Account.where(default: true).update_all(default: false)
   end
 end
