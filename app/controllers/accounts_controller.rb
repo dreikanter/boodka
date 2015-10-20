@@ -1,23 +1,21 @@
 class AccountsController < ApplicationController
-  before_action :set_form, only: [:create, :update]
-
-  def index
-  end
-
-  def new
-    @form = form(Account.new, Reconciliation.new)
-  end
+  before_action :set_new_form, only: [:new, :create]
 
   def create
-    AccountBuilder.build!(@form)
-    redirect_to accounts_path
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:alert] = e.message
-    render :new
+    if @form.validate(params[:account])
+      @form.save do |hash|
+        account = Account.create!(hash[:account])
+        account.reconciliations.create!(hash[:reconciliation])
+      end
+      redirect_to accounts_path, notify: 'Account created'
+    else
+      flash.now[:alert] = @form.errors.messages
+      render :new
+    end
   end
 
   def edit
-    @form = AccountForm.new(Account.find(id))
+    @form = edit_account_form(Account.find(id))
   end
 
   def update
@@ -44,11 +42,15 @@ class AccountsController < ApplicationController
     params.require(:id)
   end
 
-  def set_form
-    @form = AccountForm.new(params)
+  def new_account_form(account, reconciliation)
+    NewAccountForm.new(account: account, reconciliation: reconciliation)
   end
 
-  def form(account, reconciliation)
+  def edit_account_form(account)
+    EditAccountForm.new(account)
+  end
 
+  def set_new_form
+    @form = new_account_form(Account.new, Reconciliation.new)
   end
 end
