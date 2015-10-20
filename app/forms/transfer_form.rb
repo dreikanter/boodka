@@ -31,7 +31,7 @@ class TransferForm < FormObject
 
   def from_transaction_params
     {
-      amount: -Float(amount),
+      amount: "-#{amount}",
       amount_currency: amount_currency,
       account_id: from_account_id
     }
@@ -39,7 +39,7 @@ class TransferForm < FormObject
 
   def to_transaction_params
     {
-      amount: Float(amount),
+      amount: amount,
       amount_currency: amount_currency,
       account_id: to_account_id
     }
