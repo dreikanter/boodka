@@ -26,4 +26,10 @@ class Minitest::Spec
   after :each do
     DatabaseCleaner.clean
   end
+
+  include FactoryGirl::Syntax::Methods
+end
+
+class MiniTest::Unit::TestCase
+  include FactoryGirl::Syntax::Methods
 end
