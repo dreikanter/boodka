@@ -17,6 +17,11 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :created_at %>
+    <%= form.text_field :created_at, value: reconciliation.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is current date' %>
+  </div>
+
+  <div class="form-group">
     <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
     <% if cancel %>
       <%= link_to 'Cancel', :back, class: 'btn btn-default' %>

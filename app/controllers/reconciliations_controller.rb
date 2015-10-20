@@ -38,7 +38,7 @@ class ReconciliationsController < ApplicationController
   private
 
   def permitted_params
-    [:account_id, :amount]
+    [:account_id, :amount, :created_at]
   end
 
   def rec_params
