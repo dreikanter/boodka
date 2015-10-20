@@ -1,6 +1,10 @@
 <%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' } do |form| %>
   <% if edit %>
     <div class="form-group">
+      <label class="control-label" for="reconciliation_account_id">Account</label>
+      <p class="form-control-static"><%= reconciliation.account.title %></p>
+    </div>
+    <div class="form-group">
       <label class="control-label" for="reconciliation_account_id">Currency</label>
       <p class="form-control-static"><%= reconciliation.currency %></p>
     </div>
