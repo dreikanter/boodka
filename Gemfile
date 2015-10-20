@@ -17,6 +17,7 @@ gem 'select2-rails'
 gem 'httparty'
 gem 'figaro'
 gem 'draper', '~> 1.3'
+gem 'reform'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
