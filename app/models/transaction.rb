@@ -23,7 +23,10 @@ class Transaction < ActiveRecord::Base
   monetize :calculated_amount_cents,
            with_model_currency: :calculated_amount_currency
 
-  validates :abs_amount, numericality: { greater_than: 0 }
+  validates :abs_amount, numericality: {
+    greater_than: 0,
+    message: 'Amount must have a non-zero value'
+  }
 
   validates :amount_currency,
             :calculated_amount_currency,
