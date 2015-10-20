@@ -23,7 +23,7 @@ class TransfersController < ApplicationController
   private
 
   def form
-    TransferForm.from_params(params)
+    TransferForm.new(params)
   end
 
   def load_transfer

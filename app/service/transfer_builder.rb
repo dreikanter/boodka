@@ -10,7 +10,9 @@ class TransferBuilder
   end
 
   def build!
-    create_transactions! create_transfer!
+    Transfer.transaction do
+      create_transactions! create_transfer!
+    end
   end
 
   private
@@ -33,7 +35,7 @@ class TransferBuilder
   end
 
   def formatted_amount
-    Money.new(amount * 100, currency).format
+    Money.new(amount, currency).format
   end
 
   def with_description(params)
