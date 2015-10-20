@@ -1,35 +1,14 @@
-class AccountForm < FormObject
-  def account_params
-    pick(:title, :description, :currency, :default)
-  end
+class AccountForm < Reform::Form
+  include Composition
 
-  def reconciliation_params
-    pick(:amount, :created_at)
-  end
+  model :account
 
-  def permitted_params
-    [
-      :title,
-      :description,
-      :id,
-      :currency,
-      :default,
-      :amount,
-      :created_at
-    ]
-  end
+  property :title, on: :account
+  property :description, on: :account
+  property :id, on: :account
+  property :currency, on: :account
+  property :default, on: :account
 
-  def default?
-    ['true', 't'].include? default.to_s.downcase
-  end
-
-  def processed_default
-    default?
-  end
-
-  def processed_amount
-    Float(amount)
-  rescue
-    0.0
-  end
+  property :amount, on: :reconciliation
+  property :reconciled_at, on: :reconciliation, from: :created_at
 end

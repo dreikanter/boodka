@@ -1,9 +1,11 @@
 class AccountsController < ApplicationController
-  before_action :load_account, only: [:edit, :update]
   before_action :set_form, only: [:create, :update]
 
+  def index
+  end
+
   def new
-    @form = AccountForm.new
+    @form = form(Account.new, Reconciliation.new)
   end
 
   def create
@@ -15,10 +17,11 @@ class AccountsController < ApplicationController
   end
 
   def edit
+    @form = AccountForm.new(Account.find(id))
   end
 
   def update
-    AccountBuilder.update!(@form)
+    AccountBuilder.update!(id, @form)
     redirect_to accounts_path, flash: { notify: 'Account updated' }
   rescue ActiveRecord::RecordInvalid => e
     flash.now[:alert] = e.message
@@ -41,11 +44,11 @@ class AccountsController < ApplicationController
     params.require(:id)
   end
 
-  def load_account
-    @account = Account.find(id)
-  end
-
   def set_form
     @form = AccountForm.new(params)
+  end
+
+  def form(account, reconciliation)
+
   end
 end
