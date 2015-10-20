@@ -1,8 +1,10 @@
 class FormObject
   include ActiveModel::Model
 
-  def initialize(args = {})
-    args.each { |k, v| instance_variable_set("@#{k}", v) unless v.nil? }
+  def initialize(params = nil)
+    process_params(params).each do |k, v|
+      instance_variable_set("@#{k}", v) unless v.nil?
+    end
   end
 
   protected

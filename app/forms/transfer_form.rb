@@ -7,10 +7,6 @@ class TransferForm < FormObject
 
   CENTS_IN_UNIT = 100
 
-  def initialize(request_params = nil)
-    super process_params(request_params)
-  end
-
   def transfer_params
     {
       description: description
