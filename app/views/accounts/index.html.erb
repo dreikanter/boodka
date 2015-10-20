@@ -26,7 +26,9 @@
     <% end %>
   </table>
 <% else %>
-  <p>There are no accounts yet.</p>
+  <div class="emptyness text-muted">
+    There are no accounts yet.
+  </div>
 <% end %>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>

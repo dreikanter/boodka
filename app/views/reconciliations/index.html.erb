@@ -1,41 +1,47 @@
-<h2>New account reconciliation</h2>
+<% if Account.any? %>
+  <h2>New account reconciliation</h2>
 
-<%= render partial: 'form', locals: {
-  reconciliation: @reconciliation,
-  submit_url: reconciliations_path,
-  method: :post,
-  remote: false,
-  submit_caption: 'Reconcile',
-  edit: false,
-  cancel: false
-} %>
+  <%= render partial: 'form', locals: {
+    reconciliation: @reconciliation,
+    submit_url: reconciliations_path,
+    method: :post,
+    remote: false,
+    submit_caption: 'Reconcile',
+    edit: false,
+    cancel: false
+  } %>
 
-<hr>
+  <hr>
 
-<h2>Recent reconciliations</h2>
+  <h2>Recent reconciliations</h2>
 
-<% if Reconciliation.recent_history.empty? %>
-  <p>There are no reconciliations yet.</p>
+  <% if Reconciliation.recent_history.empty? %>
+    <p>There are no reconciliations yet.</p>
+  <% else %>
+    <table class="table table-bordered table-hover">
+      <% Reconciliation.recent_history.each do |rec| %>
+        <tr>
+          <td class="col-lg-2 text-muted">
+            <%= short_date rec.created_at %>
+          </td>
+          <td class="col-lg-2">
+            <%= rec.account.title %>
+          </td>
+          <td class="col-lg-2 text-right">
+            <%= rec.amount.format %>
+          </td>
+          <td class="col-lg-10">
+            <div class="table-row-actions">
+              <%= link_to 'Edit', edit_reconciliation_path(rec), class: 'btn btn-xs btn-default' %>
+              <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 <% else %>
-  <table class="table table-bordered table-hover">
-    <% Reconciliation.recent_history.each do |rec| %>
-      <tr>
-        <td class="col-lg-2 text-muted">
-          <%= short_date rec.created_at %>
-        </td>
-        <td class="col-lg-2">
-          <%= rec.account.title %>
-        </td>
-        <td class="col-lg-2 text-right">
-          <%= rec.amount.format %>
-        </td>
-        <td class="col-lg-10">
-          <div class="table-row-actions">
-            <%= link_to 'Edit', edit_reconciliation_path(rec), class: 'btn btn-xs btn-default' %>
-            <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div class="emptyness text-muted">
+    Please create at least one account first.
+  </div>
 <% end %>

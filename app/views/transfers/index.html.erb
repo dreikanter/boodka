@@ -1,29 +1,35 @@
-<h2>Transfers</h2>
+<% if Account.count > 1 %>
+  <h2>Transfers</h2>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<hr>
+  <hr>
 
-<h2>Recent transfers</h2>
+  <h2>Recent transfers</h2>
 
-<% if Transfer.recent_history.empty? %>
-  <p>There are no transfers yet.</p>
+  <% if Transfer.recent_history.empty? %>
+    <p>There are no transfers yet.</p>
+  <% else %>
+    <table class="table table-bordered table-hover">
+      <% Transfer.recent_history.each do |transfer| %>
+        <tr>
+          <td class="col-lg-2 text-muted">
+            <%= short_date transfer.created_at %>
+          </td>
+          <td class="col-lg-10">
+            <span class="text-muted">
+              <%= "#{transfer.description}" %>
+            </span>
+            <div class="table-row-actions">
+              <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 <% else %>
-  <table class="table table-bordered table-hover">
-    <% Transfer.recent_history.each do |transfer| %>
-      <tr>
-        <td class="col-lg-2 text-muted">
-          <%= short_date transfer.created_at %>
-        </td>
-        <td class="col-lg-10">
-          <span class="text-muted">
-            <%= "#{transfer.description}" %>
-          </span>
-          <div class="table-row-actions">
-            <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div class="emptyness text-muted">
+    You need at least two accounts to do transfers.
+  </div>
 <% end %>

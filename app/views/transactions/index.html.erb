@@ -1,35 +1,41 @@
-<h2>New transaction</h2>
+<% if Account.any? %>
+  <h2>New transaction</h2>
 
-<%= render partial: 'form', locals: { transaction: @transaction, submit_url: transactions_path, method: :post, remote: false, submit_caption: 'Add new transaction', cancel: false } %>
+  <%= render partial: 'form', locals: { transaction: @transaction, submit_url: transactions_path, method: :post, remote: false, submit_caption: 'Add new transaction', cancel: false } %>
 
-<hr>
+  <hr>
 
-<h2>Recent transactions</h2>
+  <h2>Recent transactions</h2>
 
-<% if Transaction.recent_history.empty? %>
-  <p>There are no transaction yet.</p>
+  <% if Transaction.recent_history.empty? %>
+    <p>There are no transaction yet.</p>
+  <% else %>
+    <table class="table table-bordered table-hover">
+      <% Transaction.recent_history.each do |transaction| %>
+        <tr>
+          <td class="col-lg-2 text-muted">
+            <%= short_date transaction.created_at %>
+          </td>
+          <td class="col-lg-2 text-right">
+            <%= transaction.amount.format %>
+          </td>
+          <td class="col-lg-8 text-muted">
+            <%= transaction.description %>
+            <div class="table-row-actions">
+              <% if transaction.transfer? %>
+                <span class="text-muted">Transfer</span>
+              <% else %>
+                <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
+                <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
 <% else %>
-  <table class="table table-bordered table-hover">
-    <% Transaction.recent_history.each do |transaction| %>
-      <tr>
-        <td class="col-lg-2 text-muted">
-          <%= short_date transaction.created_at %>
-        </td>
-        <td class="col-lg-2 text-right">
-          <%= transaction.amount.format %>
-        </td>
-        <td class="col-lg-8 text-muted">
-          <%= transaction.description %>
-          <div class="table-row-actions">
-            <% if transaction.transfer? %>
-              <span class="text-muted">Transfer</span>
-            <% else %>
-              <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
-              <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
-            <% end %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div class="emptyness text-muted">
+    Please create at least one account first.
+  </div>
 <% end %>
