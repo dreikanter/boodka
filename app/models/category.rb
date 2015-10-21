@@ -12,7 +12,7 @@
 
 class Category < ActiveRecord::Base
   validates :title, presence: true
-  validates :code, format: { with: /\w{1,10}/ }
+  validates :code, format: { with: /[a-z\d]{0,10}/i }
   validates :code, uniqueness: { case_sensitive: false }
 
   has_many :transactions, dependent: :nullify
