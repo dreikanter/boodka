@@ -4,11 +4,9 @@
 
 <hr>
 
-<h2>Categories</h2>
+<% if Category.any? %>
+  <h2>Categories</h2>
 
-<% if Category.all.empty? %>
-  <p>There are no categories yet.</p>
-<% else %>
   <table class="table table-bordered table-hover">
     <% Category.all.each do |category| %>
       <tr>
@@ -24,4 +22,8 @@
       </tr>
     <% end %>
   </table>
+<% else %>
+  <div class="emptyness">
+    There are no existing categories yet.
+  </div>
 <% end %>

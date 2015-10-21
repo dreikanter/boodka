@@ -5,11 +5,9 @@
 
   <hr>
 
-  <h2>Recent transactions</h2>
+  <% if Transaction.any? %>
+    <h2>Recent transactions</h2>
 
-  <% if Transaction.recent_history.empty? %>
-    <p>There are no transaction yet.</p>
-  <% else %>
     <table class="table table-bordered table-hover">
       <% Transaction.recent_history.each do |transaction| %>
         <tr>
@@ -33,6 +31,10 @@
         </tr>
       <% end %>
     </table>
+  <% else %>
+    <div class="emptyness">
+      There are no transaction yet.
+    </div>
   <% end %>
 <% else %>
   <div class="emptyness text-muted">

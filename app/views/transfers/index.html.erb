@@ -5,11 +5,11 @@
 
   <hr>
 
-  <h2>Recent transfers</h2>
-
   <% if Transfer.recent_history.empty? %>
     <p>There are no transfers yet.</p>
   <% else %>
+    <h2>Recent transfers</h2>
+
     <table class="table table-bordered table-hover">
       <% Transfer.recent_history.each do |transfer| %>
         <tr>
@@ -29,7 +29,7 @@
     </table>
   <% end %>
 <% else %>
-  <div class="emptyness text-muted">
+  <div class="emptyness">
     You need at least two accounts to do transfers.
   </div>
 <% end %>

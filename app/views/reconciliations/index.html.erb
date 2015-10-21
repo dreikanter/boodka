@@ -13,11 +13,9 @@
 
   <hr>
 
-  <h2>Recent reconciliations</h2>
+  <% if Reconciliation.any? %>
+    <h2>Recent reconciliations</h2>
 
-  <% if Reconciliation.recent_history.empty? %>
-    <p>There are no reconciliations yet.</p>
-  <% else %>
     <table class="table table-bordered table-hover">
       <% Reconciliation.recent_history.each do |rec| %>
         <tr>
@@ -39,6 +37,10 @@
         </tr>
       <% end %>
     </table>
+  <% else %>
+    <div class="emptyness">
+      There are no reconciliations yet.
+    </div>
   <% end %>
 <% else %>
   <div class="emptyness text-muted">
