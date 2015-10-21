@@ -6,4 +6,8 @@ module Const
   DATE_FORMAT = '%B %e'
   DATEPICKER_FORMAT = 'dd/mm/yyyy'
   DATEPICKER_FORMAT_PARSE = '%d/%m/%Y'
+  TRANSACTION_DIRECTIONS = {
+    outflow: 0,
+    inflow: 1
+  }
 end

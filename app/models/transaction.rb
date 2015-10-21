@@ -32,10 +32,7 @@ class Transaction < ActiveRecord::Base
 
   validates :account_id, presence: true
 
-  enum direction: {
-    outflow: 0,
-    inflow: 1
-  }
+  enum direction: Const::TRANSACTION_DIRECTIONS
 
   belongs_to :category
   belongs_to :account

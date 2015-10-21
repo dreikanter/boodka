@@ -30,14 +30,24 @@ class Account < ActiveRecord::Base
 
   def total
     last_rec = Reconciliation.last_for(self)
-    last_rec.amount + total_transactions(last_rec.created_at)
+    since = last_rec.created_at
+    last_rec.amount + inflow(since) - outflow(since)
   end
 
   private
 
-  def total_transactions(since)
-    ts = transactions.where('created_at >= ?', since)
-    ts.sum(:calculated_amount_cents) || Money.new(0, currency)
+  def inflow(since)
+    sum(since, Const::TRANSACTION_DIRECTIONS[:inflow])
+  end
+
+  def outflow(since)
+    sum(since, Const::TRANSACTION_DIRECTIONS[:outflow])
+  end
+
+  def sum(since, direction)
+    flow = transactions.where(direction: direction)
+    sum = flow.where('created_at >= ?', since).sum(:calculated_amount_cents)
+    Money.new(sum || 0, currency)
   end
 
   def drop_old_default_if_needed
