@@ -67,6 +67,10 @@ class Transaction < ActiveRecord::Base
     amount_cents < 0
   end
 
+  def uncategorized?
+    category.nil?
+  end
+
   private
 
   def refresh_rate_and_convert_amount
