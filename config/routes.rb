@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'reconciliations/index'
-
   root 'accounts#index'
+
   resources :accounts do
     patch :default
   end
@@ -10,4 +9,10 @@ Rails.application.routes.draw do
   resources :reconciliations
   resources :categories, except: [:show, :new]
   resources :transfers, except: [:show, :edit, :update]
+
+  resource :budget,
+            only: [:show, :new, :edit, :destroy],
+            path: 'budget/:year/:month',
+            controller: :budget,
+            constraints: { year: /\d+/, month: /\d+/ }
 end
