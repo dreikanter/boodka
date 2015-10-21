@@ -17,6 +17,6 @@ module ApplicationHelper
   end
 
   def short_date(datetime)
-    datetime.strftime(Const::DATE_FORMAT)
+    datetime.strftime(Const::SHORT_DATE_FORMAT)
   end
 end

@@ -1,0 +1,9 @@
+<h2>Budget for <%= @date.strftime(Const::BUDGET_DATE_FORMAT) %></h2>
+
+<% if @budget %>
+
+<% else %>
+  <div class="emptyness">
+    No plans, no worries.
+  </div>
+<% end %>
