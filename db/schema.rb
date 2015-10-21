@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20151021121959) do
   create_table "budgets", force: :cascade do |t|
     t.datetime "start_at",                null: false
     t.datetime "end_at",                  null: false
+    t.integer  "year",                    null: false
+    t.integer  "month",                   null: false
     t.string   "memo",       default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
