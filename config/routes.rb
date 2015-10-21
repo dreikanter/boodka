@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :categories, except: [:show, :new]
   resources :transfers, except: [:show, :edit, :update]
 
+  get 'budget' => 'budget#show', as: :current_budget
   resource :budget,
             only: [:show, :new, :edit, :destroy],
             path: 'budget/:year/:month',
