@@ -13,4 +13,11 @@
 #
 
 class BudgetCategory < ActiveRecord::Base
+  validates :budget_id, :category_id, presence: true
+  validates :planned, numericality: { greater_than: 0 }
+  validates :planned_currency, inclusion: { in: Const::CURRENCY_CODES }
+
+  monetize :planned_cents, with_model_currency: :amount_cents_currency
+
+  belongs_to :budget
 end
