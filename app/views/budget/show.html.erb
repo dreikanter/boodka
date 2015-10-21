@@ -1,9 +1,28 @@
-<h2>Budget for <%= @date.strftime(Const::BUDGET_DATE_FORMAT) %></h2>
+<div class="btn-toolbar budget-pagination">
+  <div class="btn-group">
+    <% if @date.year > 1 %>
+      <%= link_to "&larr; #{@date.year - 1}".html_safe, budget_path(@date.year - 1, 12), class: 'btn btn-sm btn-default' %>
+    <% else %>
+      <a href="#" class="btn btn-sm btn-default disabled">A.D.</a>
+    <% end %>
+  </div>
+
+  <div class="btn-group">
+    <% (1..12).each do |month| %>
+      <%= link_to t("date.abbr_month_names")[month], budget_path(@date.year, month), class: "btn btn-sm month-button #{(month == @date.month) ? 'btn-primary' : 'btn-default'}" %>
+    <% end %>
+  </div>
+
+  <div class="btn-group">
+    <%= link_to "#{@date.year + 1} &rarr;".html_safe, budget_path(@date.year + 1, 1), class: 'btn btn-sm btn-default' %>
+  </div>
+</div>
 
 <% if @budget %>
 
 <% else %>
-  <div class="emptyness">
+  <div class="emptyness text-center">
     No plans, no worries.
   </div>
 <% end %>
+

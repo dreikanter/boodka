@@ -19,11 +19,29 @@
  *= require_self
  */
 
+/*
+    Utilities
+*/
+
+.emptyness {
+  margin: 15px 0;
+}
+
+/*
+    Common elements
+*/
+
 .table-row-actions {
   display: inline-block;
   float: right;
 }
 
-.emptyness {
-  margin: 15px 0;
+/*
+    Budget#show
+*/
+
+.budget-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

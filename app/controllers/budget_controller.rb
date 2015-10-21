@@ -52,10 +52,10 @@ class BudgetController < ApplicationController
   end
 
   def year
-    params[:year] || Date.today.year
+    params[:year] ? Integer(params[:year]) : Date.today.year
   end
 
   def month
-    params[:month] || Date.today.month
+    params[:month] ? Integer(params[:month]) : Date.today.month
   end
 end
