@@ -24,6 +24,7 @@
 */
 
 .emptyness {
+  color: #777;
   margin: 15px 0;
 }
 
@@ -46,7 +47,11 @@
   justify-content: center;
 }
 
-.budget-table-header,
-.budget-table-category {
+.budget-form-header,
+.budget-form-category {
   font-weight: bold;
+}
+
+.budget-form .form-control-static {
+  padding: 7px 13px;
 }

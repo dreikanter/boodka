@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-1">
+  <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
     <div class="btn-group">
       <% if @date.year > 1 %>
         <%= link_to "&larr; #{@date.year - 1}".html_safe, budget_path(@date.year - 1, 12), class: 'btn btn-sm btn-default' %>
@@ -8,7 +8,7 @@
       <% end %>
     </div>
   </div>
-  <div class="col-lg-10 btn-toolbar budget-pagination">
+  <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 btn-toolbar budget-pagination">
     <div class="btn-group">
       <%= link_to '&larr;'.html_safe, budget_path((@date - 1.month).year, (@date - 1.month).month), class: "btn btn-sm month-button btn-default" %>
       <% (1..12).each do |month| %>
@@ -17,7 +17,7 @@
       <%= link_to '&rarr;'.html_safe, budget_path((@date + 1.month).year, (@date + 1.month).month), class: "btn btn-sm month-button btn-default" %>
     </div>
   </div>
-  <div class="col-lg-1 text-right">
+  <div class="col-lg-1 col-md-1 hidden-sm hidden-xs text-right">
     <div class="btn-group">
       <%= link_to "#{@date.year + 1} &rarr;".html_safe, budget_path(@date.year + 1, 1), class: 'btn btn-sm btn-default' %>
     </div>
@@ -28,14 +28,16 @@
 
 <form action="" class="form budget-form">
   <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-category">
-      <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
+      <div class="form-group">
+        <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
+      </div>
     </div>
     <% 2.times do %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-table-category"><p class="form-control-static text-right">Budgeted</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-table-category"><p class="form-control-static text-right">Outflows</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-table-category"><p class="form-control-static text-right">Balance</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Budgeted</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Outflows</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Balance</p></div>
       </div>
     <% end %>
   </div>
@@ -44,12 +46,15 @@
     <div class="row">
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
         <div class="form-group">
-          <p class="form-control-static budget-table-category"><%= link_to category.title, edit_category_path(category) %></p>
+          <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
         </div>
       </div>
       <% 2.times do %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4"><p class="form-control-static text-right">0</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="0" class="form-control text-right" autofocus="autofocus" type="text" name="category[title]" id="category_title" value="0">
+          <!-- <p class="form-control-static text-right">0</p> -->
+        </div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4"><p class="form-control-static text-right">0</p></div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4"><p class="form-control-static text-right">0</p></div>
       </div>
