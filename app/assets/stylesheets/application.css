@@ -45,3 +45,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.budget-table-header,
+.budget-table-category {
+  font-weight: bold;
+}
