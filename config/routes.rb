@@ -14,5 +14,5 @@ Rails.application.routes.draw do
   resource :budget,
             only: [:show, :new, :edit, :destroy],
             path: 'budget/:year/:month',
-            constraints: { year: /\d+/, month: /\d+/ }
+            constraints: { year: /\d{1,10}/, month: /\d{1,10}/ }
 end
