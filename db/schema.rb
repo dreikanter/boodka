@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(version: 20151018185207) do
   end
 
   create_table "reconciliations", force: :cascade do |t|
-    t.integer  "account_id",                 null: false
-    t.decimal  "amount_cents", precision: 8, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "account_id",                             null: false
+    t.decimal  "amount_cents", precision: 8, default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20151018185207) do
     t.string   "amount_currency",            default: "USD", null: false
     t.integer  "calculated_amount_cents",    default: 0,     null: false
     t.string   "calculated_amount_currency", default: "USD", null: false
+    t.integer  "direction",                  default: 0,     null: false
     t.float    "rate",                       default: 1.0,   null: false
     t.integer  "category_id"
     t.integer  "transfer_id"

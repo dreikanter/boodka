@@ -8,6 +8,7 @@
 #  amount_currency            :string           default("USD"), not null
 #  calculated_amount_cents    :integer          default(0), not null
 #  calculated_amount_currency :string           default("USD"), not null
+#  direction                  :integer          default(0), not null
 #  rate                       :float            default(1.0), not null
 #  category_id                :integer
 #  transfer_id                :integer
@@ -33,6 +34,11 @@ class Transaction < ActiveRecord::Base
             inclusion: { in: Const::CURRENCY_CODES }
 
   validates :account_id, presence: true
+
+  enum direction: {
+    outflow: 0,
+    inflow: 1
+  }
 
   belongs_to :category
   belongs_to :account
