@@ -24,6 +24,10 @@
   </div>
 
   <div class="form-group">
+    <%= form.check_box :direction, { class: 'direction-switch' }, 'inflow', 'outflow' %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :category_id, class: 'control-label' %>
     <%= form.select :category_id, options_for_select(Category.all.map { |category| [category.title, category.id] }, transaction.category_id), {}, data: { width: '100%' }, class: 'category-select' %>
   </div>
@@ -61,13 +65,22 @@
       allowClear: false
     });
 
-    $(".currency-switch").click(function() {
+    $(".transaction-form .currency-switch").click(function() {
       $(".currency-select").val($(this).data("value")).trigger("change")
     });
 
-    $(".created-at-datepicker").datepicker({
+    $(".transaction-form .created-at-datepicker").datepicker({
       autoclose: true,
       format: "<%= Const::DATEPICKER_FORMAT %>"
+    });
+
+    $(".transaction-form .direction-switch").bootstrapSwitch({
+      'onColor': 'success',
+      'offColor': 'default',
+      'onText': 'Income',
+      'offText': 'Expense'
+    }).on('switchChange.bootstrapSwitch', function(event, state) {
+      $(".transaction-form .category-select").prop("disabled", state);
     });
   });
 </script>

@@ -43,6 +43,7 @@ class TransactionsController < ApplicationController
       :account_id,
       :amount,
       :amount_currency,
+      :direction,
       :description,
       :category_id,
       :created_at
