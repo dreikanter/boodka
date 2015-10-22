@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   resources :transfers, except: [:show, :edit, :update]
 
   get 'budget' => 'budget#show', as: :current_budget
-  resource :budget,
-            only: [:show, :new, :edit, :destroy],
-            path: 'budget/:year/:month',
-            controller: 'budget',
-            constraints: { year: /\d{1,10}/, month: /\d{1,10}/ }
+
+  scope 'budget/:year/:month', constraints: { :format => /(js|json)/ } do
+    resource :budget, only: :show, shallow: true, path: ''
+    resources :budget_categories, only: [:show, :update], shallow: true, path: ''
+  end
 end

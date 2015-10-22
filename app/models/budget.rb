@@ -14,7 +14,7 @@ class Budget < ActiveRecord::Base
   validates :start_at, :end_at, presence: true
   validate :check_time_frame
 
-  has_many :budget_categories
+  has_many :categories, class_name: BudgetCategory, dependent: :destroy
 
   before_validation :sanitize
 
