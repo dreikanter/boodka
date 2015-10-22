@@ -1,5 +1,5 @@
 module BudgetHelper
-  def cell_id(date, category)
-    "#{date.strftime('%Y-%m')}-#{category.id}"
+  def cell_id(prefix, year, month, category)
+    [prefix, year, month, category].join('-')
   end
 end
