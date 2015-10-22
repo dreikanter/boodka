@@ -56,13 +56,13 @@
       <% 2.times do |i| %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right budget-cell planned-<%= cell_id(@date + i.month, category) %>" data-year="<%= (@date + i.month).year %>" data-month="<%= (@date + i.month).month %>" data-category-id="<%= category.id %>" data-path="<%= budget_category_path((@date + i.month).year, category.id, category.id, format: :json) %>">
+          <input value="" type="text" class="form-control text-right budget-cell <%= cell_id('planned', (@date + i.month).year, (@date + i.month).month, category.id) %>" data-path="<%= budget_category_path((@date + i.month).year, (@date + i.month).month, category.id, format: :json) %>">
         </div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right actual-cell actual-<%= cell_id(@date + i.month, category) %>" readonly>
+          <input value="" type="text" class="form-control text-right actual-cell <%= cell_id('actual', (@date + i.month).year, (@date + i.month).month, category.id) %>" readonly>
         </div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right balance-cell balance-<%= cell_id(@date + i.month, category) %>" readonly>
+          <input value="" type="text" class="form-control text-right balance-cell <%= cell_id('balance', (@date + i.month).year, (@date + i.month).month, category.id) %>" readonly>
         </div>
       </div>
       <% end %>
@@ -74,13 +74,42 @@
   $(function() {
     "use strict";
 
-    $(".budget-cell").focus(function() {
+    <% 2.times do |i| %>
+      $.ajax({
+        url: "<%= budget_categories_path((@date + i.month).year, (@date + i.month).month, format: :json) %>",
+        success: function(data) {
+          $.each(data["budget_categories"], function(_, item) {
+            console.log(item);
+            $("." + item["cell_id"]).val(item["planned"]);
+          });
+        }
+      });
+    <% end %>
 
-      // $(this).data('year')
-      // $(this).data('month')
-      // $(this).data('category-id')
-      $(this).val("Yo!");
-      console.log($(this).data("path"));
+    $(".budget-cell").focus(function() {
+      var cell = $(this);
+      $.ajax({
+        url: $(this).data("path"),
+        success: function(data) {
+          cell.val(data["budget_category"]["planned"]);
+        }
+      });
     });
+
+    $(".budget-cell").blur(function() {
+      var cell = $(this);
+      $.ajax({
+        url: $(this).data("path"),
+        type: "PATCH",
+        data: { value: cell.val() },
+        beforeSend: function() {
+          cell.css("background-color", "yellow");
+        },
+        success: function() {
+          cell.css("background-color", "transparent");
+        }
+      });
+    });
+
   });
 </script>
