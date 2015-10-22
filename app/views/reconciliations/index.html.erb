@@ -11,8 +11,6 @@
     cancel: false
   } %>
 
-  <hr>
-
   <% if Reconciliation.any? %>
     <h2>Recent reconciliations</h2>
 
@@ -38,12 +36,14 @@
       <% end %>
     </table>
   <% else %>
+    <hr>
     <div class="emptyness">
       There are no reconciliations yet.
     </div>
   <% end %>
 <% else %>
-  <div class="emptyness text-muted">
+  <hr>
+  <div class="emptyness">
     Please create at least one account first.
   </div>
 <% end %>

@@ -1,6 +1,6 @@
-<h2>Accounts</h2>
-
 <% if Account.any? %>
+  <h2>You have <%= pluralize Account.count, 'account' %></h2>
+
   <table class="table table-bordered table-hover">
     <% Account.ordered.each do |account| %>
       <tr>
@@ -26,9 +26,7 @@
     <% end %>
   </table>
 <% else %>
-  <div class="emptyness">
-    There are no accounts yet.
-  </div>
+  <h2>You have no account yet</h2>
 <% end %>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>

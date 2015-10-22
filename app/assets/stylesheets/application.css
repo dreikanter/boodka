@@ -19,8 +19,17 @@
  *= require_self
  */
 
+h2 {
+  font-size: 20px;
+  margin: 2em 0 1em 0;
+}
+
+h2:first-of-type {
+  margin-top: 0;
+}
+
 /*
-    Utilities
+    Common elements
 */
 
 .emptyness {
@@ -28,13 +37,13 @@
   margin: 15px 0;
 }
 
-/*
-    Common elements
-*/
-
 .table-row-actions {
   display: inline-block;
   float: right;
+}
+
+.table-info {
+  margin: 15px 0;
 }
 
 /*

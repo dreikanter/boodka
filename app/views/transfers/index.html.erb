@@ -3,10 +3,11 @@
 
   <%= render 'form' %>
 
-  <hr>
-
   <% if Transfer.recent_history.empty? %>
-    <p>There are no transfers yet.</p>
+    <hr>
+    <div class="emptyness">
+      There are no transfers yet.
+    </div>
   <% else %>
     <h2>Recent transfers</h2>
 

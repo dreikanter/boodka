@@ -1,11 +1,5 @@
-<h2>New category</h2>
-
-<%= render partial: 'form', locals: { submit_caption: 'Add', cancel: false } %>
-
-<hr>
-
 <% if Category.any? %>
-  <h2>Categories</h2>
+  <h2>You have <%= pluralize Category.count, 'budgeting category' %></h2>
 
   <table class="table table-bordered table-hover">
     <% Category.all.each do |category| %>
@@ -27,3 +21,7 @@
     There are no existing categories yet.
   </div>
 <% end %>
+
+<h2>New category</h2>
+
+<%= render partial: 'form', locals: { submit_caption: 'Add new category', cancel: false } %>
