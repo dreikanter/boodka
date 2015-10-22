@@ -8,6 +8,7 @@ class BudgetCategoriesController < ApplicationController
   end
 
   def update
+    # TODO: Persist data
     render json: nil, status: :ok
   end
 
