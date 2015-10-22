@@ -1,43 +1,11 @@
-class TransferForm < FormObject
-  def transfer_params
-    pick(:description)
-  end
+class TransferForm < Reform::Form
+  property :description
 
-  def from_transaction_params
-    {
-      amount: -processed_amount,
-      account_id: from_account_id
-    }
-  end
+  property :amount, virtual: true
+  property :currency, virtual: true
+  property :from_account_id, virtual: true
+  property :to_account_id, virtual: true
 
-  def to_transaction_params
-    {
-      amount: processed_amount,
-      account_id: to_account_id
-    }
-  end
-
-  private
-
-  def permitted_params
-    [
-      :from_account_id,
-      :to_account_id,
-      :description,
-      :amount,
-      :amount_currency
-    ]
-  end
-
-  def currency
-    amount_currency.blank? ? nil : Money::Currency.new(amount_currency)
-  end
-
-  def subunit_to_unit
-    currency ? currency.subunit_to_unit : 0
-  end
-
-  def processed_amount
-    Money.new(amount.to_f, currency) * subunit_to_unit
-  end
+  validates :amount, :currency, :from_account_id, :to_account_id, presence: true
+  validates :amount, numericality: true
 end
