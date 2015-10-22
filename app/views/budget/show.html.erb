@@ -30,7 +30,7 @@
 
 <hr>
 
-<form action="" class="form budget-form">
+<form class="form budget-form">
   <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
       <div class="form-group">
@@ -53,16 +53,34 @@
           <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
         </div>
       </div>
-      <% 2.times do %>
+      <% 2.times do |i| %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="0" class="form-control text-right" autofocus="autofocus" type="text" name="category[title]" id="category_title" value="0">
-          <!-- <p class="form-control-static text-right">0</p> -->
+          <input value="" type="text" class="form-control text-right budget-cell planned-<%= cell_id(@date + i.month, category) %>" data-year="<%= (@date + i.month).year %>" data-month="<%= (@date + i.month).month %>" data-category-id="<%= category.id %>" data-path="<%= budget_category_path((@date + i.month).year, category.id, category.id, format: :json) %>">
         </div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4"><p class="form-control-static text-right">0</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4"><p class="form-control-static text-right">0</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="" type="text" class="form-control text-right actual-cell actual-<%= cell_id(@date + i.month, category) %>" readonly>
+        </div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="" type="text" class="form-control text-right balance-cell balance-<%= cell_id(@date + i.month, category) %>" readonly>
+        </div>
       </div>
       <% end %>
     </div>
   <% end %>
 </form>
+
+<script>
+  $(function() {
+    "use strict";
+
+    $(".budget-cell").focus(function() {
+
+      // $(this).data('year')
+      // $(this).data('month')
+      // $(this).data('category-id')
+      $(this).val("Yo!");
+      console.log($(this).data("path"));
+    });
+  });
+</script>

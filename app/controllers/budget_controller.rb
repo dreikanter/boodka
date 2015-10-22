@@ -5,40 +5,8 @@ class BudgetController < ApplicationController
     @date = DateTime.new(year, month)
   end
 
-  def new
-    @budget = Budget.new
-  end
-
-  def edit
-  end
-
-  def create
-    @budget = Budget.new(budget_params)
-
-    respond_to do |format|
-      if @budget.save
-        format.html { redirect_to @budget, notice: 'Budget was successfully created.' }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @budget.update(budget_params)
-        format.html { redirect_to @budget, notice: 'Budget was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
-  def destroy
-    @budget.destroy
-    respond_to do |format|
-      format.html { redirect_to budgets_url, notice: 'Budget was successfully destroyed.' }
-    end
+  def value
+    render json: { value: Random.new.integer }
   end
 
   private
