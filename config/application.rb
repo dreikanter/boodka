@@ -13,6 +13,8 @@ module Boodka
 
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
+      g.stylesheets = false
+      g.javascripts = false
     end
   end
 end
