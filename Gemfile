@@ -50,6 +50,7 @@ group :development do
   gem 'foreman'
   gem 'guard-rubocop', require: false
   gem 'quiet_assets'
+  gem 'rails_db'
 end
 
 group :production do
