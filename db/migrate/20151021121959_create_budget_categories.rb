@@ -4,7 +4,7 @@ class CreateBudgetCategories < ActiveRecord::Migration
       t.integer :budget_id, null: false
       t.integer :category_id, null: false
       t.monetize :planned, null: false, default: 0
-      t.string :memo, null: false, default: 0
+      t.string :memo, null: false, default: ''
 
       t.timestamps null: false
     end
