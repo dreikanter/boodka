@@ -1,15 +1,12 @@
 module ApplicationHelper
-  def flash_type_to_bs_class(flas_message_type)
-    case flas_message_type.to_s
-    when 'alert'
-      'alert-danger'
-    when 'notice'
-      'alert-success'
-    when 'error'
-      'alert-danger'
-    else
-      'alert-info'
-    end
+  FLASH_TYPES = {
+    'alert' => 'alert-danger',
+    'notice' => 'alert-success',
+    'error' => 'alert-danger'
+  }
+
+  def flash_type_to_bs_class(flash_type)
+    FLASH_TYPES[flash_type.to_s] || 'alert-info'
   end
 
   def current_action
@@ -18,5 +15,9 @@ module ApplicationHelper
 
   def short_date(datetime)
     datetime.strftime(Const::SHORT_DATE_FORMAT)
+  end
+
+  def error?(param)
+    @errors.present? && @errors.try(:[], param)
   end
 end
