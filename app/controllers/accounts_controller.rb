@@ -2,6 +2,10 @@ class AccountsController < ApplicationController
   before_action :init_new_form, only: [:new, :create]
   before_action :init_edit_form, only: [:edit, :update]
 
+  def index
+    @accounts = Account.ordered
+  end
+
   def create
     if @form.validate(params[:account])
       @form.save do |hash|

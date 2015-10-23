@@ -1,8 +1,8 @@
-<% if Account.any? %>
-  <h2>You have <%= pluralize Account.count, 'account' %></h2>
+<% if @accounts.any? %>
+  <h2>You have <%= pluralize @accounts.count, 'account' %></h2>
 
   <table class="table table-bordered table-hover">
-    <% Account.ordered.each do |account| %>
+    <% @accounts.each do |account| %>
       <tr>
         <td class="col-lg-2">
           <%= account.title %>
