@@ -29,7 +29,7 @@ class TransferBuilder
 
   def generated_description
     return params[:description] unless params[:description].blank?
-    "#{amount.format} from #{from_account.title} to #{to_account.title}"
+    "From #{from_account.title} to #{to_account.title}"
   end
 
   def from_account
