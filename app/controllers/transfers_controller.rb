@@ -4,7 +4,6 @@ class TransfersController < ApplicationController
   before_action :load_transfer, only: :destroy
 
   def index
-    @form = TransferForm.new(Transfer.new)
     @transfers = Transfer.recent_history
   end
 
@@ -13,7 +12,9 @@ class TransfersController < ApplicationController
       @form.save { |hash| TransferBuilder.build!(hash) }
       redirect_to transfers_path, notify: 'Transfer performed'
     else
-      render :new, flash: { alert: 'Something went wrong' }
+      flash.now[:alert] = 'Something went wrong'
+      @errors = @form.errors
+      render :new
     end
   end
 

@@ -1,4 +1,5 @@
 class ReconciliationsController < ApplicationController
+  before_action :check_availability
   before_action :load_reconciliation, only: [:edit, :update, :destroy]
 
   def index
@@ -51,5 +52,9 @@ class ReconciliationsController < ApplicationController
 
   def load_reconciliation
     @reconciliation = Reconciliation.find(rec_id)
+  end
+
+  def check_availability
+    fail 'No accounts to reconcile' unless Account.any?
   end
 end

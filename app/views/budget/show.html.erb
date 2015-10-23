@@ -1,4 +1,4 @@
-<h2><%= "#{@date.strftime('%B')} / #{(@date + 1.month).strftime('%B')} #{@date.strftime('%Y')}" %> <span class="table-row-actions text-muted">There will be budget</span></h2>
+<h2><%= "#{@date.strftime('%B')} / #{(@date + 1.month).strftime('%B')} #{@date.strftime('%Y')}" %></h2>
 
 <hr>
 
@@ -31,13 +31,14 @@
 <hr>
 
 <form class="form budget-form">
+  <!-- Header -->
   <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
       <div class="form-group">
         <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
       </div>
     </div>
-    <% 2.times do %>
+    <% @budget.each do %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Budgeted</p></div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Outflows</p></div>
@@ -46,14 +47,17 @@
     <% end %>
   </div>
 
-  <% Category.all.each do |category| %>
+  <!-- Body -->
+  <% @budgets.first.categories do |budget_category| %>
     <div class="row">
+
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
         <div class="form-group">
-          <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
+          <p class="form-control-static budget-form-category"><%= link_to budget.category.title, edit_category_path(budget.category) %></p>
         </div>
       </div>
-      <% 2.times do |i| %>
+
+      <% @budget.each do |budget| %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
           <input value="" type="text" class="form-control text-right budget-cell <%= cell_id('planned', (@date + i.month).year, (@date + i.month).month, category.id) %>" data-path="<%= budget_category_path((@date + i.month).year, (@date + i.month).month, category.id, format: :json) %>">
