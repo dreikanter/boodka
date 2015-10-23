@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'budget' => 'budget#show', as: :current_budget
 
   scope 'budget/:year/:month' do
-    resource :budget, only: :show, shallow: true, path: '', controller: :budget
-    resources :budget_categories, only: [:index, :show, :update], shallow: true, path: 'categories', constraints: { :format => /(js|json)/ }
+    resource :period, only: :show, shallow: true, path: ''
+    resources :budgets, only: [:index, :show, :update], shallow: true, path: 'categories', constraints: { :format => /(js|json)/ }
   end
 end

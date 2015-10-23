@@ -1,0 +1,17 @@
+<%= form_for(@period) do |f| %>
+  <% if @period.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@period.errors.count, "error") %> prohibited this budget from being saved:</h2>
+
+      <ul>
+      <% @period.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

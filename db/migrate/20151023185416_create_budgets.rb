@@ -1,10 +1,9 @@
 class CreateBudgets < ActiveRecord::Migration
   def change
     create_table :budgets do |t|
-      t.datetime :start_at, null: false
-      t.datetime :end_at, null: false
-      t.integer :year, null: false
-      t.integer :month, null: false
+      t.integer :period_id, null: false
+      t.integer :category_id, null: false
+      t.monetize :planned, null: false, default: 0
       t.string :memo, null: false, default: ''
 
       t.timestamps null: false

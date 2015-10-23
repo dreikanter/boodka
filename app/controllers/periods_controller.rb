@@ -1,5 +1,5 @@
-class BudgetController < ApplicationController
-  before_action :set_budget, only: [:show, :edit, :update, :destroy]
+class PeriodsController < ApplicationController
+  before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   def show
     @date = DateTime.new(year, month)
@@ -11,12 +11,12 @@ class BudgetController < ApplicationController
 
   private
 
-  def set_budget
-    @budget = Budget.where(year: year, month: month).first
+  def set_period
+    @period = Period.where(year: year, month: month).first
   end
 
-  def budget_params
-    params[:budget]
+  def period_params
+    params[:period]
   end
 
   def year

@@ -1,4 +1,4 @@
-class BudgetCategoriesController < ApplicationController
+class BudgetsController < ApplicationController
   def index
     @budget_categories = find_budget_categories
   end
