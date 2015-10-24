@@ -22,6 +22,50 @@
   </div>
 </div>
 
+<hr>
+
+<form class="form budget-form">
+  <!-- Header -->
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
+      <div class="form-group">
+        <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
+      </div>
+    </div>
+    <% @periods.count.times do %>
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Budgeted</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Outflows</p></div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Balance</p></div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Body -->
+  <% @categories.each do |category| %>
+    <div class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <div class="form-group">
+          <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
+        </div>
+      </div>
+      <% @periods.each do |period| %>
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
+        </div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="-" type="text" class="form-control text-right actual-cell" readonly>
+        </div>
+        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
+          <input value="-" type="text" class="form-control text-right balance-cell" readonly>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</form>
+
 <script>
   $(function() {
     "use strict";
