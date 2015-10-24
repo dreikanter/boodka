@@ -8,4 +8,12 @@ module PeriodHelper
       class: "btn btn-sm month-button #{button_class}"
     )
   end
+
+  MONTH_NUMS = 1..12
+
+  def period_pagination(currenct_date)
+    MONTH_NUMS.map do |month|
+      period_nav_link(currenct_date.year, month, currenct_date.month)
+    end.join.html_safe
+  end
 end
