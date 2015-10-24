@@ -56,9 +56,8 @@ h2:first-of-type {
   justify-content: center;
 }
 
-.budget-form-header,
-.budget-form-category {
-  font-weight: bold;
+.budget-form th.budget-form-category {
+  vertical-align: middle;
 }
 
 .budget-form .form-control-static {

@@ -1,7 +1,3 @@
-<h2><%= @periods.map { |p| p.start_at.strftime('%B') }.join(' / ') %> <%= @date.year %></h2>
-
-<hr>
-
 <div class="row">
   <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
     <div class="btn-group">
@@ -11,7 +7,7 @@
   <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 btn-toolbar budget-pagination">
     <div class="btn-group">
       <%= @periods.first.link_to_prev_month %>
-      <%= (1..12).map { |month| period_nav_link(@date.year, month, @date.month) }.join.html_safe %>
+      <%= period_paginator(@date) %>
       <%= @periods.first.link_to_next_month %>
     </div>
   </div>
@@ -22,50 +18,46 @@
   </div>
 </div>
 
-<hr>
-
 <form class="form budget-form">
-  <!-- Header -->
-  <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
-      <div class="form-group">
-        <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
-      </div>
-    </div>
-    <% @periods.count.times do %>
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Budgeted</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Outflows</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Balance</p></div>
-      </div>
-    <% end %>
-  </div>
-
-  <!-- Body -->
-  <% @categories.each_with_index do |category, category_index| %>
-    <div class="row">
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <div class="form-group">
-          <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
-        </div>
-      </div>
-      <% @periods.each_with_index do |period, period_index| %>
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-col-num="<%= period_index %>" data-row-num="<%= category_index %>" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
-        </div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="-" type="text" class="form-control text-right actual-cell" readonly>
-        </div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="-" type="text" class="form-control text-right balance-cell" readonly>
-        </div>
-      </div>
+  <table class="table table-bordered">
+    <th>
+      <th></th>
+      <% @periods.each do |period| %>
+        <th colspan="3" class="text-center budget-form-heading">
+            <%= period.date.strftime('%B %Y') %>
+        </th>
       <% end %>
-    </div>
-  <% end %>
+    </tr>
+    <tr>
+      <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-heading">
+        <%= link_to 'Category', categories_path %>
+      </th>
+      <% @periods.each do |period| %>
+        <th class="budget-form-heading text-right">Budgeted</th>
+        <th class="budget-form-heading text-right">Outflows</th>
+        <th class="budget-form-heading text-right">Balance</th>
+      <% end %>
+    </tr>
+    <% @categories.each_with_index do |category, category_index| %>
+      <tr>
+        <th class="budget-form-category">
+          <%= link_to category.title, edit_category_path(category) %>
+        </th>
+        <% @periods.each_with_index do |period, period_index| %>
+          <td class="form-control-static">
+            <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-col-num="<%= period_index %>" data-row-num="<%= category_index %>" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
+          </td>
+          <td class="form-control-static">
+            <input value="-" type="text" class="form-control text-right actual-cell" readonly>
+          </td>
+          <td class="form-control-static">
+            <input value="-" type="text" class="form-control text-right balance-cell" readonly>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 </form>
-
 
 <script>
   $(function() {
