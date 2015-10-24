@@ -19,3 +19,14 @@
 //= require bootstrap-datepicker
 //= require bootstrap-switch
 //= require_tree .
+
+$(function() {
+  "use strict";
+
+  $(".select-on-focus").focus(function() {
+    console.log(1);
+    $(this).select();
+  }).mouseup(function() {
+    return false;
+  }).focus();
+});

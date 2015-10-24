@@ -1,7 +1,7 @@
 <%= form_for account_form, url: submit_url, method: method, html: { class: 'form account-form' } do |form| %>
   <div class="form-group">
     <%= form.label :title, class: 'control-label' %>
-    <%= form.text_field :title, placeholder: 'Account title', class: 'form-control', autofocus: true %>
+    <%= form.text_field :title, placeholder: 'Account title', class: 'form-control select-on-focus', autofocus: true %>
   </div>
 
   <% if account_form.persisted? %>

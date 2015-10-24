@@ -1,12 +1,12 @@
 <%= form_for @category, html: { class: 'form account-form' } do |form| %>
   <div class="form-group">
     <%= form.label :title, class: 'control-label' %>
-    <%= form.text_field :title, placeholder: 'Title', class: 'form-control', autofocus: true %>
+    <%= form.text_field :title, placeholder: 'Title', class: 'form-control select-on-focus', autofocus: true %>
   </div>
 
   <div class="form-group">
     <%= form.label :memo, class: 'control-label' %>
-    <%= form.text_field :memo, placeholder: 'Optional notes', class: 'form-control' %>
+    <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
   </div>
 
   <div class="form-group">
