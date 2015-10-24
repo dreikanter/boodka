@@ -1,119 +1,30 @@
-<h2><%= "#{@date.strftime('%B')} / #{(@date + 1.month).strftime('%B')} #{@date.strftime('%Y')}" %></h2>
+<h2><%= @periods.map { |p| p.start_at.strftime('%B') }.join(' / ') %> <%= @date.year %></h2>
 
 <hr>
 
 <div class="row">
   <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
     <div class="btn-group">
-      <% if @date.year > 1 %>
-        <%= link_to "&larr; #{@date.year - 1}".html_safe, budget_path(@date.year - 1, 12), class: 'btn btn-sm btn-default' %>
-      <% else %>
-        <a href="#" class="btn btn-sm btn-default disabled">A.D.</a>
-      <% end %>
+      <%= @periods.first.link_to_prev_year %>
     </div>
   </div>
   <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 btn-toolbar budget-pagination">
     <div class="btn-group">
-      <%= link_to '&larr;'.html_safe, budget_path((@date - 1.month).year, (@date - 1.month).month), class: "btn btn-sm month-button btn-default" %>
-      <% (1..12).each do |month| %>
-        <%= link_to t("date.abbr_month_names")[month], budget_path(@date.year, month), class: "btn btn-sm month-button #{([month, month - 1].include? @date.month) ? 'btn-primary' : 'btn-default'}" %>
-      <% end %>
-      <%= link_to '&rarr;'.html_safe, budget_path((@date + 1.month).year, (@date + 1.month).month), class: "btn btn-sm month-button btn-default" %>
+      <%= @periods.first.link_to_prev_month %>
+      <%= (1..12).map { |month| period_nav_link(@date.year, month, @date.month) }.join.html_safe %>
+      <%= @periods.first.link_to_next_month %>
     </div>
   </div>
   <div class="col-lg-1 col-md-1 hidden-sm hidden-xs text-right">
     <div class="btn-group">
-      <%= link_to "#{@date.year + 1} &rarr;".html_safe, budget_path(@date.year + 1, 1), class: 'btn btn-sm btn-default' %>
+      <%= @periods.first.link_to_next_year %>
     </div>
   </div>
 </div>
 
-<hr>
-
-<form class="form budget-form">
-  <!-- Header -->
-  <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-category">
-      <div class="form-group">
-        <p class="form-control-static"><%= link_to 'Category', categories_path %></p>
-      </div>
-    </div>
-    <% @budget.each do %>
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Budgeted</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Outflows</p></div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4 budget-form-category"><p class="form-control-static text-right">Balance</p></div>
-      </div>
-    <% end %>
-  </div>
-
-  <!-- Body -->
-  <% @budgets.first.categories do |budget_category| %>
-    <div class="row">
-
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-        <div class="form-group">
-          <p class="form-control-static budget-form-category"><%= link_to budget.category.title, edit_category_path(budget.category) %></p>
-        </div>
-      </div>
-
-      <% @budget.each do |budget| %>
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right budget-cell <%= cell_id('planned', (@date + i.month).year, (@date + i.month).month, category.id) %>" data-path="<%= budget_category_path((@date + i.month).year, (@date + i.month).month, category.id, format: :json) %>">
-        </div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right actual-cell <%= cell_id('actual', (@date + i.month).year, (@date + i.month).month, category.id) %>" readonly>
-        </div>
-        <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="" type="text" class="form-control text-right balance-cell <%= cell_id('balance', (@date + i.month).year, (@date + i.month).month, category.id) %>" readonly>
-        </div>
-      </div>
-      <% end %>
-    </div>
-  <% end %>
-</form>
-
 <script>
   $(function() {
     "use strict";
-
-    <% 2.times do |i| %>
-      $.ajax({
-        url: "<%= budget_categories_path((@date + i.month).year, (@date + i.month).month, format: :json) %>",
-        success: function(data) {
-          $.each(data["budget_categories"], function(_, item) {
-            console.log(item);
-            $("." + item["cell_id"]).val(item["planned"]);
-          });
-        }
-      });
-    <% end %>
-
-    $(".budget-cell").focus(function() {
-      var cell = $(this);
-      $.ajax({
-        url: $(this).data("path"),
-        success: function(data) {
-          cell.val(data["budget_category"]["planned"]);
-        }
-      });
-    });
-
-    $(".budget-cell").blur(function() {
-      var cell = $(this);
-      $.ajax({
-        url: $(this).data("path"),
-        type: "PATCH",
-        data: { value: cell.val() },
-        beforeSend: function() {
-          cell.css("background-color", "yellow");
-        },
-        success: function() {
-          cell.css("background-color", "transparent");
-        }
-      });
-    });
 
   });
 </script>

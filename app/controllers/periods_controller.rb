@@ -1,22 +1,22 @@
 class PeriodsController < ApplicationController
-  before_action :set_period, only: [:show, :edit, :update, :destroy]
-
   def show
-    @date = DateTime.new(year, month)
-  end
-
-  def value
-    render json: { value: Random.new.integer }
-  end
+    @date = base_date
+    @categories = Category.all
+    @periods = periods
+   end
 
   private
 
-  def set_period
-    @period = Period.where(year: year, month: month).first
+  def periods
+    Const::PERIODS_PER_PAGE.times.map { |i| period(base_date + i.month) }
   end
 
-  def period_params
-    params[:period]
+  def period(date)
+    Period.starting_at(date.year, date.month).decorate
+  end
+
+  def base_date
+    @base_date ||= DateTime.new(year, month)
   end
 
   def year
