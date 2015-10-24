@@ -1,0 +1,11 @@
+<h2>New account reconciliation</h2>
+
+<%= render partial: 'form', locals: {
+  reconciliation: @reconciliation,
+  submit_url: reconciliations_path,
+  method: :post,
+  remote: false,
+  submit_caption: 'Reconcile',
+  edit: false,
+  cancel: true
+} %>
