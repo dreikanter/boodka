@@ -18,7 +18,7 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-switch
-//= require_tree .
+//= require js-routes
 
 $(function() {
   "use strict";

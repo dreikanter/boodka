@@ -29,7 +29,14 @@ class Period < ActiveRecord::Base
   end
 
   def budget_for(category)
-    budgets.find_or_initialize_by(category: category)
+    budgets.find_or_initialize_by(category: category).decorate
+  end
+
+  def budget!(cat_id, amount)
+    save! unless self.persisted?
+    budget = Budget.find_or_initialize_by(period: self, category_id: cat_id)
+    budget.update!(planned_cents: amount * 100, planned_currency: base_currency)
+    budget.decorate
   end
 
   private
@@ -44,5 +51,9 @@ class Period < ActiveRecord::Base
     return unless id.nil?
     self.start_at = DateTime.new(year, month)
     self.end_at = start_at + 1.month - 1.second
+  end
+
+  def base_currency
+    ENV['base_currency']
   end
 end

@@ -23,4 +23,13 @@ class Budget < ActiveRecord::Base
   belongs_to :category
 
   delegate :year, :month, to: :period
+
+  def actual
+    # TODO: Get real sum
+    Money.new(100000, planned_currency)
+  end
+
+  def balance
+    planned - actual
+  end
 end

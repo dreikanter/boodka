@@ -45,13 +45,13 @@
         </th>
         <% @periods.each_with_index do |period, period_index| %>
           <td class="form-control-static">
-            <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-col-num="<%= period_index %>" data-row-num="<%= category_index %>" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
+            <input value="<%= period.budget_for(category).display_planned %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>">
           </td>
           <td class="form-control-static">
-            <input value="-" type="text" class="form-control text-right actual-cell" readonly>
+            <input value="<%= period.budget_for(category).display_actual %>" type="text" class="form-control text-right actual-cell <%= cell_id('actual', period, category) %>" readonly>
           </td>
           <td class="form-control-static">
-            <input value="-" type="text" class="form-control text-right balance-cell" readonly>
+            <input value="<%= period.budget_for(category).display_balance %>" type="text" class="form-control text-right balance-cell <%= cell_id('balance', period, category) %>" readonly>
           </td>
         <% end %>
       </tr>
@@ -63,27 +63,31 @@
   $(function() {
     "use strict";
 
-    var catsCount = parseInt("<%= @categories.count %>");
-
-    $(".budget-cell").each(function(index) {
-      var colNum = parseInt($(this).data("col-num"));
-      var rowNum = parseInt($(this).data("row-num"));
-      $(this).attr("tabindex", colNum * catsCount + rowNum + 1);
-    }).blur();
-
     $(".budget-cell").change(function() {
       var cell = $(this);
+
+      var url = function() {
+        return Routes.budget_path(cell.data("year"), cell.data("month"),
+          cell.data("cat-id"), { amount: cell.val(), format: "json" });
+      }
+
       $.ajax({
-        url: cell.data("path"),
+        url: url(),
         type: "PATCH",
-        data: { value: cell.val() },
-        beforeSend: function() {
-          $(".save-indicator").hide();
-        },
-        success: function() {
-          $(".save-indicator").show();
+        dataType: "json",
+        success: function(data) {
+          var budget = data["budget"];
+          cell.val(budget["planned"]);
+          $(cell.data("actual")).val(budget["actual"]);
+          $(cell.data("balance")).val(budget["balance"]);
         }
       });
     });
-  });
+
+    // .keyup(function (event) {
+    //   if (event.keyCode == 13) { $(this).trigger("change"); }
+    // });
+
+    $(".budget-cell").blur();
+  })
 </script>
