@@ -1,7 +1,7 @@
 class PeriodsController < ApplicationController
   def show
     @date = base_date
-    @categories = Category.all
+    @categories = Category.ordered
     @periods = periods
    end
 
