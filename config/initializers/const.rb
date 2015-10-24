@@ -7,6 +7,7 @@ module Const
   BUDGET_DATE_FORMAT = '%B %Y'
   DATEPICKER_FORMAT = 'dd/mm/yyyy'
   DATEPICKER_FORMAT_PARSE = '%d/%m/%Y'
+  PERIODS_PER_PAGE = 2
   TRANSACTION_DIRECTIONS = {
     outflow: 0,
     inflow: 1
