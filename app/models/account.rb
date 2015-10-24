@@ -46,7 +46,8 @@ class Account < ActiveRecord::Base
 
   def sum(since, direction)
     flow = transactions.where(direction: direction)
-    sum = flow.where('created_at >= ?', since).sum(:calculated_amount_cents)
+    flow = flow.where('created_at >= ?', since) if since
+    sum = flow.sum(:calculated_amount_cents)
     Money.new(sum || 0, currency)
   end
 

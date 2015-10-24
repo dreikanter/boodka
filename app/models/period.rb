@@ -25,11 +25,11 @@ class Period < ActiveRecord::Base
   end
 
   def self.starting_at(year, month)
-    where(year: year, month: month).first || NullPeriod.starting_at(year, month)
+    find_or_initialize_by(year: year, month: month)
   end
 
   def budget_for(category)
-    budgets.where(category: category).first || NullBudget.for(self, category)
+    budgets.find_or_initialize_by(category: category)
   end
 
   private
@@ -42,9 +42,7 @@ class Period < ActiveRecord::Base
 
   def sanitize
     return unless id.nil?
-    # self.start_at.change(day: 1, hour: 0, minute: 0, second: 0, zone: 'UTC')
-    # self.end_at = start_at + 1.month - 1.second
-    # self.year = start_at.year
-    # self.month = start_at.month
+    self.start_at = DateTime.new(year, month)
+    self.end_at = start_at + 1.month - 1.second
   end
 end

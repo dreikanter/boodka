@@ -27,7 +27,7 @@ class Reconciliation < ActiveRecord::Base
   end
 
   def self.last_for(account)
-    where(account: account).last || ZeroReconciliation.new(account)
+    where(account: account).last || Reconciliation.new(account: account)
   end
 
   def defaults
