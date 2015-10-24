@@ -10,13 +10,13 @@
             <span class="label label-info">Default</span>
           <% end %>
         </td>
-        <td class="col-lg-1">
+        <td class="col-lg-2">
           <%= account.currency %>
         </td>
-        <td class="col-lg-1 text-right">
-          <%= account.total %>
+        <td class="col-lg-2 text-right">
+          <%= account.total.format(symbol: false, no_cents: true) %>
         </td>
-        <td class="col-lg-8">
+        <td class="col-lg-6">
           <span class="text-muted"><%= account.memo %></span>
           <div class="table-row-actions">
             <% unless account.default %>
@@ -34,3 +34,27 @@
 <% end %>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
+
+<% if @totals_per_currency.any? %>
+  <h2>Grand total per currency</h2>
+
+  <table class="table table-bordered table-hover">
+    <% @totals_per_currency.each do |currency, value| %>
+      <tr>
+        <td class="col-lg-2"><%= currency %></td>
+        <td><%= value.format(symbol: false, no_cents: true) %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <h2>Total converted equivalent</h2>
+
+  <table class="table table-bordered table-hover">
+    <% @converted_equivalent.each do |currency, value| %>
+      <tr>
+        <td class="col-lg-2"><%= currency %></td>
+        <td><%= value.format(symbol: false, no_cents: true) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
