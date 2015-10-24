@@ -42,17 +42,17 @@
   </div>
 
   <!-- Body -->
-  <% @categories.each do |category| %>
+  <% @categories.each_with_index do |category, category_index| %>
     <div class="row">
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
         <div class="form-group">
           <p class="form-control-static budget-form-category"><%= link_to category.title, edit_category_path(category) %></p>
         </div>
       </div>
-      <% @periods.each do |period| %>
+      <% @periods.each_with_index do |period, period_index| %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
+          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-col-num="<%= period_index %>" data-row-num="<%= category_index %>" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
         </div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
           <input value="-" type="text" class="form-control text-right actual-cell" readonly>
@@ -66,9 +66,17 @@
   <% end %>
 </form>
 
+
 <script>
   $(function() {
     "use strict";
 
+    var catsCount = parseInt("<%= @categories.count %>");
+
+    $(".budget-cell").each(function(index) {
+      var colNum = parseInt($(this).data("col-num"));
+      var rowNum = parseInt($(this).data("row-num"));
+      $(this).attr("tabindex", colNum * catsCount + rowNum + 1);
+    }).blur();
   });
 </script>
