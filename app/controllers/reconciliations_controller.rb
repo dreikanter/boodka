@@ -65,7 +65,17 @@ class ReconciliationsController < ApplicationController
     params[:account_id]
   end
 
+  def new_reconciliation_params
+    return { created_at: Time.now } unless account_id
+    account = Account.find(account_id)
+    {
+      account: account,
+      amount: account.total,
+      created_at: Time.now
+    }
+  end
+
   def new_reconciliation
-    @reconciliation = Reconciliation.new(account_id: account_id)
+    @reconciliation = Reconciliation.new(new_reconciliation_params)
   end
 end
