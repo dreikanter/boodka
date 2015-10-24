@@ -12,7 +12,7 @@
         <li class="<%= 'active' if current_action == 'categories/index' %>"><%= link_to 'Categories', categories_path %></li>
 
         <% if Category.any? && Account.any? %>
-          <li class="<%= 'active' if current_action == 'budget/show' %>"><%= link_to 'Budget', current_budget_path %></li>
+          <li class="<%= 'active' if current_action == 'periods/show' %>"><%= link_to 'Budget', current_budget_path %></li>
         <% else %>
           <li class="disabled"><%= link_to 'Budget', '#' %></li>
         <% end %>
