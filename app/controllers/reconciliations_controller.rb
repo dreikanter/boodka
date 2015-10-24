@@ -4,6 +4,7 @@ class ReconciliationsController < ApplicationController
   before_action :new_reconciliation, only: [:index, :new]
 
   def index
+    load_reconciliations
   end
 
   def new
@@ -81,5 +82,9 @@ class ReconciliationsController < ApplicationController
 
   def load_accounts
     @accounts = Account.decorate
+  end
+
+  def load_reconciliations
+    @reconciliations = Reconciliation.recent_history
   end
 end
