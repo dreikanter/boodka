@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'draper', '~> 1.3'
 gem 'reform'
 gem 'virtus'
+gem 'jquery-turbolinks'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
