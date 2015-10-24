@@ -4,7 +4,6 @@
   <table class="table table-bordered table-hover">
     <% Category.all.each do |category| %>
       <tr>
-        <td class="col-lg-2 text-muted"><%= category.code %></td>
         <td class="col-lg-10">
           <%= link_to category.title, edit_category_path(category) %>
           <span class="text-muted"><%= category.memo %></span>
