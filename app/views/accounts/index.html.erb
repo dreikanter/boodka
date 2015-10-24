@@ -13,7 +13,10 @@
         <td class="col-lg-1">
           <%= account.currency %>
         </td>
-        <td class="col-lg-9">
+        <td class="col-lg-1 text-right">
+          <%= account.total %>
+        </td>
+        <td class="col-lg-8">
           <span class="text-muted"><%= account.description %></span>
           <div class="table-row-actions">
             <% unless account.default %>
