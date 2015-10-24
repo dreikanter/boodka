@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20151023185416) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "code",        default: "", null: false
     t.string   "title",                    null: false
     t.string   "description", default: "", null: false
     t.datetime "created_at",               null: false

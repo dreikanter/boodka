@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
   end
 
   def permitted_params
-    [:code, :title, :description]
+    [:title, :description]
   end
 
   def category_params
