@@ -13,7 +13,7 @@
         </td>
         <td class="col-lg-2 text-right">
           <%= (transaction.direction == 'inflow') ? "+ " : "- " %>
-          <%= transaction.amount.format %>
+          <%= link_to transaction.amount.format, edit_transaction_path(transaction) %>
         </td>
         <td class="col-lg-8 text-muted">
           <%= transaction.memo %>
@@ -21,7 +21,6 @@
             <% if transaction.transfer? %>
               <span class="text-muted">Transfer</span>
             <% else %>
-              <%= link_to 'Edit', edit_transaction_path(transaction), class: 'btn btn-xs btn-default' %>
               <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
             <% end %>
           </div>

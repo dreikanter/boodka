@@ -52,7 +52,7 @@
       <% @periods.each do |period| %>
       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
-          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
+          <input value="<%= period.budget_for(category).planned %>" type="text" class="form-control text-right budget-cell select-on-focus" data-path="<%= budget_path(period.year, period.month, category.id, format: :json) %>">
         </div>
         <div class="col-lg-4 col-md-4 com-sm-4 col-xs-4">
           <input value="-" type="text" class="form-control text-right actual-cell" readonly>

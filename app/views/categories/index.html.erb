@@ -8,8 +8,7 @@
           <%= link_to category.title, edit_category_path(category) %>
           <span class="text-muted"><%= category.memo %></span>
           <div class="table-row-actions">
-            <%= link_to 'Edit', edit_category_path(category), class: 'btn btn-xs btn-default' %>
-            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
           </div>
         </td>
       </tr>

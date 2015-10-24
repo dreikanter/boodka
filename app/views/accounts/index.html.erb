@@ -5,7 +5,7 @@
     <% @accounts.each do |account| %>
       <tr>
         <td class="col-lg-2">
-          <%= account.title %>
+          <%= link_to account.title, edit_account_path(account) %>
           <% if account.default %>
             <span class="label label-info">Default</span>
           <% end %>
@@ -14,17 +14,15 @@
           <%= account.currency %>
         </td>
         <td class="col-lg-2 text-right">
-          <%= account.total.format(symbol: false, no_cents: true) %>
+          <%= link_to account.total.format(symbol: false, no_cents: true), new_reconciliation_path(account_id: account.id) %>
         </td>
         <td class="col-lg-6">
           <span class="text-muted"><%= account.memo %></span>
-          <div class="table-row-actions">
-            <% unless account.default %>
+          <% unless account.default %>
+            <div class="table-row-actions">
               <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>
-            <% end %>
-            <%= link_to 'Rec', new_reconciliation_path(account_id: account.id), class: 'btn btn-xs btn-default' %>
-            <%= link_to 'Edit', edit_account_path(account), class: 'btn btn-xs btn-default' %>
-          </div>
+            </div>
+          <% end %>
         </td>
       </tr>
     <% end %>
