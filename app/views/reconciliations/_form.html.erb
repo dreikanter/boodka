@@ -11,7 +11,7 @@
   <% else %>
     <div class="form-group">
       <%= form.label :account_id, class: 'control-label' %>
-      <%= form.select :account_id, options_for_select(Account.all.map { |account| ["#{account.title} (#{account.currency})", account.id] }, reconciliation.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
+      <%= form.select :account_id, options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id] }, reconciliation.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
     </div>
   <% end %>
 
