@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to :back, notice: 'Category updated'
+      redirect_to categories_path, notice: 'Category updated'
     else
       render :edit
     end
