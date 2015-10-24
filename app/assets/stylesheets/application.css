@@ -64,3 +64,10 @@ h2:first-of-type {
 .budget-form .form-control-static {
   padding: 7px 13px;
 }
+
+.budget-form .form-control:not(:hover),
+.budget-form .form-control[disabled], .form-control[readonly] {
+  background-color: transparent;
+  box-shadow: none;
+  border-color: transparent;
+}
