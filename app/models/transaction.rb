@@ -66,8 +66,13 @@ class Transaction < ActiveRecord::Base
   private
 
   def refresh_rate_and_convert_amount
-    self.calculated_amount = amount.exchange_to(account_currency)
-    self.rate = Money.default_bank.get_rate(amount_currency, account_currency)
+    if amount_currency == account_currency
+      self.rate = 1
+      self.calculated_amount = amount
+    else
+      self.rate = Money.default_bank.get_rate(amount_currency, account_currency)
+      self.calculated_amount = amount.exchange_to(account_currency)
+    end
   end
 
   def convert_amount
