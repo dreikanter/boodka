@@ -2,13 +2,13 @@
   <h2>You have <%= pluralize Category.count, 'budgeting category' %></h2>
 
   <table class="table table-bordered table-hover">
-    <% Category.ordered.each do |category| %>
+    <% @categories.each do |category| %>
       <tr>
         <td class="col-lg-10">
           <%= link_to category.title, edit_category_path(category) %>
           <span class="text-muted"><%= category.memo %></span>
           <div class="table-row-actions">
-            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
           </div>
         </td>
       </tr>

@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:edit, :update, :destroy]
+  before_action :load_categories, only: [:index, :create]
 
   def index
     @category = Category.new
@@ -44,5 +45,9 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(permitted_params)
+  end
+
+  def load_categories
+    @categories = Category.ordered
   end
 end
