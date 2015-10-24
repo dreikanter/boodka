@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row budget-pagination">
   <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
     <div class="btn-group">
       <%= @periods.first.link_to_prev_year %>
@@ -7,7 +7,7 @@
   <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 btn-toolbar budget-pagination">
     <div class="btn-group">
       <%= @periods.first.link_to_prev_month %>
-      <%= period_paginator(@date) %>
+      <%= period_pagination(@date) %>
       <%= @periods.first.link_to_next_month %>
     </div>
   </div>
@@ -19,8 +19,8 @@
 </div>
 
 <form class="form budget-form">
-  <table class="table table-bordered">
-    <th>
+  <table class="table table-bordered budget-table">
+    <tr>
       <th></th>
       <% @periods.each do |period| %>
         <th colspan="3" class="text-center budget-form-heading">
@@ -70,5 +70,20 @@
       var rowNum = parseInt($(this).data("row-num"));
       $(this).attr("tabindex", colNum * catsCount + rowNum + 1);
     }).blur();
+
+    $(".budget-cell").change(function() {
+      var cell = $(this);
+      $.ajax({
+        url: cell.data("path"),
+        type: "PATCH",
+        data: { value: cell.val() },
+        beforeSend: function() {
+          $(".save-indicator").hide();
+        },
+        success: function() {
+          $(".save-indicator").show();
+        }
+      });
+    });
   });
 </script>
