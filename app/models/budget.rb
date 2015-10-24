@@ -20,6 +20,7 @@ class Budget < ActiveRecord::Base
   monetize :planned_cents, with_model_currency: :amount_cents_currency
 
   belongs_to :period
+  belongs_to :category
 
   delegate :year, :month, to: :period
 end
