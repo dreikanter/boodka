@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :categories, except: [:show, :new]
   resources :transfers, except: [:show, :edit, :update]
 
-  get 'budget' => 'budget#show', as: :current_budget
+  get 'budget' => 'periods#show', as: :current_budget
 
   scope 'budget/:year/:month' do
     resource :period, only: :show, shallow: true, path: ''
