@@ -24,7 +24,6 @@ $(function() {
   "use strict";
 
   $(".select-on-focus").focus(function() {
-    console.log(1);
     $(this).select();
   }).mouseup(function() {
     return false;
