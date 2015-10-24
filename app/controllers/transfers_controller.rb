@@ -1,7 +1,6 @@
 class TransfersController < ApplicationController
-  before_action :check_availability
-  before_action :init_new_form, only: [:index, :new, :create]
-  before_action :load_transfer, only: :destroy
+  before_action :check_availability, :load_accounts
+  before_action :init_new_form, except: :destroy
 
   def index
     @transfers = Transfer.recent_history
@@ -22,7 +21,7 @@ class TransfersController < ApplicationController
   end
 
   def destroy
-    @transfer.destroy
+    Transfer.find(params[:id]).destroy
     redirect_to transfers_url, notify: 'Transfer destroyed'
   end
 
@@ -32,15 +31,15 @@ class TransfersController < ApplicationController
     TransferForm.new(params)
   end
 
-  def load_transfer
-    @transfer = Transfer.find(params[:id])
-  end
-
   def init_new_form
     @form = TransferForm.new(Transfer.new)
   end
 
   def check_availability
     fail 'At least 2 accounts required to transfer' if Account.count < 2
+  end
+
+  def load_accounts
+    @accounts = Account.decorate
   end
 end
