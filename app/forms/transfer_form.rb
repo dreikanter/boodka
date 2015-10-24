@@ -1,5 +1,5 @@
 class TransferForm < Reform::Form
-  property :description
+  property :memo
 
   property :amount, virtual: true
   property :currency, virtual: true

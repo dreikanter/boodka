@@ -44,7 +44,7 @@ class TransactionsController < ApplicationController
       :amount,
       :amount_currency,
       :direction,
-      :description,
+      :memo,
       :category_id,
       :created_at
     ]

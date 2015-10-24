@@ -5,7 +5,7 @@ class CreatePlannedTransactions < ActiveRecord::Migration
       t.decimal :amount_cents, null: false, precision: 8, scale: 0
       t.string :currency, null: false
       t.integer :category_id
-      t.string :description, null: false, default: ''
+      t.string :memo, null: false, default: ''
       t.datetime :start
       t.datetime :finish
       t.string :cron, null: false, default: ''

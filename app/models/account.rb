@@ -2,13 +2,13 @@
 #
 # Table name: accounts
 #
-#  id          :integer          not null, primary key
-#  currency    :string           not null
-#  title       :string           not null
-#  description :string           default(""), not null
-#  default     :boolean          default(FALSE), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :integer          not null, primary key
+#  currency   :string           not null
+#  title      :string           not null
+#  memo       :string           default(""), not null
+#  default    :boolean          default(FALSE), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Account < ActiveRecord::Base

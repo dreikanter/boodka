@@ -18,7 +18,7 @@ class TransferBuilder
   private
 
   def create_transfer!
-    Transfer.create!(description: generated_description)
+    Transfer.create!(memo: generated_memo)
   end
 
   def create_transactions!(transfer)
@@ -27,8 +27,8 @@ class TransferBuilder
     belongings.create!(to_transaction_params)
   end
 
-  def generated_description
-    return params[:description] unless params[:description].blank?
+  def generated_memo
+    return params[:memo] unless params[:memo].blank?
     "From #{from_account.title} to #{to_account.title}"
   end
 
@@ -51,7 +51,7 @@ class TransferBuilder
       amount_currency: amount.currency,
       direction: :outflow,
       account_id: params[:from_account_id],
-      description: generated_description
+      memo: generated_memo
     }
   end
 
@@ -61,7 +61,7 @@ class TransferBuilder
       amount_currency: amount.currency,
       direction: :inflow,
       account_id: params[:to_account_id],
-      description: generated_description
+      memo: generated_memo
     }
   end
 end

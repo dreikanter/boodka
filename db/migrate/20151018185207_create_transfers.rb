@@ -1,7 +1,7 @@
 class CreateTransfers < ActiveRecord::Migration
   def change
     create_table :transfers do |t|
-      t.string :description
+      t.string :memo
 
       t.timestamps null: false
     end

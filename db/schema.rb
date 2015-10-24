@@ -14,18 +14,18 @@
 ActiveRecord::Schema.define(version: 20151023185416) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "currency",                    null: false
-    t.string   "title",                       null: false
-    t.string   "description", default: "",    null: false
-    t.boolean  "default",     default: false, null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "currency",                   null: false
+    t.string   "title",                      null: false
+    t.string   "memo",       default: "",    null: false
+    t.boolean  "default",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "balance_updates", force: :cascade do |t|
     t.integer  "account_id",                null: false
     t.integer  "amount_cents",              null: false
-    t.string   "description",  default: "", null: false
+    t.string   "memo",         default: "", null: false
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -41,10 +41,10 @@ ActiveRecord::Schema.define(version: 20151023185416) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title",                    null: false
-    t.string   "description", default: "", null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "title",                   null: false
+    t.string   "memo",       default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "periods", force: :cascade do |t|
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20151023185416) do
     t.decimal  "amount_cents", precision: 8,                null: false
     t.string   "currency",                                  null: false
     t.integer  "category_id"
-    t.string   "description",                default: "",   null: false
+    t.string   "memo",                       default: "",   null: false
     t.datetime "start"
     t.datetime "finish"
     t.string   "cron",                       default: "",   null: false
@@ -98,15 +98,15 @@ ActiveRecord::Schema.define(version: 20151023185416) do
     t.float    "rate",                       default: 1.0,   null: false
     t.integer  "category_id"
     t.integer  "transfer_id"
-    t.string   "description",                default: "",    null: false
+    t.string   "memo",                       default: "",    null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
 
   create_table "transfers", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

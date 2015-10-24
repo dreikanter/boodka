@@ -3,7 +3,7 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :currency, null: false
       t.string :title, null: false
-      t.string :description, null: false, default: ''
+      t.string :memo, null: false, default: ''
       t.boolean :default, null: false, default: false
 
       t.timestamps null: false

@@ -17,7 +17,7 @@
           <%= account.total %>
         </td>
         <td class="col-lg-8">
-          <span class="text-muted"><%= account.description %></span>
+          <span class="text-muted"><%= account.memo %></span>
           <div class="table-row-actions">
             <% unless account.default %>
               <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>

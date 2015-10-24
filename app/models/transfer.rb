@@ -2,10 +2,10 @@
 #
 # Table name: transfers
 #
-#  id          :integer          not null, primary key
-#  description :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :integer          not null, primary key
+#  memo       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Transfer < ActiveRecord::Base

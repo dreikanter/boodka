@@ -7,7 +7,7 @@
 #  amount_cents :decimal(8, )     not null
 #  currency     :string           not null
 #  category_id  :integer
-#  description  :string           default(""), not null
+#  memo         :string           default(""), not null
 #  start        :datetime
 #  finish       :datetime
 #  cron         :string           default(""), not null

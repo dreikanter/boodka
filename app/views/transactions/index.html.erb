@@ -16,7 +16,7 @@
           <%= transaction.amount.format %>
         </td>
         <td class="col-lg-8 text-muted">
-          <%= transaction.description %>
+          <%= transaction.memo %>
           <div class="table-row-actions">
             <% if transaction.transfer? %>
               <span class="text-muted">Transfer</span>
