@@ -24,7 +24,15 @@
   </div>
 
   <div class="form-group">
-    <%= form.check_box :direction, { class: 'direction-switch' }, 'inflow', 'outflow' %>
+    <div class="btn-group" data-toggle="buttons">
+      <%= form.label :direction, class: "btn btn-default#{ ' active' if transaction.inflow?}" do %>
+        <%= form.radio_button :direction, 'inflow', checked: transaction.inflow?, autocomplete: 'off', class: ' direction-switch direction-switch-inflow' %> Income
+      <% end %>
+
+      <%= form.label :direction, class: "btn btn-default#{' active' if transaction.outflow?}" do %>
+        <%= form.radio_button :direction, 'outflow', checked: transaction.outflow?, autocomplete: 'off', class: 'direction-switch direction-switch-outflow' %> Expense
+      <% end %>
+    </div>
   </div>
 
   <div class="form-group">
@@ -77,13 +85,11 @@
       format: "<%= Const::DATEPICKER_FORMAT %>"
     });
 
-    $(".direction-switch").bootstrapSwitch({
-      'onColor': 'success',
-      'offColor': 'default',
-      'onText': 'Income',
-      'offText': 'Expense'
-    }).on('switchChange.bootstrapSwitch', function(event, state) {
-      $(".category-select").prop("disabled", state);
-    });
+    var toggleCatCombo = function(target) {
+      $(".category-select").attr("disabled", $(target).val() == "inflow");
+    };
+
+    $(".direction-switch").change(function(event) { toggleCatCombo(event.target) });
+    toggleCatCombo(".direction-switch:checked");
   });
 </script>
