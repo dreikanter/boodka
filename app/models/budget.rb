@@ -14,7 +14,7 @@
 
 class Budget < ActiveRecord::Base
   validates :period_id, :category_id, presence: true
-  validates :planned, numericality: { greater_than: 0 }
+  validates :planned, numericality: { greater_than_or_equal_to: 0 }
   validates :planned_currency, inclusion: { in: Const::CURRENCY_CODES }
 
   monetize :planned_cents, with_model_currency: :amount_cents_currency
@@ -25,11 +25,29 @@ class Budget < ActiveRecord::Base
   delegate :year, :month, to: :period
 
   def actual
-    # TODO: Get real sum
-    Money.new(100000, planned_currency)
+    Money.new(expense_amounts.sum).exchange_to(base_currency)
   end
 
   def balance
-    planned - actual
+    Money.new(planned, base_currency) - actual
+  end
+
+  private
+
+  def time_frame
+    start = DateTime.new(year, month)
+    start..(start + 1.month - 1.second)
+  end
+
+  def base_currency
+    ENV['base_currency']
+  end
+
+  def expense_transactions
+    Transaction.outflows.where(category: category, created_at: time_frame)
+  end
+
+  def expense_amounts
+    expense_transactions.map { |t| t.amount }
   end
 end
