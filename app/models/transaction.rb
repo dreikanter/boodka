@@ -51,14 +51,6 @@ class Transaction < ActiveRecord::Base
     transfer_id.present?
   end
 
-  def inflow?
-    amount_cents > 0
-  end
-
-  def outflow?
-    amount_cents < 0
-  end
-
   def uncategorized?
     category.nil?
   end
