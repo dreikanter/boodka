@@ -35,7 +35,7 @@ class Period < ActiveRecord::Base
   def budget!(cat_id, amount)
     save! unless self.persisted?
     budget = Budget.find_or_initialize_by(period: self, category_id: cat_id)
-    budget.update!(planned_cents: amount * 100, planned_currency: base_currency)
+    budget.update!(amount_cents: amount * 100, amount_currency: base_currency)
     budget.decorate
   end
 

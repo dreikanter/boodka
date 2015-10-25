@@ -2,7 +2,7 @@ json.budget do
   json.category_id @budget.category_id
   json.year        @budget.year
   json.month       @budget.month
-  json.planned     @budget.display_planned
+  json.amount      @budget.display_amount
   json.actual      @budget.display_actual
   json.balance     @budget.display_balance
   json.memo        @budget.memo

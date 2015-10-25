@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20151023185416) do
   end
 
   create_table "budgets", force: :cascade do |t|
-    t.integer  "period_id",                        null: false
-    t.integer  "category_id",                      null: false
-    t.integer  "planned_cents",    default: 0,     null: false
-    t.string   "planned_currency", default: "USD", null: false
-    t.string   "memo",             default: "",    null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "period_id",                       null: false
+    t.integer  "category_id",                     null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.string   "memo",            default: "",    null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "categories", force: :cascade do |t|
