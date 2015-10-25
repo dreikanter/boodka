@@ -18,7 +18,7 @@ class Period < ActiveRecord::Base
 
   has_many :budgets, dependent: :destroy
 
-  before_validation :sanitize
+  after_initialize :populate
 
   def date
     DateTime.new(year, month)
@@ -39,6 +39,10 @@ class Period < ActiveRecord::Base
     budget.decorate
   end
 
+  def previous_period
+    self.class.where('start_at < ?', start_at).order(:start_at).last
+  end
+
   private
 
   def check_time_frame
@@ -47,13 +51,25 @@ class Period < ActiveRecord::Base
     end
   end
 
-  def sanitize
-    return unless id.nil?
+  def base_currency
+    ENV['base_currency']
+  end
+
+  # TODO: Use some cleaner way for this
+  def populate
+    return if persisted?
+    today = Date.today
+    self.year = today.year unless year
+    self.month = today.month unless month
     self.start_at = DateTime.new(year, month)
     self.end_at = start_at + 1.month - 1.second
   end
 
-  def base_currency
-    ENV['base_currency']
+  def start_at=(value)
+    super(value)
+  end
+
+  def end_at=(value)
+    super(value)
   end
 end
