@@ -41,6 +41,8 @@ class Transaction < ActiveRecord::Base
   scope :with_account, -> { includes(:account) }
   scope :history, -> { with_account.order(created_at: :desc) }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+  scope :outflows, -> { where(direction: Const::TRANSACTION_DIRECTIONS[:outflow]) }
+  scope :inflows, -> { where(direction: Const::TRANSACTION_DIRECTIONS[:inflows]) }
 
   before_create :refresh_rate_and_convert_amount
   before_update :convert_amount
