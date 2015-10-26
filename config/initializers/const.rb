@@ -8,8 +8,11 @@ module Const
   DATEPICKER_FORMAT = 'dd/mm/yyyy'
   DATEPICKER_FORMAT_PARSE = '%d/%m/%Y'
   PERIODS_PER_PAGE = 2
+
+  OUTFLOW = 0
+  INFLOW = 1
   TRANSACTION_DIRECTIONS = {
-    outflow: 0,
-    inflow: 1
+    outflow: OUTFLOW,
+    inflow: INFLOW
   }
 end

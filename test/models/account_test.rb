@@ -18,9 +18,6 @@ describe Account do
   let(:new_default_account) { FactoryGirl.build :default_account }
   let(:persisted_account) { FactoryGirl.create :account }
 
-  INFLOW = Const::TRANSACTION_DIRECTIONS[:inflow]
-  OUTFLOW = Const::TRANSACTION_DIRECTIONS[:outflow]
-
   it 'must be valid' do
     new_account.must_be :valid?
   end
@@ -33,7 +30,7 @@ describe Account do
   it 'must calculate total' do
     account = persisted_account
     values = [-5.5, -1.1, 3.3, 10.01]
-    direction = -> (value) { (value > 0) ? INFLOW : OUTFLOW }
+    direction = -> (value) { (value > 0) ? Const::INFLOW : Const::OUTFLOW }
     amount = -> (value) { Money.new(value.abs, account.currency) }
 
     values.each do |value|
