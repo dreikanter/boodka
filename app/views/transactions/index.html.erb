@@ -5,7 +5,7 @@
 <% if Transaction.any? %>
   <h2>Recent transactions</h2>
 
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover no-grid">
     <% Transaction.recent_history.each do |transaction| %>
       <tr>
         <td class="col-lg-2 text-muted">

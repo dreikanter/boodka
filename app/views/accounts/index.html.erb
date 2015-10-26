@@ -1,7 +1,7 @@
 <% if @accounts.any? %>
   <h2>You have <%= pluralize @accounts.count, 'account' %></h2>
 
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover no-grid">
     <% @accounts.each do |account| %>
       <tr>
         <td class="col-lg-2">
@@ -36,22 +36,22 @@
 <% if @totals_per_currency.any? %>
   <h2>Grand total per currency</h2>
 
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover no-grid">
     <% @totals_per_currency.each do |currency, value| %>
       <tr>
         <td class="col-lg-2"><%= currency %></td>
-        <td><%= value.format(symbol: false, no_cents: true) %></td>
+        <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
       </tr>
     <% end %>
   </table>
 
   <h2>Total converted equivalent</h2>
 
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover no-grid">
     <% @converted_equivalent.each do |currency, value| %>
       <tr>
         <td class="col-lg-2"><%= currency %></td>
-        <td><%= value.format(symbol: false, no_cents: true) %></td>
+        <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
       </tr>
     <% end %>
   </table>
