@@ -45,7 +45,8 @@ class Period < ActiveRecord::Base
   end
 
   def previous_period
-    self.class.where('start_at < ?', start_at).order(:start_at).last
+    result = self.class.where('start_at < ?', start_at).order(:start_at).last
+    result || self.class.starting_at((start_at - 1.month).year, (start_at - 1.month).month)
   end
 
   private

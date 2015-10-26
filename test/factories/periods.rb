@@ -13,9 +13,25 @@
 #
 
 FactoryGirl.define do
+  SAMPLE_DATE = Date.today
+
   factory :current_period, class: Period do
-    today = Date.today
-    year today.year
-    month today.month
+    initialize_with do
+      Period.new(year: SAMPLE_DATE.year, month: SAMPLE_DATE.month)
+    end
+  end
+
+  factory :previous_period, class: Period do
+    initialize_with do
+      date = SAMPLE_DATE - 1.month
+      Period.new(year: date.year, month: date.month)
+    end
+  end
+
+  factory :ancient_period, class: Period do
+    initialize_with do
+      date = SAMPLE_DATE - 100.years
+      Period.new(year: date.year, month: date.month)
+    end
   end
 end

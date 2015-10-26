@@ -17,8 +17,11 @@ require 'test_helper'
 describe Period do
   let(:period) { Period.new }
   let(:current_period) { FactoryGirl.build :current_period }
+  let(:previous_period) { FactoryGirl.build :previous_period }
+  let(:ancient_period) { FactoryGirl.build :ancient_period }
   let(:today) { Date.today }
   let(:valid_category) { FactoryGirl.build :valid_category }
+  let(:amount) { FactoryGirl.build :sample_amount_of_money }
 
   it 'must be valid' do
     value(period).must_be :valid?
@@ -57,10 +60,28 @@ describe Period do
 
   it 'should update budgets' do
     valid_category.save!
-    amount = Money.new(100000, ENV['base_currency'])
     created = current_period.budget!(valid_category.id, amount)
-    found = current_period.budget_for(valid_category)
+
     created.must_be :persisted?
-    created.must_equal found
+    created.must_equal current_period.budget_for(valid_category)
+
+    updated = current_period.budget!(valid_category.id, amount * 2)
+    updated.must_equal current_period.budget_for(valid_category)
+  end
+
+  it 'should spawn null previous period' do
+    current_period.previous_period.date.must_equal previous_period.date
+  end
+
+  it 'should point to existing previous period' do
+    current_period.save!
+    previous_period.save!
+    current_period.previous_period.must_equal previous_period
+  end
+
+  it 'should accept splitted rare historical sequence' do
+    current_period.save!
+    ancient_period.save!
+    current_period.previous_period.must_equal ancient_period
   end
 end
