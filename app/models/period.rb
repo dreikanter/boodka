@@ -29,7 +29,12 @@ class Period < ActiveRecord::Base
   end
 
   def budget_for(category)
-    budgets.find_or_initialize_by(category: category).decorate
+    (budgets.where(category: category).first || Budget.new(
+      period: self,
+      category: category,
+      amount_cents: 0,
+      amount_currency: base_currency
+    )).decorate
   end
 
   def budget!(cat_id, amount)

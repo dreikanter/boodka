@@ -13,8 +13,9 @@
 #
 
 FactoryGirl.define do
-  factory :period do
-    
+  factory :current_period, class: Period do
+    today = Date.today
+    year today.year
+    month today.month
   end
-
 end
