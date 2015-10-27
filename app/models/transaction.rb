@@ -24,7 +24,9 @@ class Transaction < ActiveRecord::Base
   monetize :calculated_amount_cents,
            with_model_currency: :calculated_amount_currency
 
-  validates :amount, numericality: { greater_than: 0 }
+  validates :amount_cents,
+            :calculated_amount_cents,
+            numericality: { greater_than: 0 }
 
   validates :amount_currency,
             :calculated_amount_currency,
