@@ -15,7 +15,10 @@
           <%= (transaction.direction == 'inflow') ? "+ " : "- " %>
           <%= link_to transaction.amount.format, edit_transaction_path(transaction) %>
         </td>
-        <td class="col-lg-8 text-muted">
+        <td class="col-lg-2 text-right">
+          <%= transaction.category.title %>
+        </td>
+        <td class="col-lg-6 text-muted">
           <%= transaction.memo %>
           <div class="table-row-actions">
             <% if transaction.transfer? %>
