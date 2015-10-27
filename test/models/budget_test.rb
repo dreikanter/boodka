@@ -16,9 +16,16 @@ require 'test_helper'
 
 describe Budget do
   let(:budget) { FactoryGirl.build :budget }
+  let(:previous_budget) { FactoryGirl.build :previous_budget }
+  let(:ancient_budget) { FactoryGirl.build :ancient_budget }
+
   let(:usd_account) { FactoryGirl.create :usd_account }
   let(:eur_account) { FactoryGirl.create :eur_account }
   let(:rub_account) { FactoryGirl.create :rub_account }
+
+  let(:current_period) { FactoryGirl.create :current_period }
+  let(:previous_period) { FactoryGirl.create :previous_period }
+  let(:category) { FactoryGirl.create :valid_category }
 
   EXPENSES = [100, 200, 300]
 
@@ -93,5 +100,40 @@ describe Budget do
 
     expected = budget.amount - source.map { |amount, account| Money.new(amount, account.currency).exchange_to(budget.amount_currency) }.sum
     budget.balance.must_equal expected
+  end
+
+  it 'must filter transactions' do
+    Transaction.destroy_all
+
+    [-2, -1, 0, 0, 1, 2].each do |n|
+      Transaction.create!(
+        account: usd_account,
+        amount_cents: 1,
+        amount_currency: usd_account.currency,
+        category: budget.category,
+        direction: Const::OUTFLOW,
+        created_at: budget.date + n.month
+      )
+    end
+
+    actual = budget.transactions.map(&:id).sort
+    timeframe = budget.date..(budget.date + 1.month - 1.second)
+    expected = Transaction.where(created_at: timeframe).map(&:id).sort
+
+    actual.must_equal expected
+  end
+
+  it 'must calculate balance based on previous period' do
+    Period.destroy_all
+    Budget.destroy_all
+    Transaction.destroy_all
+
+    amount_cents = 500
+    currency = Money::Currency.new(ENV['base_currency'])
+    expected = Money.new(amount_cents, currency)
+
+    current_budget = current_period.budget_cents!(category.id, amount_cents)
+    previous_budget = previous_period.budget_cents!(category.id, amount_cents)
+    previous_budget.balance.must_equal expected
   end
 end
