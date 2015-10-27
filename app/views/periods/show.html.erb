@@ -45,7 +45,7 @@
         </th>
         <% @periods.each_with_index do |period, period_index| %>
           <td class="form-control-static">
-            <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>">
+            <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
           </td>
           <td class="form-control-static">
             <%= period.budget_for(category).actual_cell %>
@@ -101,10 +101,25 @@
   $(function() {
     "use strict";
 
-    $(".budget-cell").change(function() {
-      var catId = $(this).data("cat-id");
-
+    $(".budget-cell").focus(function() {
       var cell = $(this);
+      cell.data("handle-change", "false");
+      cell.val(cell.data("plain-amount"));
+      cell.data("handle-change", "true");
+    }).blur(function() {
+      var cell = $(this);
+      if (cell.data("handle-blur") == "false") { return; }
+      cell.data("handle-change", "false");
+      cell.val(cell.data("formatted-amount"));
+      cell.data("handle-change", "true");
+    });
+
+    $(".budget-cell").change(function() {
+      var cell = $(this);
+      if (!cell.data("handle-change")) { return; }
+      cell.data("handle-blur", "false");
+
+      var catId = cell.data("cat-id");
       var url = Routes.budget_path(cell.data("year"), cell.data("month"),
           cell.data("cat-id"), { amount: cell.val(), format: "json" });
 
@@ -121,6 +136,8 @@
       });
 
       Turbolinks.visit(location.href);
+
+      $(this).data("handle-blur", "true");
     });
 
     $(".budget-cell").blur();
