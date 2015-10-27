@@ -45,7 +45,7 @@
         </th>
         <% @periods.each_with_index do |period, period_index| %>
           <td class="form-control-static">
-            <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
+            <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount.to_i %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
           </td>
           <td class="form-control-static">
             <%= period.budget_for(category).actual_cell %>

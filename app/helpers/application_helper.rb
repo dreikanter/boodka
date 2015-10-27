@@ -27,9 +27,10 @@ module ApplicationHelper
     highlight_positive = options[:both] || options[:positive]
     classes << 'negative' if highlight_negative && (value < 0)
     classes << 'positive' if highlight_positive && (value > 0)
+    no_cents = options[:no_cents] || false
 
     tag :input,
-        value: value.format(symbol: false),
+        value: value.format(symbol: false, no_cents: no_cents),
         type: :text,
         class: classes.join(' '),
         readonly: true

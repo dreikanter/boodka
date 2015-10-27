@@ -58,12 +58,7 @@ class Period < ActiveRecord::Base
   end
 
   def total_uncategorized_expense
-    amounts_in_base_currrency(uncategorized_outflows)
-  end
-
-  def amounts_in_base_currrency(records)
-    return Money.new(0, base_currency) if records.empty?
-    records.map(&:amount).sum.exchange_to(base_currency)
+    -amounts_in_base_currrency(uncategorized_outflows)
   end
 
   def total_income
@@ -72,7 +67,7 @@ class Period < ActiveRecord::Base
 
   def total_balance
     cats_balance = Category.all.map { |c| budget_for(c).balance }.sum
-    previous_total_balance + total_income - total_expense
+    cats_balance + total_income - total_expense
   end
 
   def transactions
@@ -131,5 +126,10 @@ class Period < ActiveRecord::Base
 
   def zero
     Money.new(0, base_currency)
+  end
+
+  def amounts_in_base_currrency(records)
+    return Money.new(0, base_currency) if records.empty?
+    records.map(&:amount).sum.exchange_to(base_currency)
   end
 end

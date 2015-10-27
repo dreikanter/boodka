@@ -21,19 +21,19 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def total_income_cell
-    h.money_cell(model.total_income, highlight: :both)
+    h.money_cell(model.total_income, highlight: :both, no_cents: true)
   end
 
   def total_budgeted_cell
-    h.money_cell(model.total_budgeted)
+    h.money_cell(model.total_budgeted, no_cents: true)
   end
 
   def total_expense_cell
-    h.money_cell(model.total_expense)
+    h.money_cell(model.total_expense, no_cents: true)
   end
 
   def total_balance_cell
-    h.money_cell(model.total_balance, highlight: :both)
+    h.money_cell(model.total_balance, highlight: :both, no_cents: true)
   end
 
   private
