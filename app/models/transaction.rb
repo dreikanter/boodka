@@ -24,9 +24,7 @@ class Transaction < ActiveRecord::Base
   monetize :calculated_amount_cents,
            with_model_currency: :calculated_amount_currency
 
-  validates :amount_cents,
-            :calculated_amount_cents,
-            numericality: { greater_than: 0 }
+  validates :amount_cents, numericality: { greater_than: 0 }
 
   validates :amount_currency,
             :calculated_amount_currency,
@@ -46,8 +44,9 @@ class Transaction < ActiveRecord::Base
   scope :outflows, -> { where(direction: Const::OUTFLOW) }
   scope :inflows, -> { where(direction: Const::INFLOW) }
 
-  before_create :refresh_rate_and_convert_amount
-  before_update :convert_amount
+  before_create :refresh_rate
+  before_update :refresh_rate_if_currency_changed
+  before_save :refresh_calculated_amount
 
   delegate :currency, to: :account, prefix: :account
 
@@ -61,17 +60,20 @@ class Transaction < ActiveRecord::Base
 
   private
 
-  def refresh_rate_and_convert_amount
-    if amount_currency == account_currency
-      self.rate = 1
-      self.calculated_amount = amount
-    else
-      self.rate = Money.default_bank.get_rate(amount_currency, account_currency)
-      self.calculated_amount = amount.exchange_to(account_currency)
-    end
+  def refresh_rate
+    self.rate = (amount_currency == account_currency) ? 1 : load_rate
   end
 
-  def convert_amount
+  def refresh_rate_if_currency_changed
+    refresh_rate if amount_currency_changed?
+  end
+
+  def load_rate
+    Log.info "loading new rate #{amount_currency}-#{account_currency}"
+    Money.default_bank.get_rate(amount_currency, account_currency)
+  end
+
+  def refresh_calculated_amount
     self.calculated_amount_cents = Integer(amount_cents * rate)
   end
 end

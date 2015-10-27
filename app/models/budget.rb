@@ -14,7 +14,7 @@
 
 class Budget < ActiveRecord::Base
   validates :period_id, :category_id, presence: true
-  validates :amount, numericality: { greater_than_or_equal_to: 0 }
+  validates :amount_cents, numericality: { greater_than_or_equal_to: 0 }
   validates :amount_currency, inclusion: { in: Const::CURRENCY_CODES }
 
   monetize :amount_cents, with_model_currency: :amount_currency
@@ -27,7 +27,7 @@ class Budget < ActiveRecord::Base
   after_initialize :set_base_currency
 
   def actual
-    expense_transactions.map { |t| t.amount.exchange_to(base_currency) }.sum
+    Money.new(expense_transactions.map { |t| t.calculated_amount_cents }.sum, base_currency)
   end
 
   def balance
