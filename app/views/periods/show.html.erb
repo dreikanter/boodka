@@ -66,23 +66,23 @@
     $(".budget-cell").change(function() {
       var catId = $(this).data("cat-id");
 
-      $(".budget-cell[data-cat-id=" + catId + "]").each(function(_, element) {
-        var cell = $(element);
-        var url = Routes.budget_path(cell.data("year"), cell.data("month"),
-            cell.data("cat-id"), { amount: cell.val(), format: "json" });
+      var cell = $(this);
+      var url = Routes.budget_path(cell.data("year"), cell.data("month"),
+          cell.data("cat-id"), { amount: cell.val(), format: "json" });
 
-        $.ajax({
-          url: url,
-          type: "PATCH",
-          dataType: "json",
-          success: function(data) {
-            var budget = data["budget"];
-            cell.val(budget["amount"]);
-            $(cell.data("actual")).val(budget["actual"]);
-            $(cell.data("balance")).val(budget["balance"]);
-          }
-        });
+      $.ajax({
+        url: url,
+        type: "PATCH",
+        dataType: "json",
+        success: function(data) {
+          var budget = data["budget"];
+          cell.val(budget["amount"]);
+          $(cell.data("actual")).val(budget["actual"]);
+          $(cell.data("balance")).val(budget["balance"]);
+        }
       });
+
+      Turbolinks.visit(location.href);
     });
 
     $(".budget-cell").blur();
