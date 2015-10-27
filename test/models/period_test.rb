@@ -69,10 +69,6 @@ describe Period do
     updated.must_equal current_period.budget_for(valid_category)
   end
 
-  it 'should spawn null previous period' do
-    current_period.previous_period.date.must_equal previous_period.date
-  end
-
   it 'should point to existing previous period' do
     current_period.save!
     previous_period.save!
