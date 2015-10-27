@@ -17,7 +17,7 @@ class Budget < ActiveRecord::Base
   validates :amount, numericality: { greater_than_or_equal_to: 0 }
   validates :amount_currency, inclusion: { in: Const::CURRENCY_CODES }
 
-  monetize :amount_cents, with_model_currency: :amount_cents_currency
+  monetize :amount_cents, with_model_currency: :amount_currency
 
   belongs_to :period
   belongs_to :category
