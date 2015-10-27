@@ -20,4 +20,12 @@ FactoryGirl.define do
     amount_currency ENV['base_currency']
     memo 'Sample budget'
   end
+
+  factory :previous_budget, parent: :budget do
+    period_id { FactoryGirl.create(:previous_period).id }
+  end
+
+  factory :ancient_budget, parent: :budget do
+    period_id { FactoryGirl.create(:ancient_period).id }
+  end
 end
