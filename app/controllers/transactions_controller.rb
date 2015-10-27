@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
 
   def index
     @transaction = Transaction.new
-    @transactions = Transaction.recent_history
+    @transactions = Transaction.recent_history.decorate
   end
 
   def create

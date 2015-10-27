@@ -49,15 +49,16 @@ class Period < ActiveRecord::Base
   end
 
   def total_budgeted
-    budgets.map(&:amount).sum
+    amounts = budgets.map(&:amount)
+    amounts.empty? ? zero : amounts.sum
   end
 
   def total_expense
-    amounts_in_base_currrency outflows
+    amounts_in_base_currrency(outflows)
   end
 
   def total_uncategorized_expense
-    amounts_in_base_currrency uncategorized_outflows
+    amounts_in_base_currrency(uncategorized_outflows)
   end
 
   def amounts_in_base_currrency(records)
@@ -66,23 +67,24 @@ class Period < ActiveRecord::Base
   end
 
   def total_income
-    amounts_in_base_currrency inflows
+    amounts_in_base_currrency(inflows)
   end
 
   def total_balance
-    Category.all.map { |c| budget_for(c).balance }.sum - total_uncategorized_expense
+    cats_balance = Category.all.map { |c| budget_for(c).balance }.sum
+    previous_total_balance + total_income - total_expense
   end
 
-  def transaction
+  def transactions
     Transaction.where(created_at: time_frame)
   end
 
   def outflows
-    transaction.where(direction: Const::OUTFLOW)
+    transactions.where(direction: Const::OUTFLOW)
   end
 
   def inflows
-    transaction.where(direction: Const::INFLOW)
+    transactions.where(direction: Const::INFLOW)
   end
 
   def uncategorized_outflows
@@ -120,6 +122,14 @@ class Period < ActiveRecord::Base
   end
 
   def time_frame
-    date..(date + Const::PERIODS_PER_PAGE.month - 1.second)
+    date..(date + 1.month - 1.second)
+  end
+
+  def previous_total_balance
+    previous_period.try(:total_balance) || zero
+  end
+
+  def zero
+    Money.new(0, base_currency)
   end
 end

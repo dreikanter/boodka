@@ -50,6 +50,14 @@ table.table.table-bordered.no-grid td {
   margin: 15px 0;
 }
 
+.negative {
+  color: red;
+}
+
+.positive {
+  color: green;
+}
+
 /*
     Budget#show
 */

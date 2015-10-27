@@ -20,4 +20,18 @@ module ApplicationHelper
   def error?(param)
     @errors.present? && @errors.try(:[], param)
   end
+
+  def money_cell(value, options = {})
+    classes = %w(form-control text-right balance-cell)
+    highlight_negative = options[:both] || options[:negative]
+    highlight_positive = options[:both] || options[:positive]
+    classes << 'negative' if highlight_negative && (value < 0)
+    classes << 'positive' if highlight_positive && (value > 0)
+
+    tag :input,
+        value: value.format(symbol: false),
+        type: :text,
+        class: classes.join(' '),
+        readonly: true
+  end
 end

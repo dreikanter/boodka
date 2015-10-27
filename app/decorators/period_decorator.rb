@@ -20,6 +20,22 @@ class PeriodDecorator < Draper::Decorator
     link_to_month(1, '&rarr;')
   end
 
+  def total_income_cell
+    h.money_cell(model.total_income, highlight: :both)
+  end
+
+  def total_budgeted_cell
+    h.money_cell(model.total_budgeted)
+  end
+
+  def total_expense_cell
+    h.money_cell(model.total_expense)
+  end
+
+  def total_balance_cell
+    h.money_cell(model.total_balance, highlight: :both)
+  end
+
   private
 
   def link_to_period(year, month, text)

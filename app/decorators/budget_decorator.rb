@@ -12,4 +12,12 @@ class BudgetDecorator < Draper::Decorator
   def display_balance
     model.balance.format(symbol: false)
   end
+
+  def actual_cell
+    h.money_cell(model.actual)
+  end
+
+  def balance_cell
+    h.money_cell(model.balance, highlight: :both)
+  end
 end
