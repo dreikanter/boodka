@@ -37,11 +37,11 @@ class Account < ActiveRecord::Base
   private
 
   def inflow(since)
-    sum(since, Const::TRANSACTION_DIRECTIONS[:inflow])
+    sum(since, Const::INFLOW)
   end
 
   def outflow(since)
-    sum(since, Const::TRANSACTION_DIRECTIONS[:outflow])
+    sum(since, Const::OUTFLOW)
   end
 
   def sum(since, direction)
