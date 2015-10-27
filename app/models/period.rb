@@ -70,7 +70,7 @@ class Period < ActiveRecord::Base
   end
 
   def total_balance
-    budgets.map(&:balance).sum - total_uncategorized_expense
+    Category.all.map { |c| budget_for(c).balance }.sum - total_uncategorized_expense
   end
 
   def transaction
