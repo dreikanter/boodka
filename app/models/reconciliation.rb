@@ -17,7 +17,7 @@ class Reconciliation < ActiveRecord::Base
   belongs_to :account
 
   scope :with_account, -> { includes(:account) }
-  scope :history, -> { with_account.order('created_at asc, updated_at desc') }
+  scope :history, -> { with_account.order('created_at desc, updated_at desc') }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
   after_initialize :defaults
