@@ -3,6 +3,7 @@ class PeriodsController < ApplicationController
     @date = base_date
     @categories = Category.ordered
     @periods = periods
+    @transactions = Transaction.where(created_at: time_frame)
    end
 
   private
@@ -25,5 +26,9 @@ class PeriodsController < ApplicationController
 
   def month
     params[:month] ? Integer(params[:month]) : Date.today.month
+  end
+
+  def time_frame
+    base_date..(base_date + Const::PERIODS_PER_PAGE.month - 1.second)
   end
 end

@@ -59,6 +59,39 @@
   </table>
 </form>
 
+<% if @transactions.any? %>
+  <h2>Transactions</h2>
+
+  <table class="table table-bordered table-hover no-grid">
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td class="col-lg-2 text-muted">
+          <%= short_date transaction.created_at %>
+        </td>
+        <td class="col-lg-2 text-right">
+          <%= (transaction.direction == 'inflow') ? "+ " : "- " %>
+          <%= link_to transaction.amount.format, edit_transaction_path(transaction) %>
+        </td>
+        <td class="col-lg-8 text-muted">
+          <%= transaction.memo %>
+          <div class="table-row-actions">
+            <% if transaction.transfer? %>
+              <span class="text-muted">Transfer</span>
+            <% else %>
+              <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div class="emptyness">
+    There are no transaction for this period.
+  </div>
+<% end %>
+
+
 <script>
   $(function() {
     "use strict";
