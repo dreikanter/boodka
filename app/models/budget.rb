@@ -22,7 +22,7 @@ class Budget < ActiveRecord::Base
   belongs_to :period
   belongs_to :category
 
-  delegate :year, :month, to: :period
+  delegate :year, :month, :date, to: :period
 
   after_initialize :set_base_currency
 
