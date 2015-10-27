@@ -27,7 +27,9 @@ class Budget < ActiveRecord::Base
   after_initialize :set_base_currency
 
   def actual
-    Money.new(expense_transactions.map { |t| t.calculated_amount_cents }.sum, base_currency)
+    sum = expense_transactions.map { |t| t.amount }.sum
+    return Money.new(0, base_currency) if sum == 0
+    sum.exchange_to(base_currency)
   end
 
   def balance
