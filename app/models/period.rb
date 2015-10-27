@@ -45,9 +45,48 @@ class Period < ActiveRecord::Base
   end
 
   def previous_period
-    # result = self.class.where('start_at < ?', start_at).order(:start_at).last
-    # result || self.class.starting_at((start_at - 1.month).year, (start_at - 1.month).month)
     self.class.where('start_at < ?', start_at).order(:start_at).last
+  end
+
+  def total_budgeted
+    budgets.map(&:amount).sum
+  end
+
+  def total_expense
+    amounts_in_base_currrency outflows
+  end
+
+  def total_uncategorized_expense
+    amounts_in_base_currrency uncategorized_outflows
+  end
+
+  def amounts_in_base_currrency(records)
+    return Money.new(0, base_currency) if records.empty?
+    records.map(&:amount).sum.exchange_to(base_currency)
+  end
+
+  def total_income
+    amounts_in_base_currrency inflows
+  end
+
+  def total_balance
+    budgets.map(&:balance).sum - total_uncategorized_expense
+  end
+
+  def transaction
+    Transaction.where(created_at: time_frame)
+  end
+
+  def outflows
+    transaction.where(direction: Const::OUTFLOW)
+  end
+
+  def inflows
+    transaction.where(direction: Const::INFLOW)
+  end
+
+  def uncategorized_outflows
+    outflows.where(category_id: nil)
   end
 
   private
@@ -78,5 +117,9 @@ class Period < ActiveRecord::Base
 
   def end_at=(value)
     super(value)
+  end
+
+  def time_frame
+    date..(date + Const::PERIODS_PER_PAGE.month - 1.second)
   end
 end

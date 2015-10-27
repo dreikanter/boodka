@@ -56,41 +56,46 @@
         <% end %>
       </tr>
     <% end %>
-  </table>
+
+    <tr>
+      <th class="budget-form-category">
+        Uncategorized
+      </th>
+      <% @periods.each_with_index do |period, period_index| %>
+        <td colspan="3" class="form-control-static total-value">
+          <input value="<%= period.total_uncategorized_expense %>" type="text" class="form-control text-right" readonly>
+        </td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th class="budget-form-category">
+        Income
+      </th>
+      <% @periods.each_with_index do |period, period_index| %>
+        <td colspan="3" class="form-control-static total-value">
+          <input value="<%= period.total_income %>" type="text" class="form-control text-right" readonly>
+        </td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <th class="budget-form-category">
+        Totals
+      </th>
+      <% @periods.each_with_index do |period, period_index| %>
+        <td class="form-control-static total-value">
+          <input value="<%= period.total_budgeted %>" type="text" class="form-control text-right" readonly>
+        </td>
+        <td class="form-control-static total-value">
+          <input value="<%= period.total_expense %>" type="text" class="form-control text-right" readonly>
+        </td>
+        <td class="form-control-static total-value">
+          <input value="<%= period.total_balance %>" type="text" class="form-control text-right" readonly>
+        </td>
+      <% end %>
+    </tr>
 </form>
-
-<% if @transactions.any? %>
-  <h2>Transactions</h2>
-
-  <table class="table table-bordered table-hover no-grid">
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td class="col-lg-2 text-muted">
-          <%= short_date transaction.created_at %>
-        </td>
-        <td class="col-lg-2 text-right">
-          <%= (transaction.direction == 'inflow') ? "+ " : "- " %>
-          <%= link_to transaction.amount.format, edit_transaction_path(transaction) %>
-        </td>
-        <td class="col-lg-8 text-muted">
-          <%= transaction.memo %>
-          <div class="table-row-actions">
-            <% if transaction.transfer? %>
-              <span class="text-muted">Transfer</span>
-            <% else %>
-              <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
-            <% end %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-<% else %>
-  <div class="emptyness">
-    There are no transaction for this period.
-  </div>
-<% end %>
-
 
 <script>
   $(function() {
