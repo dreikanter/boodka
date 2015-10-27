@@ -37,16 +37,17 @@ class Period < ActiveRecord::Base
     )).decorate
   end
 
-  def budget!(cat_id, amount)
+  def budget_cents!(cat_id, amount_cents)
     save! unless self.persisted?
-    budget = Budget.find_or_initialize_by(period: self, category_id: cat_id)
-    budget.update!(amount_cents: amount * 100, amount_currency: base_currency)
+    budget = budget_for(Category.find(cat_id))
+    budget.update!(amount_cents: amount_cents, amount_currency: base_currency)
     budget.decorate
   end
 
   def previous_period
-    result = self.class.where('start_at < ?', start_at).order(:start_at).last
-    result || self.class.starting_at((start_at - 1.month).year, (start_at - 1.month).month)
+    # result = self.class.where('start_at < ?', start_at).order(:start_at).last
+    # result || self.class.starting_at((start_at - 1.month).year, (start_at - 1.month).month)
+    self.class.where('start_at < ?', start_at).order(:start_at).last
   end
 
   private

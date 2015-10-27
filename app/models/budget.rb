@@ -27,19 +27,15 @@ class Budget < ActiveRecord::Base
   after_initialize :set_base_currency
 
   def actual
-    Money.new(expense_amounts.sum, base_currency)
+    expense_transactions.map { |t| t.amount.exchange_to(base_currency) }.sum
   end
 
   def balance
-    # Money.new(amount, base_currency) - actual + previous_balance
-    a = Money.new(amount, base_currency).exchange_to(base_currency)
-    b = actual
-    c = previous_balance.exchange_to(base_currency)
-    Log.info
-    Log.info "#{a.amount} #{a.currency}"
-    Log.info "#{b.amount} #{b.currency}"
-    Log.info "#{c.amount} #{c.currency}"
-    a - b + c
+    previous_balance + amount - actual
+  end
+
+  def transactions
+    Transaction.where(category: category, created_at: time_frame)
   end
 
   private
@@ -54,23 +50,18 @@ class Budget < ActiveRecord::Base
   end
 
   def expense_transactions
-    Transaction.outflows.where(category: category, created_at: time_frame)
-  end
-
-  def expense_amounts
-    expense_transactions.map { |t| t.amount.exchange_to(base_currency) }
+    transactions.where(direction: Const::OUTFLOW)
   end
 
   def previous_balance
-    prev_period = period.previous_period
-    prev_period.persisted? ? prev_period.budget_for(category).balance : Money.new(0, base_currency)
+    period.previous_period.try(:budget_for, category).try(:balance) || zero
   end
 
-  def zero_amount
+  def zero
     Money.new(0, base_currency)
   end
 
   def set_base_currency
-    amount = Money.new(amount_cents, base_currency)
+    amount_currency = base_currency
   end
 end
