@@ -2,11 +2,11 @@
 
 <%= render partial: 'form', locals: { transaction: @transaction, submit_url: transactions_path, method: :post, remote: false, submit_caption: 'Add new transaction', cancel: false } %>
 
-<% if Transaction.any? %>
+<% if @transactions.any? %>
   <h2>Recent transactions</h2>
 
   <table class="table table-bordered table-hover no-grid">
-    <% Transaction.recent_history.each do |transaction| %>
+    <% @transactions.each do |transaction| %>
       <tr>
         <td class="col-lg-2 text-muted">
           <%= short_date transaction.created_at %>
