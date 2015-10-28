@@ -28,29 +28,7 @@ class Account < ActiveRecord::Base
     Account.update(id, default: true)
   end
 
-  def total
-    Money.new(0, currency)
-    # last_rec = Reconciliation.last_for(self)
-    # since = last_rec.created_at
-    # last_rec.amount + inflow(since) - outflow(since)
-  end
-
   private
-
-  def inflow(since)
-    sum(since, Const::INFLOW)
-  end
-
-  def outflow(since)
-    sum(since, Const::OUTFLOW)
-  end
-
-  def sum(since, direction)
-    flow = transactions.where(direction: direction)
-    flow = flow.where('created_at >= ?', since) if since
-    amounts = flow.map(&:calculated_amount)
-    (amounts.length == 0) ? Money.new(0, currency) : amounts.sum
-  end
 
   def drop_old_default_if_needed
     return unless default && default_changed?

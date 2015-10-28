@@ -8,4 +8,8 @@ class AccountDecorator < Draper::Decorator
   def display_title_with_currency
     "#{model.title} (#{model.currency})#{' (default)' if model.default}"
   end
+
+  def display_total
+    Calc.account_total(account: model).format(symbol: false, no_cents: true)
+  end
 end

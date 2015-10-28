@@ -39,15 +39,13 @@ class Transaction < ActiveRecord::Base
   belongs_to :account
 
   scope :with_account, -> { includes(:account) }
-  scope :history, -> { with_account.order(created_at: :desc) }
+  scope :history, -> { with_account.order('updated_at desc, created_at asc') }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
   scope :outflows, -> { where(direction: Const::OUTFLOW) }
   scope :inflows, -> { where(direction: Const::INFLOW) }
   scope :expenses, -> { where(kind: Const::EXPENSE) }
 
-  before_create :refresh_rate
-  before_update :refresh_rate_if_currency_changed
-  before_save :refresh_calculated_amount
+  before_save :calculate_amount
   after_save :update_budget
   after_destroy :update_budget
 
@@ -55,7 +53,15 @@ class Transaction < ActiveRecord::Base
 
   private
 
+  def calculate_amount
+    refresh_rate if new_record? || amount_currency_changed?
+    Log.debug 'refresh_calculated_amount'
+    self.calculated_amount_cents = Integer(amount_cents * rate)
+  end
+
   def refresh_rate
+    Log.debug 'refresh_rate'
+    self.calculated_amount_currency = account_currency
     self.rate = (amount_currency == account_currency) ? 1 : load_rate
   end
 
@@ -64,12 +70,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def load_rate
-    Log.info "loading new rate #{amount_currency}-#{account_currency}"
-    Money.default_bank.get_rate(amount_currency, account_currency)
-  end
-
-  def refresh_calculated_amount
-    self.calculated_amount_cents = Integer(amount_cents * rate)
+    Log.info "loading rate #{amount_currency}-#{account_currency}"
+    Money.default_bank.get_rate(amount_currency, calculated_amount_currency)
   end
 
   def update_budget
