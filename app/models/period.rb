@@ -35,6 +35,11 @@ class Period < ActiveRecord::Base
     find_or_create_by(year: year, month: month)
   end
 
+  def safe_budgets
+    return budgets unless new_record?
+    Category.all.map { |c| zero_budget(c) }
+  end
+
   def budget_for(category)
     (budgets.where(category: category).first || zero_budget(category)).decorate
   end

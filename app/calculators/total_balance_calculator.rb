@@ -4,6 +4,6 @@ class TotalBalanceCalculator < BasicCalculator
   end
 
   def calculate
-    as_money @period.budgets.map(&:balance).sum
+    as_money @period.safe_budgets.map(&:balance).sum
   end
 end
