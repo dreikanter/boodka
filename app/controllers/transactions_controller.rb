@@ -59,12 +59,16 @@ class TransactionsController < ApplicationController
     params.require(:transaction).permit(permitted_params)
   end
 
+  def inflow?
+    transaction_params[:direction] == 'inflow'
+  end
+
   def direction
-    (transaction_params[:direction] == 'inflow') ? Const::INFLOW : Const::OUTFLOW
+    inflow? ? Const::INFLOW : Const::OUTFLOW
   end
 
   def kind
-    (direction == 'inflow') ? Const::INCOME : Const::EXPENSE
+    inflow? ? Const::INCOME : Const::EXPENSE
   end
 
   def processed_params
