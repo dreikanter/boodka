@@ -3,8 +3,8 @@ class NewAccountForm < BasicAccountForm
 
   model :account
 
-  property :amount, on: :reconciliation
-  property :reconciled_at, on: :reconciliation, from: :created_at
+  property :amount, on: :transaction
+  property :reconciled_at, on: :transaction, from: :created_at
 
   validates :amount, numericality: true
 end

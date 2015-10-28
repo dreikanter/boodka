@@ -4,15 +4,19 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = Account.ordered.decorate
-    @totals_per_currency = totals_per_currency
-    @converted_equivalent = {} # converted_equivalent(@totals_per_currency)
+    @totals_per_currency = Calc.totals_per_currency(accounts: @accounts)
+    @converted_equivalent = Calc.total_converted_equivalents(totals_per_currency: @totals_per_currency)
   end
 
   def create
     if @form.validate(params[:account])
       @form.save do |hash|
         account = Account.create!(hash[:account])
-        account.reconciliations.create!(hash[:reconciliation])
+        account.transactions.create!(hash[:transaction].merge(
+          amount_currency: account.currency,
+          direction: Const::INFLOW,
+          kind: Const::RECONCILIATION
+        ))
       end
       redirect_to accounts_path, notify: 'Account created'
     else
@@ -47,8 +51,8 @@ class AccountsController < ApplicationController
     params.require(:account_id)
   end
 
-  def new_account_form(account, reconciliation)
-    NewAccountForm.new(account: account, reconciliation: reconciliation)
+  def new_account_form(account, transaction)
+    NewAccountForm.new(account: account, transaction: transaction)
   end
 
   def edit_account_form(account)
@@ -56,26 +60,10 @@ class AccountsController < ApplicationController
   end
 
   def init_new_form
-    @form = new_account_form(Account.new, Reconciliation.new)
+    @form = new_account_form(Account.new, Transaction.new)
   end
 
   def init_edit_form
     @form = edit_account_form(Account.find(id))
-  end
-
-  def account_totals
-    @accounts.map { |a| { currency: a.currency, amount: Calc.account_total(account: a) } }
-  end
-
-  def grouped_account_totals
-    account_totals.group_by { |item| item[:currency] }
-  end
-
-  def totals_per_currency
-    Hash[grouped_account_totals.map {|k, v| [k, v.map { |a| a[:amount] }.sum]}]
-  end
-
-  def converted_equivalent(totals_per_currency)
-    Hash[totals_per_currency.map { |currency, amount| [currency, totals_per_currency.values.sum.exchange_to(currency)] }]
   end
 end
