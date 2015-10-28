@@ -11,8 +11,21 @@ module Const
 
   OUTFLOW = 0
   INFLOW = 1
+
   TRANSACTION_DIRECTIONS = {
     outflow: OUTFLOW,
     inflow: INFLOW
+  }
+
+  EXPENSE = 0
+  INCOME = 1
+  TRANSFER = 2
+  RECONCILIATION = 3
+
+  TRANSACTION_KINDS = {
+    expense: EXPENSE,
+    income: INCOME,
+    transfer: TRANSFER,
+    reconciliation: RECONCILIATION
   }
 end

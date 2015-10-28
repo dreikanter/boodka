@@ -4,14 +4,14 @@
 #
 #  id                         :integer          not null, primary key
 #  account_id                 :integer          not null
+#  direction                  :integer          default(0), not null
 #  amount_cents               :integer          default(0), not null
 #  amount_currency            :string           default("USD"), not null
 #  calculated_amount_cents    :integer          default(0), not null
 #  calculated_amount_currency :string           default("USD"), not null
-#  direction                  :integer          default(0), not null
 #  rate                       :float            default(1.0), not null
+#  kind                       :integer          default(0), not null
 #  category_id                :integer
-#  transfer_id                :integer
 #  memo                       :string           default(""), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
@@ -30,33 +30,32 @@ class Transaction < ActiveRecord::Base
             :calculated_amount_currency,
             inclusion: { in: Const::CURRENCY_CODES }
 
-  validates :account_id, presence: true
+  validates :account_id, :direction, :kind, presence: true
 
   enum direction: Const::TRANSACTION_DIRECTIONS
+  enum kind: Const::TRANSACTION_KINDS
 
   belongs_to :category
   belongs_to :account
-  belongs_to :transfer
 
-  scope :with_account, -> { includes(:account) }
-  scope :history, -> { with_account.order(created_at: :desc) }
-  scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
-  scope :outflows, -> { where(direction: Const::OUTFLOW) }
-  scope :inflows, -> { where(direction: Const::INFLOW) }
+  # scope :with_account, -> { includes(:account) }
+  # scope :history, -> { with_account.order(created_at: :desc) }
+  # scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+  # scope :outflows, -> { where(direction: Const::OUTFLOW) }
+  # scope :inflows, -> { where(direction: Const::INFLOW) }
+
+  scope :expenses, -> { where(kind: Const::EXPENSE) }
 
   before_create :refresh_rate
   before_update :refresh_rate_if_currency_changed
   before_save :refresh_calculated_amount
+  after_save :update_budget
 
   delegate :currency, to: :account, prefix: :account
 
-  def transfer?
-    transfer_id.present?
-  end
-
-  def uncategorized?
-    category.nil?
-  end
+  # def uncategorized?
+  #   category.nil?
+  # end
 
   private
 
@@ -75,5 +74,9 @@ class Transaction < ActiveRecord::Base
 
   def refresh_calculated_amount
     self.calculated_amount_cents = Integer(amount_cents * rate)
+  end
+
+  def update_budget
+    Budget.refresh!(created_at.year, created_at.month, category_id)
   end
 end

@@ -2,14 +2,20 @@
 #
 # Table name: budgets
 #
-#  id              :integer          not null, primary key
-#  period_id       :integer          not null
-#  category_id     :integer          not null
-#  amount_cents    :integer          default(0), not null
-#  amount_currency :string           default("USD"), not null
-#  memo            :string           default(""), not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id            :integer          not null, primary key
+#  period_id     :integer          not null
+#  category_id   :integer          not null
+#  year          :integer          not null
+#  month         :integer          not null
+#  start_at      :datetime         not null
+#  end_at        :datetime         not null
+#  amount_cents  :integer          default(0), not null
+#  spent_cents   :integer          default(0), not null
+#  balance_cents :integer          default(0), not null
+#  currency      :string           not null
+#  memo          :string           default(""), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 FactoryGirl.define do

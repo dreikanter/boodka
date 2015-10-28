@@ -4,14 +4,14 @@
 #
 #  id                         :integer          not null, primary key
 #  account_id                 :integer          not null
+#  direction                  :integer          default(0), not null
 #  amount_cents               :integer          default(0), not null
 #  amount_currency            :string           default("USD"), not null
 #  calculated_amount_cents    :integer          default(0), not null
 #  calculated_amount_currency :string           default("USD"), not null
-#  direction                  :integer          default(0), not null
 #  rate                       :float            default(1.0), not null
+#  kind                       :integer          default(0), not null
 #  category_id                :integer
-#  transfer_id                :integer
 #  memo                       :string           default(""), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null

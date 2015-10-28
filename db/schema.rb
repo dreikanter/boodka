@@ -22,22 +22,20 @@ ActiveRecord::Schema.define(version: 20151023185416) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "balance_updates", force: :cascade do |t|
-    t.integer  "account_id",                null: false
-    t.integer  "amount_cents",              null: false
-    t.string   "memo",         default: "", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
   create_table "budgets", force: :cascade do |t|
-    t.integer  "period_id",                       null: false
-    t.integer  "category_id",                     null: false
-    t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "USD", null: false
-    t.string   "memo",            default: "",    null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "period_id",                  null: false
+    t.integer  "category_id",                null: false
+    t.integer  "year",                       null: false
+    t.integer  "month",                      null: false
+    t.datetime "start_at",                   null: false
+    t.datetime "end_at",                     null: false
+    t.integer  "amount_cents",  default: 0,  null: false
+    t.integer  "spent_cents",   default: 0,  null: false
+    t.integer  "balance_cents", default: 0,  null: false
+    t.string   "currency",                   null: false
+    t.string   "memo",          default: "", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -57,20 +55,6 @@ ActiveRecord::Schema.define(version: 20151023185416) do
     t.datetime "updated_at",              null: false
   end
 
-  create_table "planned_transactions", force: :cascade do |t|
-    t.integer  "account_id",                                null: false
-    t.decimal  "amount_cents", precision: 8,                null: false
-    t.string   "currency",                                  null: false
-    t.integer  "category_id"
-    t.string   "memo",                       default: "",   null: false
-    t.datetime "start"
-    t.datetime "finish"
-    t.string   "cron",                       default: "",   null: false
-    t.boolean  "enabled",                    default: true, null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-  end
-
   create_table "rates", force: :cascade do |t|
     t.float    "ask",        null: false
     t.float    "bid",        null: false
@@ -81,33 +65,19 @@ ActiveRecord::Schema.define(version: 20151023185416) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "reconciliations", force: :cascade do |t|
-    t.integer  "account_id",                      null: false
-    t.integer  "amount_cents",    default: 0,     null: false
-    t.string   "amount_currency", default: "USD", null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.integer  "account_id",                                 null: false
+    t.integer  "direction",                  default: 0,     null: false
     t.integer  "amount_cents",               default: 0,     null: false
     t.string   "amount_currency",            default: "USD", null: false
     t.integer  "calculated_amount_cents",    default: 0,     null: false
     t.string   "calculated_amount_currency", default: "USD", null: false
-    t.integer  "direction",                  default: 0,     null: false
     t.float    "rate",                       default: 1.0,   null: false
+    t.integer  "kind",                       default: 0,     null: false
     t.integer  "category_id"
-    t.integer  "transfer_id"
     t.string   "memo",                       default: "",    null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
-  end
-
-  create_table "transfers", force: :cascade do |t|
-    t.string   "memo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
