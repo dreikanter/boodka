@@ -50,6 +50,7 @@ class Transaction < ActiveRecord::Base
   before_update :refresh_rate_if_currency_changed
   before_save :refresh_calculated_amount
   after_save :update_budget
+  after_destroy :update_budget
 
   delegate :currency, to: :account, prefix: :account
 
