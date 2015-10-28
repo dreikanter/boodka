@@ -20,4 +20,12 @@ class BudgetDecorator < Draper::Decorator
   def balance_cell
     h.money_cell(model.balance, highlight: :both, no_cents: true)
   end
+
+  def spent_value
+    h.money_value(model.spent, no_cents: true)
+  end
+
+  def balance_value
+    h.money_value(model.balance, highlight: :both, no_cents: true)
+  end
 end

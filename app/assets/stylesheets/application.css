@@ -69,13 +69,27 @@ table.table.table-bordered.no-grid td {
   padding: 15px;
 }
 
-table.budget-table tr > th {
-  padding: 14px 22px;
+table.budget-table tr > th,
+table.budget-table tr > td {
+  padding: 10px 12px;
 }
 
-.budget-form .form-control:not(:hover):not(:focus),
-.budget-form .form-control[disabled], .form-control[readonly] {
+table.budget-table tr > td.input-cell {
+  padding: 0;
+}
+
+.budget-table .form-control:not(:hover):not(:focus),
+.budget-table .form-control[disabled], .form-control[readonly] {
   background-color: transparent;
   box-shadow: none;
   border-color: transparent;
+}
+
+.budget-table .form-control {
+  border-radius: 0;
+  height: 40px;
+}
+
+.budget-table .available-to-budget-cell {
+  font-size: 140%;
 }

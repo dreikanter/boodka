@@ -21,20 +21,37 @@ module ApplicationHelper
     @errors.present? && @errors.try(:[], param)
   end
 
-  # TODO: Refactor
   def money_cell(value, options = {})
-    classes = %w(form-control text-right balance-cell)
-    highlight = options[:highlight]
-    highlight_negative = [:both, :negative].include?(highlight)
-    highlight_positive = [:both, :positive].include?(highlight)
-    classes << 'negative' if highlight_negative && (value < 0)
-    classes << 'positive' if highlight_positive && (value > 0)
-    no_cents = options[:no_cents] || false
+    classes = %w(form-control text-right)
+    classes << highlight_class(options[:highlight], value)
+    tag(
+      :input,
+      value: format_money(value, options),
+      type: :text,
+      class: classes.join(' '),
+      readonly: true
+    )
+  end
 
-    tag :input,
-        value: value.format(symbol: false, no_cents: no_cents),
-        type: :text,
-        class: classes.join(' '),
-        readonly: true
+  def money_value(value, options = {})
+    content_tag(
+      :span,
+      format_money(value, options),
+      class: highlight_class(options[:highlight], value)
+    )
+  end
+
+  private
+
+  def highlight_class(highlight, value)
+    return 'negative' if (value < 0) && [:both, :negative].include?(highlight)
+    return 'positive' if (value > 0) && [:both, :positive].include?(highlight)
+  end
+
+  def format_money(value, options)
+    value.format(
+      symbol: options[:symbol] || false,
+      no_cents: options[:no_cents] || false
+    )
   end
 end
