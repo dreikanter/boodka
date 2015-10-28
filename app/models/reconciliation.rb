@@ -2,17 +2,18 @@
 #
 # Table name: reconciliations
 #
-#  id           :integer          not null, primary key
-#  account_id   :integer          not null
-#  amount_cents :decimal(8, )     default(0), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :integer          not null, primary key
+#  account_id      :integer          not null
+#  amount_cents    :integer          default(0), not null
+#  amount_currency :string           default("USD"), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 class Reconciliation < ActiveRecord::Base
   validates :account_id, :amount, presence: true
 
-  monetize :amount_cents, with_model_currency: :currency
+  monetize :amount_cents
 
   belongs_to :account
 
@@ -32,5 +33,6 @@ class Reconciliation < ActiveRecord::Base
 
   def defaults
     self.amount_cents ||= 0
+    # self.amount_currency = account.currency
   end
 end

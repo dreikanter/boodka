@@ -10,6 +10,7 @@ module Boodka
   class Application < Rails::Application
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths << Rails.root.join('app', 'decorators')
+    config.autoload_paths << Rails.root.join('app', 'calculators')
 
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
