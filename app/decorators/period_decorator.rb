@@ -49,7 +49,7 @@ class PeriodDecorator < Draper::Decorator
 
   def available_to_budget
     value = Calc.available_to_budget(period: model)
-    h.money_value(value, highlight: :both, no_cents: true)
+    h.money_value(value, highlight: :both, no_cents: true, symbol: true)
   end
 
   private
