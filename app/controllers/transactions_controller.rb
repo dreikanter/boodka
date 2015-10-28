@@ -7,13 +7,13 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = Transaction.new(complemented_params)
     begin
       @transaction.save!
       redirect_to transactions_path, notice: 'Transaction created'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
-      render :edit
+      render :new
     end
   end
 
@@ -21,7 +21,7 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    @transaction.assign_attributes(transaction_params)
+    @transaction.assign_attributes(complemented_params)
     begin
       @transaction.save!
       redirect_to transactions_path, notice: 'Transaction updated'
@@ -51,8 +51,20 @@ class TransactionsController < ApplicationController
     ]
   end
 
+  def complemented_params
+    transaction_params.merge(kind: kind, direction: direction)
+  end
+
   def transaction_params
     params.require(:transaction).permit(permitted_params)
+  end
+
+  def direction
+    (transaction_params[:direction] == 'inflow') ? Const::INFLOW : Const::OUTFLOW
+  end
+
+  def kind
+    (direction = Const::INFLOW) ? Const::INCOME : Const::EXPENSE
   end
 
   def processed_params

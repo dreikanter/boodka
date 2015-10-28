@@ -4,7 +4,7 @@ class TotalIncomeCalculator
   end
 
   def calculate
-    result = transactions.map { |t| t.exchange_to(Conf.base_currency) }.sum
+    result = transactions.map { |t| t.amount.exchange_to(Conf.base_currency) }.sum
     (result == 0) ? Money.new(0, Conf.base_currency) : result
   end
 

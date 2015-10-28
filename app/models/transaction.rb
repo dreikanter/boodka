@@ -43,7 +43,6 @@ class Transaction < ActiveRecord::Base
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
   scope :outflows, -> { where(direction: Const::OUTFLOW) }
   scope :inflows, -> { where(direction: Const::INFLOW) }
-
   scope :expenses, -> { where(kind: Const::EXPENSE) }
 
   before_create :refresh_rate
@@ -74,6 +73,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def update_budget
+    return unless expense?
     Budget.refresh!(created_at.year, created_at.month, category_id)
   end
 end
