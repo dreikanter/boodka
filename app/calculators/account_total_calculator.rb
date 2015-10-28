@@ -4,13 +4,13 @@ class AccountTotalCalculator < BasicCalculator
   end
 
   def calculate
-    as_money(sum(Const::INFLOW) - sum(Const::OUTFLOW))
+    sum(Const::INFLOW) - sum(Const::OUTFLOW)
   end
 
   private
 
   def sum(direction)
     transactions = @account.transactions.where(direction: direction)
-    transactions.map(&:calculated_amount).sum
+    as_money(transactions.map(&:calculated_amount).sum, @account.currency)
   end
 end

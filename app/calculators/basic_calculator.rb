@@ -1,9 +1,9 @@
 class BasicCalculator
-  def as_money(value)
-    (value == 0) ? zero : value
+  def as_money(value, currency = nil)
+    (value == 0) ? zero(currency) : value
   end
 
-  def zero
-    Money.new(0, Conf.base_currency)
+  def zero(currency = nil)
+    Money.new(0, currency || Conf.base_currency)
   end
 end
