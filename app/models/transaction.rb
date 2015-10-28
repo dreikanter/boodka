@@ -38,11 +38,11 @@ class Transaction < ActiveRecord::Base
   belongs_to :category
   belongs_to :account
 
-  # scope :with_account, -> { includes(:account) }
-  # scope :history, -> { with_account.order(created_at: :desc) }
-  # scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
-  # scope :outflows, -> { where(direction: Const::OUTFLOW) }
-  # scope :inflows, -> { where(direction: Const::INFLOW) }
+  scope :with_account, -> { includes(:account) }
+  scope :history, -> { with_account.order(created_at: :desc) }
+  scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+  scope :outflows, -> { where(direction: Const::OUTFLOW) }
+  scope :inflows, -> { where(direction: Const::INFLOW) }
 
   scope :expenses, -> { where(kind: Const::EXPENSE) }
 
@@ -53,10 +53,6 @@ class Transaction < ActiveRecord::Base
   after_destroy :update_budget
 
   delegate :currency, to: :account, prefix: :account
-
-  # def uncategorized?
-  #   category.nil?
-  # end
 
   private
 

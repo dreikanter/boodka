@@ -29,9 +29,10 @@ class Account < ActiveRecord::Base
   end
 
   def total
-    last_rec = Reconciliation.last_for(self)
-    since = last_rec.created_at
-    last_rec.amount + inflow(since) - outflow(since)
+    Money.new(0, currency)
+    # last_rec = Reconciliation.last_for(self)
+    # since = last_rec.created_at
+    # last_rec.amount + inflow(since) - outflow(since)
   end
 
   private

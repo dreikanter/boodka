@@ -24,7 +24,7 @@ class Period < ActiveRecord::Base
   end
 
   def transactions
-    Transaction.where(created_at: start_at..end_at)
+    Transaction.where(created_at: time_frame)
   end
 
   # def date
@@ -41,6 +41,10 @@ class Period < ActiveRecord::Base
 
   def zero_budget(category)
     Budget.new_zero(self, category)
+  end
+
+  def time_frame
+    start_at..end_at
   end
 
   # def budget_cents!(cat_id, amount_cents)

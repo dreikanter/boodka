@@ -60,9 +60,9 @@
     <th class="budget-form-category">
       Uncategorized
     </th>
-    <% @periods.each_with_index do |period, period_index| %>
+    <% @periods.each do |period| %>
       <td colspan="3" class="form-control-static total-value">
-        <input value="<%= period.total_uncategorized_expense %>" type="text" class="form-control text-right" readonly>
+        <input value="<%= Calc.total_uncategorized_expense(period: period) %>" type="text" class="form-control text-right" readonly>
       </td>
     <% end %>
   </tr>
