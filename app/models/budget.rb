@@ -43,6 +43,18 @@ class Budget < ActiveRecord::Base
     find_or_initialize_by(params).refresh!
   end
 
+  def self.new_zero(period, category)
+    budget = new(
+      period: period,
+      category_id: category.id,
+      currency: Conf.base_currency,
+      year: period.year,
+      month: period.month
+    )
+    budget.balance = budget.prev_balance
+    budget
+  end
+
   def refresh!
     self.period = Period.find_or_create!(year, month)
     self.spent = Money.new(expence_cents_sum, Conf.base_currency)

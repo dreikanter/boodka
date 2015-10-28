@@ -3,7 +3,6 @@ class PeriodsController < ApplicationController
     @date = base_date
     @categories = Category.ordered
     @periods = periods
-    @transactions = Transaction.where(created_at: time_frame)
    end
 
   private
@@ -13,7 +12,7 @@ class PeriodsController < ApplicationController
   end
 
   def period(date)
-    Period.starting_at(date.year, date.month).decorate
+    Period.at(date.year, date.month).decorate
   end
 
   def base_date

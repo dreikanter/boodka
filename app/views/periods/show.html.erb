@@ -18,128 +18,52 @@
   </div>
 </div>
 
-<form class="form budget-form">
-  <table class="table table-bordered budget-table">
-    <tr>
-      <th></th>
-      <% @periods.each do |period| %>
-        <th colspan="3" class="text-center budget-form-heading">
-          <%= period.date.strftime('%B %Y') %>
-        </th>
-      <% end %>
-    </tr>
-    <tr>
-      <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-heading">
-        <%= link_to 'Category', categories_path %>
+<table class="table table-bordered budget-table">
+  <tr>
+    <th></th>
+    <% @periods.each do |period| %>
+      <th colspan="3" class="text-center budget-form-heading">
+        <%= period.title %>
       </th>
-      <% @periods.each do |period| %>
-        <th class="budget-form-heading text-right">Budgeted</th>
-        <th class="budget-form-heading text-right">Outflows</th>
-        <th class="budget-form-heading text-right">Balance</th>
-      <% end %>
-    </tr>
-    <% @categories.each_with_index do |category, category_index| %>
-      <tr>
-        <th class="budget-form-category">
-          <%= link_to category.title, edit_category_path(category) %>
-        </th>
-        <% @periods.each_with_index do |period, period_index| %>
-          <td class="form-control-static">
-            <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-actual=".<%= cell_id('actual', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount.to_i %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
-          </td>
-          <td class="form-control-static">
-            <%= period.budget_for(category).actual_cell %>
-          </td>
-          <td class="form-control-static">
-            <%= period.budget_for(category).balance_cell %>
-          </td>
-        <% end %>
-      </tr>
     <% end %>
-
+  </tr>
+  <tr>
+    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-heading">
+      <%= link_to 'Category', categories_path %>
+    </th>
+    <% @periods.each do |period| %>
+      <th class="budget-form-heading text-right">Budgeted</th>
+      <th class="budget-form-heading text-right">Outflows</th>
+      <th class="budget-form-heading text-right">Balance</th>
+    <% end %>
+  </tr>
+  <% @categories.each_with_index do |category, category_index| %>
     <tr>
       <th class="budget-form-category">
-        Uncategorized
+        <%= link_to category.title, edit_category_path(category) %>
       </th>
       <% @periods.each_with_index do |period, period_index| %>
-        <td colspan="3" class="form-control-static total-value">
-          <input value="<%= period.total_uncategorized_expense %>" type="text" class="form-control text-right" readonly>
+        <td class="form-control-static">
+          <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-spent=".<%= cell_id('spent', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount.to_i %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
+        </td>
+        <td class="form-control-static">
+          <%= period.budget_for(category).spent_cell %>
+        </td>
+        <td class="form-control-static">
+          <%= period.budget_for(category).balance_cell %>
         </td>
       <% end %>
     </tr>
+  <% end %>
 
-    <tr>
-      <th class="budget-form-category">
-        Income
-      </th>
-      <% @periods.each_with_index do |period, period_index| %>
-        <td colspan="3" class="form-control-static total-value">
-          <%= period.total_income_cell %>
-        </td>
-      <% end %>
-    </tr>
-
-    <tr>
-      <th class="budget-form-category">
-        Totals
-      </th>
-      <% @periods.each_with_index do |period, period_index| %>
-        <td class="form-control-static total-value">
-          <%= period.total_budgeted_cell %>
-        </td>
-        <td class="form-control-static total-value">
-          <%= period.total_expense_cell %>
-        </td>
-        <td class="form-control-static total-value">
-          <%= period.total_balance_cell %>
-        </td>
-      <% end %>
-    </tr>
-</form>
-
-<script>
-  $(function() {
-    "use strict";
-
-    $(".budget-cell").focus(function() {
-      var cell = $(this);
-      cell.data("handle-change", "false");
-      cell.val(cell.data("plain-amount"));
-      cell.data("handle-change", "true");
-    }).blur(function() {
-      var cell = $(this);
-      if (cell.data("handle-blur") == "false") { return; }
-      cell.data("handle-change", "false");
-      cell.val(cell.data("formatted-amount"));
-      cell.data("handle-change", "true");
-    });
-
-    $(".budget-cell").change(function() {
-      var cell = $(this);
-      if (!cell.data("handle-change")) { return; }
-      cell.data("handle-blur", "false");
-
-      var catId = cell.data("cat-id");
-      var url = Routes.budget_path(cell.data("year"), cell.data("month"),
-          cell.data("cat-id"), { amount: cell.val(), format: "json" });
-
-      $.ajax({
-        url: url,
-        type: "PATCH",
-        dataType: "json",
-        success: function(data) {
-          var budget = data["budget"];
-          cell.val(budget["amount"]);
-          $(cell.data("actual")).val(budget["actual"]);
-          $(cell.data("balance")).val(budget["balance"]);
-        }
-      });
-
-      Turbolinks.visit(location.href);
-
-      $(this).data("handle-blur", "true");
-    });
-
-    $(".budget-cell").blur();
-  })
-</script>
+  <tr>
+    <th class="budget-form-category">
+      Uncategorized
+    </th>
+    <% @periods.each_with_index do |period, period_index| %>
+      <td colspan="3" class="form-control-static total-value">
+        <input value="<%= period.total_uncategorized_expense %>" type="text" class="form-control text-right" readonly>
+      </td>
+    <% end %>
+  </tr>
+</table>

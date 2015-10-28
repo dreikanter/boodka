@@ -13,8 +13,8 @@ class BudgetDecorator < Draper::Decorator
     model.balance.format(symbol: false, no_cents: true)
   end
 
-  def actual_cell
-    h.money_cell(model.actual, no_cents: true)
+  def spent_cell
+    h.money_cell(model.spent, no_cents: true)
   end
 
   def balance_cell

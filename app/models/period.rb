@@ -23,22 +23,25 @@ class Period < ActiveRecord::Base
     find_or_create_by(year: year, month: month)
   end
 
+  def transactions
+    Transaction.where(created_at: start_at..end_at)
+  end
+
   # def date
   #   DateTime.new(year, month)
   # end
 
-  # def self.starting_at(year, month)
-  #   find_or_initialize_by(year: year, month: month)
-  # end
+  def self.at(year, month)
+    find_or_initialize_by(year: year, month: month)
+  end
 
-  # def budget_for(category)
-  #   (budgets.where(category: category).first || Budget.new(
-  #     period: self,
-  #     category: category,
-  #     amount_cents: 0,
-  #     amount_currency: base_currency
-  #   )).decorate
-  # end
+  def budget_for(category)
+    (budgets.where(category: category).first || zero_budget(category)).decorate
+  end
+
+  def zero_budget(category)
+    Budget.new_zero(self, category)
+  end
 
   # def budget_cents!(cat_id, amount_cents)
   #   save! unless self.persisted?
