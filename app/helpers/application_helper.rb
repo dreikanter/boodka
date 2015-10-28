@@ -21,10 +21,12 @@ module ApplicationHelper
     @errors.present? && @errors.try(:[], param)
   end
 
+  # TODO: Refactor
   def money_cell(value, options = {})
     classes = %w(form-control text-right balance-cell)
-    highlight_negative = options[:both] || options[:negative]
-    highlight_positive = options[:both] || options[:positive]
+    highlight = options[:highlight]
+    highlight_negative = [:both, :negative].include?(highlight)
+    highlight_positive = [:both, :positive].include?(highlight)
     classes << 'negative' if highlight_negative && (value < 0)
     classes << 'positive' if highlight_positive && (value > 0)
     no_cents = options[:no_cents] || false

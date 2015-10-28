@@ -73,3 +73,50 @@
     <% end %>
   </tr>
 </table>
+
+<script>
+  $(function() {
+    "use strict";
+
+    $(".budget-cell").focus(function() {
+      var cell = $(this);
+      cell.data("handle-change", "false");
+      cell.val(cell.data("plain-amount"));
+      cell.data("handle-change", "true");
+    }).blur(function() {
+      var cell = $(this);
+      if (cell.data("handle-blur") == "false") { return; }
+      cell.data("handle-change", "false");
+      cell.val(cell.data("formatted-amount"));
+      cell.data("handle-change", "true");
+    });
+
+    $(".budget-cell").change(function() {
+      var cell = $(this);
+      if (!cell.data("handle-change")) { return; }
+      cell.data("handle-blur", "false");
+
+      var catId = cell.data("cat-id");
+      var url = Routes.budget_path(cell.data("year"), cell.data("month"),
+          cell.data("cat-id"), { amount: cell.val(), format: "json" });
+
+      $.ajax({
+        url: url,
+        type: "PATCH",
+        dataType: "json",
+        success: function(data) {
+          var budget = data["budget"];
+          cell.val(budget["amount"]);
+          $(cell.data("actual")).val(budget["actual"]);
+          $(cell.data("balance")).val(budget["balance"]);
+        }
+      });
+
+      Turbolinks.visit(location.href);
+
+      $(this).data("handle-blur", "true");
+    });
+
+    $(".budget-cell").blur();
+  })
+</script>

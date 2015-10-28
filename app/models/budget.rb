@@ -64,6 +64,15 @@ class Budget < ActiveRecord::Base
     next_budget.try(:refresh!)
   end
 
+  def self.at!(year, month, category_id)
+    category = Category.find(category_id)
+    period = Period.at!(year, month)
+    find_or_create_by(
+      period: period,
+      category: category,
+    )
+  end
+
   def next_budget
     history.where('start_at > ?', start_at).first
   end
@@ -88,9 +97,8 @@ class Budget < ActiveRecord::Base
 
   def init_boundaries
     return if persisted?
-    today = Date.today
-    self.year = today.year unless year
-    self.month = today.month unless month
+    self.year ||= period.year
+    self.month ||= period.month
     self.start_at = DateTime.new(year, month)
     self.end_at = start_at + 1.month - 1.second
   end

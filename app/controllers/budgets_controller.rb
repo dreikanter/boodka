@@ -1,6 +1,9 @@
 class BudgetsController < ApplicationController
   def update
-    @budget = period.budget_cents!(cat_id, amount_cents)
+    @budget = Budget.at!(year, month, cat_id)
+    @budget.update(amount_cents: amount_cents)
+    @budget.refresh!
+    @budget = @budget.decorate
   end
 
   private
@@ -23,9 +26,5 @@ class BudgetsController < ApplicationController
 
   def amount_cents
     amount * Integer(ENV['subunit_to_unit'])
-  end
-
-  def period
-    Period.starting_at(year, month)
   end
 end
