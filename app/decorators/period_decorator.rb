@@ -43,7 +43,13 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def total_balance_cell
-    h.money_cell(Calc.total_balance(period: model), highlight: :both, no_cents: true)
+    value = Calc.total_balance(period: model)
+    h.money_cell(value, highlight: :both, no_cents: true)
+  end
+
+  def available_to_budget
+    value = Calc.available_to_budget(period: model)
+    h.money_cell(value, highlight: :both, no_cents: true)
   end
 
   private

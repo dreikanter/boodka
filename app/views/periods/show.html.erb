@@ -28,6 +28,14 @@
     <% end %>
   </tr>
   <tr>
+    <th></th>
+    <% @periods.each do |period| %>
+      <td colspan="3" class="text-center">
+        <%= period.available_to_budget %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-heading">
       <%= link_to 'Category', categories_path %>
     </th>
