@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
       redirect_to transactions_path, notice: 'Transaction created'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
-      render :index
+      render :edit
     end
   end
 
