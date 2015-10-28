@@ -1,6 +1,10 @@
 class PeriodDecorator < Draper::Decorator
   delegate_all
 
+  def title
+    Date.new(model.year, model.month).strftime('%B %Y')
+  end
+
   def link_to_prev_year
     return disabled_link_to_period('A.D.', '#') if model.year < 2
     text = "&larr; #{model.year - 1}".html_safe
@@ -13,11 +17,11 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def link_to_prev_month
-    link_to_month(-1, '&larr;')
+    link_to_offset(-1, '&larr;')
   end
 
   def link_to_next_month
-    link_to_month(1, '&rarr;')
+    link_to_offset(1, '&rarr;')
   end
 
   def total_income_cell
@@ -39,14 +43,14 @@ class PeriodDecorator < Draper::Decorator
   private
 
   def link_to_period(year, month, text)
-    h.link_to(text, h.period_path(year, month), class: "btn btn-sm btn-default")
+    h.link_to(text, h.period_path(year, month), class: 'btn btn-sm btn-default')
   end
 
   def disabled_link_to_period(text)
-    h.link_to(text, '#', class: "btn btn-sm btn-default disabled")
+    h.link_to(text, '#', class: 'btn btn-sm btn-default disabled')
   end
 
-  def link_to_month(offset, text)
+  def link_to_offset(offset, text)
     date = DateTime.new(model.year, model.month) + offset.month
     link_to_period(date.year, date.month, text.html_safe)
   end
