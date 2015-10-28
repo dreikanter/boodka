@@ -62,7 +62,18 @@
     </th>
     <% @periods.each do |period| %>
       <td colspan="3" class="form-control-static total-value">
-        <input value="<%= Calc.total_uncategorized_expense(period: period) %>" type="text" class="form-control text-right" readonly>
+        <%= period.total_uncategorized_expense_cell %>
+      </td>
+    <% end %>
+  </tr>
+
+  <tr>
+    <th class="budget-form-category">
+      Income
+    </th>
+    <% @periods.each_with_index do |period, period_index| %>
+      <td colspan="3" class="form-control-static total-value">
+        <%= period.total_income_cell %>
       </td>
     <% end %>
   </tr>

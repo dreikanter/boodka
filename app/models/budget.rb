@@ -39,6 +39,7 @@ class Budget < ActiveRecord::Base
   after_initialize :init_currency
 
   def self.refresh!(year, month, category_id)
+    Log.info "Updating budget #{year}/#{month}"
     params = { year: year, month: month, category_id: category_id }
     find_or_initialize_by(params).refresh!
   end
@@ -103,7 +104,8 @@ class Budget < ActiveRecord::Base
   end
 
   def expence_cents_sum
-    expense_transactions.sum(:calculated_amount_cents)
+    exchange = -> (t) { t.amount.exchange_to(Conf.base_currency) }
+    expense_transactions.map(&exchange).sum
   end
 
   def history

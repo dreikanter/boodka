@@ -24,8 +24,14 @@ class PeriodDecorator < Draper::Decorator
     link_to_offset(1, '&rarr;')
   end
 
+  def total_uncategorized_expense_cell
+    value = Calc.total_uncategorized_expense(period: period)
+    h.money_cell(value, highlight: :negative, no_cents: true)
+  end
+
   def total_income_cell
-    h.money_cell(model.total_income, highlight: :both, no_cents: true)
+    value = Calc.total_income(period: period)
+    h.money_cell(value, highlight: :both, no_cents: true)
   end
 
   def total_budgeted_cell
