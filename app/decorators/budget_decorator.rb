@@ -5,8 +5,8 @@ class BudgetDecorator < Draper::Decorator
     model.amount.format(symbol: false, no_cents: true)
   end
 
-  def display_actual
-    model.actual.format(symbol: false, no_cents: true)
+  def display_spent
+    model.spent.format(symbol: false, no_cents: true)
   end
 
   def display_balance
