@@ -1,4 +1,4 @@
-class TotalCalculator
+class TotalCalculator < BasicCalculator
   def initialize(options = {})
     @account = options[:account] || fail('Account not specified')
     @date = options[:date] || DateTime.now

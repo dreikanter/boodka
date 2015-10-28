@@ -25,25 +25,25 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def total_uncategorized_expense_cell
-    value = Calc.total_uncategorized_expense(period: period)
+    value = Calc.total_uncategorized_expense(period: model)
     h.money_cell(value, highlight: :negative, no_cents: true)
   end
 
   def total_income_cell
-    value = Calc.total_income(period: period)
+    value = Calc.total_income(period: model)
     h.money_cell(value, highlight: :both, no_cents: true)
   end
 
   def total_budgeted_cell
-    h.money_cell(model.total_budgeted, no_cents: true)
+    h.money_cell(Calc.total_budgeted(period: model), no_cents: true)
   end
 
   def total_expense_cell
-    h.money_cell(model.total_expense, no_cents: true)
+    h.money_cell(Calc.total_expense(period: model), no_cents: true)
   end
 
   def total_balance_cell
-    h.money_cell(model.total_balance, highlight: :both, no_cents: true)
+    h.money_cell(Calc.total_balance(period: model), highlight: :both, no_cents: true)
   end
 
   private

@@ -1,11 +1,10 @@
-class TotalIncomeCalculator
+class TotalIncomeCalculator < BasicCalculator
   def initialize(options = {})
     @period = options.fetch(:period)
   end
 
   def calculate
-    result = transactions.map { |t| t.amount.exchange_to(Conf.base_currency) }.sum
-    (result == 0) ? Money.new(0, Conf.base_currency) : result
+    as_money transactions.map { |t| t.amount.exchange_to(Conf.base_currency) }.sum
   end
 
   private
