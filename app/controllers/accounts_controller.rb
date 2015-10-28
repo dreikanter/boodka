@@ -3,10 +3,9 @@ class AccountsController < ApplicationController
   before_action :init_edit_form, only: [:edit, :update]
 
   def index
-    @accounts = Account.ordered
+    @accounts = Account.ordered.decorate
     @totals_per_currency = totals_per_currency
-    # @converted_equivalent = converted_equivalent
-    @converted_equivalent = {}
+    @converted_equivalent = {} # converted_equivalent(@totals_per_currency)
   end
 
   def create
@@ -65,7 +64,7 @@ class AccountsController < ApplicationController
   end
 
   def account_totals
-    @accounts.map { |a| { currency: a.currency, amount: a.total } }
+    @accounts.map { |a| { currency: a.currency, amount: Calc.account_total(account: a) } }
   end
 
   def grouped_account_totals
@@ -76,7 +75,7 @@ class AccountsController < ApplicationController
     Hash[grouped_account_totals.map {|k, v| [k, v.map { |a| a[:amount] }.sum]}]
   end
 
-  def converted_equivalent
-    Hash[@totals_per_currency.map { |currency, amount| [currency, @totals_per_currency.values.sum.exchange_to(currency)] }]
+  def converted_equivalent(totals_per_currency)
+    Hash[totals_per_currency.map { |currency, amount| [currency, totals_per_currency.values.sum.exchange_to(currency)] }]
   end
 end

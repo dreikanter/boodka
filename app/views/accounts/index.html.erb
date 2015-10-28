@@ -14,7 +14,7 @@
           <%= account.currency %>
         </td>
         <td class="col-lg-2 text-right">
-          <%= link_to account.total.format(symbol: false, no_cents: true), new_reconciliation_path(account_id: account.id) %>
+          <%= link_to account.display_total, new_reconciliation_path(account_id: account.id) %>
         </td>
         <td class="col-lg-6">
           <span class="text-muted"><%= account.memo %></span>
