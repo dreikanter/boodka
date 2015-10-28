@@ -51,11 +51,11 @@ table.table.table-bordered.no-grid td {
 }
 
 .negative {
-  color: red;
+  color: #cc3333;
 }
 
 .positive {
-  color: green;
+  color: #00cc33;
 }
 
 /*
