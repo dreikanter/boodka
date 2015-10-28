@@ -75,7 +75,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def update_budget
-    return unless expense?
+    return unless category_id.present?
     Budget.refresh!(created_at.year, created_at.month, category_id)
   end
 end
