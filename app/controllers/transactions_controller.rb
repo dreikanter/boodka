@@ -64,7 +64,7 @@ class TransactionsController < ApplicationController
   end
 
   def kind
-    (direction = Const::INFLOW) ? Const::INCOME : Const::EXPENSE
+    (direction == 'inflow') ? Const::INCOME : Const::EXPENSE
   end
 
   def processed_params
