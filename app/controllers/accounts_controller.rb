@@ -5,7 +5,6 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.ordered.decorate
     @totals_per_currency = Calc.totals_per_currency(accounts: @accounts)
-    @converted_equivalent = Calc.total_converted_equivalents(totals_per_currency: @totals_per_currency)
   end
 
   def create

@@ -45,16 +45,3 @@
     <% end %>
   </table>
 <% end %>
-
-<% if @converted_equivalent.any? %>
-  <h2>Total converted equivalent</h2>
-
-  <table class="table table-bordered table-hover no-grid">
-    <% @converted_equivalent.each do |currency, value| %>
-      <tr>
-        <td class="col-lg-2"><%= currency %></td>
-        <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
