@@ -41,6 +41,11 @@ module ApplicationHelper
     )
   end
 
+  def currency_label(currency)
+    classes = %W(label label-currency label-#{currency.to_s.downcase})
+    content_tag(:span, currency, class: classes)
+  end
+
   private
 
   def highlight_class(highlight, value)

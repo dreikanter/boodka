@@ -4,25 +4,20 @@
   <table class="table table-bordered table-hover no-grid">
     <% @accounts.each do |account| %>
       <tr>
-        <td class="col-lg-2">
+        <td class="col-lg-5">
           <%= link_to account.title, edit_account_path(account) %>
+
           <% if account.default %>
-            <span class="label label-info">Default</span>
+            <span class="text-mured">(Default)</span>
+          <% end %>
+
+          <% unless account.memo.empty? %>
+            <span class="text-muted"><%= account.memo %></span>
           <% end %>
         </td>
-        <td class="col-lg-2">
-          <%= account.currency %>
-        </td>
-        <td class="col-lg-2 text-right">
+        <td class="col-lg-6 text-right">
           <%= link_to account.display_total, new_reconciliation_path(account_id: account.id) %>
-        </td>
-        <td class="col-lg-6">
-          <span class="text-muted"><%= account.memo %></span>
-          <% unless account.default %>
-            <div class="table-row-actions">
-              <%= link_to 'Default', account_default_path(account), method: :patch, class: 'btn btn-xs btn-default' %>
-            </div>
-          <% end %>
+          <%= account.currency_label %>
         </td>
       </tr>
     <% end %>
@@ -32,6 +27,9 @@
 <% end %>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
+<%= link_to('Transfer', new_transfer_path, class: 'btn btn-default') if @accounts.count > 1 %>
+<%= link_to('Reconcile', new_reconciliation_path, class: 'btn btn-default') if @accounts.count > 0 %>
+
 
 <% if @totals_per_currency.any? %>
   <h2>Grand total per currency</h2>
@@ -39,7 +37,7 @@
   <table class="table table-bordered table-hover no-grid">
     <% @totals_per_currency.each do |currency, value| %>
       <tr>
-        <td class="col-lg-2"><%= currency %></td>
+        <td class="col-lg-2"><%= currency_label(currency) %></td>
         <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
       </tr>
     <% end %>
