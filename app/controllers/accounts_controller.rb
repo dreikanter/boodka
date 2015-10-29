@@ -11,11 +11,7 @@ class AccountsController < ApplicationController
     if @form.validate(params[:account])
       @form.save do |hash|
         account = Account.create!(hash[:account])
-        account.transactions.create!(hash[:transaction].merge(
-          amount_currency: account.currency,
-          direction: Const::INFLOW,
-          kind: Const::RECONCILIATION
-        ))
+        account.reconciliations.create!(hash[:reconciliation])
       end
       redirect_to accounts_path, notify: 'Account created'
     else
@@ -50,8 +46,8 @@ class AccountsController < ApplicationController
     params.require(:account_id)
   end
 
-  def new_account_form(account, transaction)
-    NewAccountForm.new(account: account, transaction: transaction)
+  def new_account_form(account, reconciliation)
+    NewAccountForm.new(account: account, reconciliation: reconciliation)
   end
 
   def edit_account_form(account)
@@ -59,7 +55,7 @@ class AccountsController < ApplicationController
   end
 
   def init_new_form
-    @form = new_account_form(Account.new, Transaction.new)
+    @form = new_account_form(Account.new, Reconciliation.new)
   end
 
   def init_edit_form
