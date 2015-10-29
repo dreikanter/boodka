@@ -27,9 +27,6 @@
 <% end %>
 
 <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
-<%= link_to('Transfer', new_transfer_path, class: 'btn btn-default') if @accounts.count > 1 %>
-<%= link_to('Reconcile', new_reconciliation_path, class: 'btn btn-default') if @accounts.count > 0 %>
-
 
 <% if @totals_per_currency.any? %>
   <h2>Grand total per currency</h2>

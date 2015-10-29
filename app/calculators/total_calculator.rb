@@ -1,7 +1,7 @@
 class TotalCalculator < BasicCalculator
   def initialize(options = {})
-    @account = options[:account] || fail('Account not specified')
-    @date = options[:date] || DateTime.now
+    @account = options.fetch(:account)
+    @at = options[:at] || DateTime.now
   end
 
   def calculate
@@ -15,7 +15,7 @@ class TotalCalculator < BasicCalculator
   def last_reconciliation
     return @last_reconciliation if @last_reconciliation
     recs = Reconciliation.where(account: @account)
-    recs = recs.where('created_at < ?', @date)
+    recs = recs.where('created_at < ?', @at)
     @last_reconciliation = recs.order(created_at: :desc).first || zero_rec
   end
 
@@ -32,7 +32,7 @@ class TotalCalculator < BasicCalculator
   end
 
   def time_frame
-    last_reconciliation.created_at..@date
+    last_reconciliation.created_at..@at
   end
 
   def transactions

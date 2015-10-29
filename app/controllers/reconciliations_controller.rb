@@ -71,7 +71,7 @@ class ReconciliationsController < ApplicationController
     account = Account.find(account_id)
     {
       account: account,
-      amount: account.total,
+      amount: Calc.total(account: account),
       created_at: Time.now
     }
   end

@@ -11,7 +11,7 @@ class TotalsPerCurrencyCalculator < BasicCalculator
   private
 
   def account_totals
-    total = -> (a) { Calc.account_total(account: a) }
+    total = -> (a) { Calc.total(account: a) }
     @accounts.map { |a| { currency: a.currency, amount: total.call(a) } }
   end
 end

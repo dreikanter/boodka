@@ -10,7 +10,7 @@ class AccountDecorator < Draper::Decorator
   end
 
   def display_total(symbol = false)
-    Calc.account_total(account: model).format(symbol: symbol, no_cents: true)
+    Calc.total(account: model).format(symbol: symbol, no_cents: true)
   end
 
   def display_total_with_symbol
