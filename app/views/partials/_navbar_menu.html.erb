@@ -23,16 +23,16 @@
 
           <% if Account.count == 0 %>
             <li class="disabled"><%= link_to 'Transactions', '#' %></li>
-            <!-- <li class="disabled"><%= link_to 'Reconciliations', '#' %></li> -->
-            <!-- <li class="disabled"><%= link_to 'Transfers', '#' %></li> -->
+            <li class="disabled"><%= link_to 'Reconciliations', '#' %></li>
+            <li class="disabled"><%= link_to 'Transfers', '#' %></li>
           <% elsif Account.count == 1 %>
             <li class="<%= 'active' if current_action == 'transactions/index' %>"><%= link_to 'Transactions', transactions_path %></li>
-            <!-- <li class="disabled"><%= link_to 'Transfers', '#' %></li> -->
-            <!-- <li class="<%= 'active' if current_action == 'reconciliations/index' %>"><%= link_to 'Reconciliations', reconciliations_path %></li> -->
+            <li class="disabled"><%= link_to 'Transfers', '#' %></li>
+            <li class="<%= 'active' if current_action == 'reconciliations/index' %>"><%= link_to 'Reconciliations', reconciliations_path %></li>
           <% elsif Account.count > 1 %>
             <li class="<%= 'active' if current_action == 'transactions/index' %>"><%= link_to 'Transactions', transactions_path %></li>
-            <!-- <li class="<%= 'active' if current_action == 'transfers/index' %>"><%= link_to 'Transfers', transfers_path %></li> -->
-            <!-- <li class="<%= 'active' if current_action == 'reconciliations/index' %>"><%= link_to 'Reconciliations', reconciliations_path %></li> -->
+            <li class="<%= 'active' if current_action == 'transfers/index' %>"><%= link_to 'Transfers', transfers_path %></li>
+            <li class="<%= 'active' if current_action == 'reconciliations/index' %>"><%= link_to 'Reconciliations', reconciliations_path %></li>
           <% end %>
         </ul>
     </div>

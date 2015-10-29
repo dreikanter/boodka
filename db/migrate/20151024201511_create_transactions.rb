@@ -8,6 +8,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.float :rate, null: false, default: 1.0
       t.integer :kind, null: false, default: 0
       t.integer :category_id
+      t.integer :transfer_id
       t.string :memo, null: false, default: ''
 
       t.timestamps null: false

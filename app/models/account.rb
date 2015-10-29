@@ -17,6 +17,8 @@ class Account < ActiveRecord::Base
   validates :currency, inclusion: { in: Const::CURRENCY_CODES }
 
   has_many :transactions, dependent: :destroy
+  has_many :transactions, dependent: :destroy
+  has_many :reconciliations, dependent: :destroy
 
   scope :ordered, -> { order(:created_at) }
 

@@ -12,6 +12,7 @@
 #  rate                       :float            default(1.0), not null
 #  kind                       :integer          default(0), not null
 #  category_id                :integer
+#  transfer_id                :integer
 #  memo                       :string           default(""), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
@@ -37,6 +38,7 @@ class Transaction < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :account
+  belongs_to :transfer
 
   scope :with_account, -> { includes(:account) }
   scope :history, -> { with_account.order('updated_at desc, created_at asc') }

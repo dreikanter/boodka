@@ -50,6 +50,7 @@ class TransferBuilder
       amount_cents: amount.cents,
       amount_currency: amount.currency,
       direction: :outflow,
+      kind: Const::TRANSFER,
       account_id: params[:from_account_id],
       memo: generated_memo
     }
@@ -60,6 +61,7 @@ class TransferBuilder
       amount_cents: amount.cents,
       amount_currency: amount.currency,
       direction: :inflow,
+      kind: Const::TRANSFER,
       account_id: params[:to_account_id],
       memo: generated_memo
     }

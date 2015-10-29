@@ -12,6 +12,7 @@
 #  rate                       :float            default(1.0), not null
 #  kind                       :integer          default(0), not null
 #  category_id                :integer
+#  transfer_id                :integer
 #  memo                       :string           default(""), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
