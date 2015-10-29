@@ -4,16 +4,12 @@ class GrandTotalCalculator < BasicCalculator
   end
 
   def calculate
-    sum(Const::INFLOW) - sum(Const::OUTFLOW)
+    as_money(Account.all.map { |a| total(a) }.sum, Conf.base_currency)
   end
 
-  def framed_transactions
-    Transaction.where('created_at < ?', @at)
-  end
+  private
 
-  def sum(direction)
-    transactions = framed_transactions.where(direction: direction)
-    exchanged = -> (a) { a.calculated_amount.exchange_to(Conf.base_currency) }
-    as_money(transactions.map(&exchanged).sum, Conf.base_currency)
+  def total(account)
+    Calc.total(account: account, at: @at).exchange_to(Conf.base_currency)
   end
 end
