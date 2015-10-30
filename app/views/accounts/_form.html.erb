@@ -33,9 +33,6 @@
       <%= form.label :reconciled_at %>
       <%= form.text_field :reconciled_at, value: account_form.reconciled_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker' %>
     </div>
-</div>
-
-    </div>
   <% end %>
 
   <div class="form-group">
