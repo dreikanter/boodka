@@ -5,4 +5,5 @@ class BasicAccountForm < Reform::Form
   property :default, on: :account
 
   validates :title, :currency, presence: true
+  validates_uniqueness_of :title, case_sensitive: false
 end

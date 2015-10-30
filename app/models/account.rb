@@ -13,6 +13,7 @@
 
 class Account < ActiveRecord::Base
   validates :title, presence: true
+  validates :title, uniqueness: { case_sensitive: false }
   validates :default, inclusion: { in: [true, false] }
   validates :currency, inclusion: { in: Const::CURRENCY_CODES }
 
