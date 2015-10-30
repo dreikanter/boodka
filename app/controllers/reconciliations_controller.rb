@@ -1,13 +1,11 @@
 class ReconciliationsController < ApplicationController
-  before_action :check_availability, :load_accounts
+  before_action :check_availability
+  before_action :load_accounts, except: :destroy
   before_action :load_reconciliation, only: [:edit, :update, :destroy]
   before_action :new_reconciliation, only: [:index, :new]
 
   def index
     load_reconciliations
-  end
-
-  def new
   end
 
   def create
@@ -19,9 +17,6 @@ class ReconciliationsController < ApplicationController
       flash.now[:alert] = e.message
       render :index
     end
-  end
-
-  def edit
   end
 
   def update
@@ -50,12 +45,8 @@ class ReconciliationsController < ApplicationController
     params.require(:reconciliation).permit(permitted_params)
   end
 
-  def rec_id
-    params.require(:id)
-  end
-
   def load_reconciliation
-    @reconciliation = Reconciliation.find(rec_id)
+    @reconciliation = Reconciliation.find(params.require(:id))
   end
 
   def check_availability

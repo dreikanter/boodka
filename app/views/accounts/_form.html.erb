@@ -24,6 +24,9 @@
       <%= form.label :reconciled_at %>
       <%= form.text_field :reconciled_at, value: account_form.reconciled_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker' %>
     </div>
+</div>
+
+    </div>
   <% end %>
 
   <div class="form-group">
@@ -54,9 +57,8 @@
       allowClear: false
     });
 
-    $(".created-at-datepicker").datepicker({
-      autoclose: true,
-      format: "<%= Const::DATEPICKER_FORMAT %>"
+    $(".created-at-datepicker").datetimepicker({
+      format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
   });
 </script>
