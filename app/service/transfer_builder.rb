@@ -45,25 +45,27 @@ class TransferBuilder
     Money.new(params[:amount].to_f, currency) * currency.subunit_to_unit
   end
 
-  def from_transaction_params
+  def transaction_params
     {
       amount_cents: amount.cents,
       amount_currency: amount.currency,
-      direction: :outflow,
       kind: Const::TRANSFER,
-      account_id: params[:from_account_id],
-      memo: generated_memo
+      memo: generated_memo,
+      created_at: params[:created_at]
     }
   end
 
+  def from_transaction_params
+    transaction_params.merge(
+      direction: :outflow,
+      account_id: params[:from_account_id],
+    )
+  end
+
   def to_transaction_params
-    {
-      amount_cents: amount.cents,
-      amount_currency: amount.currency,
+    transaction_params.merge(
       direction: :inflow,
-      kind: Const::TRANSFER,
       account_id: params[:to_account_id],
-      memo: generated_memo
-    }
+    )
   end
 end

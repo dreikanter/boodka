@@ -7,7 +7,7 @@ class TransfersController < ApplicationController
   end
 
   def create
-    if @form.validate(params[:transfer])
+    if @form.validate(transfer_params)
       @form.save { |hash| TransferBuilder.build!(hash) }
       redirect_to transfers_path, notify: 'Transfer performed'
     else
@@ -26,6 +26,17 @@ class TransfersController < ApplicationController
   end
 
   private
+
+  def transfer_params
+    params[:transfer].permit([
+      :memo,
+      :amount,
+      :currency,
+      :from_account_id,
+      :to_account_id,
+      :created_at
+    ])
+  end
 
   def form
     TransferForm.new(params)

@@ -22,7 +22,7 @@
 
   <div class="form-group">
     <%= form.label :created_at %>
-    <%= form.text_field :created_at, value: reconciliation.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is current date' %>
+    <%= form.text_field :created_at, value: reconciliation.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is now' %>
   </div>
 
   <div class="form-group">

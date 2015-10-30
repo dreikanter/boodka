@@ -32,6 +32,11 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :created_at %>
+    <%= form.text_field :created_at, value: @form.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is now' %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :memo, class: 'control-label' %>
     <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
   </div>
@@ -63,6 +68,10 @@
 
     $(".currency-switch").click(function() {
       $(".currency-select").val($(this).data("value")).trigger("change")
+    });
+
+    $(".created-at-datepicker").datetimepicker({
+      format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
   });
 </script>
