@@ -225,8 +225,6 @@ GEM
       sprockets-rails
     rails-assets-bootstrap (3.3.5)
       rails-assets-jquery (>= 1.9.1)
-    rails-assets-bootstrap-datepicker (1.5.0)
-      rails-assets-jquery (>= 1.7.1)
     rails-assets-font-awesome (4.4.0)
     rails-assets-jquery (2.1.4)
     rails-deprecated_sanitizer (1.0.3)
@@ -355,7 +353,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.4)
   rails-assets-bootstrap (~> 3.3.5)!
-  rails-assets-bootstrap-datepicker (~> 1.5.0)!
   rails-assets-font-awesome!
   rails_12factor
   rails_db

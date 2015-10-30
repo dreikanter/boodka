@@ -16,7 +16,6 @@
 //= require turbolinks
 //= require select2
 //= require bootstrap
-//= require bootstrap-datepicker
 //= require js-routes
 
 $(function() {
