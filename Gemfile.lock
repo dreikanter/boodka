@@ -56,6 +56,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap3-datetimepicker-rails (4.14.30)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
@@ -175,6 +177,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    momentjs-rails (2.10.6)
+      railties (>= 3.1)
     monetize (1.1.0)
       money (~> 6.5.0)
     money (6.5.1)
@@ -328,6 +332,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
+  bootstrap3-datetimepicker-rails (~> 4.14.30)
   coffee-rails (~> 4.1.0)
   database_cleaner
   draper (~> 1.3)
@@ -347,6 +352,7 @@ DEPENDENCIES
   meta_request
   minitest-rails
   minitest-reporters
+  momentjs-rails (>= 2.9.0)
   money-rails
   pry-byebug
   pry-rails

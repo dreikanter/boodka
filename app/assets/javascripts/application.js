@@ -15,7 +15,9 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require select2
+//= require moment
 //= require bootstrap
+//= require bootstrap-datetimepicker
 //= require js-routes
 
 $(function() {
