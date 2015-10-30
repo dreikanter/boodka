@@ -17,8 +17,7 @@ class TotalCalculator < BasicCalculator
   end
 
   def find_last_reconciliation
-    recs = Reconciliation.where(account: @account)
-    recs = recs.where('created_at < ?', @at)
+    recs = Reconciliation.where(account: @account).where('created_at < ?', @at)
     result = recs.order(created_at: :desc).first || zero_rec
     Log.debug "Last reconciliation: #{result.created_at}"
     result
@@ -40,7 +39,7 @@ class TotalCalculator < BasicCalculator
   end
 
   def time_frame
-    next_day_after(last_reconciliation.created_at)..@at
+    last_reconciliation.created_at..@at
   end
 
   def transactions
@@ -62,10 +61,5 @@ class TotalCalculator < BasicCalculator
 
   def transactions_sum(direction)
     transactions.where(direction: direction).map(&:calculated_amount).sum
-  end
-
-  def next_day_after(date)
-    next_day = date + 1.day
-    DateTime.new(next_day.year, next_day.month, next_day.day, 0, 0, 0)
   end
 end
