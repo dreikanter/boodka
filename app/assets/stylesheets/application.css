@@ -97,12 +97,3 @@ table.budget-table tr > td.input-cell {
 .budget-table .available-to-budget-cell {
   font-size: 140%;
 }
-
-/*
-    Currency color labels
-*/
-
-.label.label-currency { background-color: #666666; }
-.label.label-currency.label-usd { background-color: #339933; }
-.label.label-currency.label-eur { background-color: #3366cc; }
-.label.label-currency.label-rub { background-color: #cc3366; }
