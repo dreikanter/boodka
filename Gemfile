@@ -57,6 +57,11 @@ group :development do
   gem 'rails_db'
 end
 
+group :darwin do
+  gem 'rb-fsevent', require: false
+end
+
 group :production do
+  gem 'passenger'
   gem 'rails_12factor'
 end
