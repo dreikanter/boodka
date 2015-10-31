@@ -25,7 +25,7 @@ gem 'js-routes'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'pg'
-gem 'toml'
+gem 'toml-rb'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
@@ -56,10 +56,6 @@ group :development do
   gem 'guard-rubocop', require: false
   gem 'quiet_assets'
   gem 'rails_db'
-end
-
-group :darwin do
-  gem 'rb-fsevent', require: false
 end
 
 group :production do
