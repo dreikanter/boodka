@@ -1,22 +1,16 @@
 <%= form_for transaction, url: submit_url, method: method, remote: remote, html: { class: 'form transaction-form' }, builder: SmartBuilder do |form| %>
-  <%= form.select :account_id, options: options_for_select(Account.decorate.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }, transaction.account_id) %>
 
-  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
-
-  <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.amount_currency) %>
-
-  <div class="form-group">
-    <div class="btn-group btn-group-sm" role="group">
-      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="USD">USD</a>
-      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="GBP">GBP</a>
-      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="EUR">EUR</a>
-      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="RUB">RUB</a>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= form.amount_input %>
+      <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
+    </div>
+    <div class="col-lg-6">
+      <%= form.select :account_id, options: options_for_select(Account.decorate.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }, transaction.account_id) %>
+      <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.amount_currency) %>
     </div>
   </div>
 
-  <%= form.radio_buttons :direction, options: { 'inflow' => 'Income', 'outflow' => 'Expense' } %>
-
-  <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
 
   <%= form.datetime :created_at, placeholder: 'Default is now' %>
 
@@ -43,24 +37,27 @@
       allowClear: false
     });
 
-    $(".radio-currency").click(function() {
-      $(".select-amount-currency").val($(this).data("value")).trigger("change");
-    });
-
     $(".date-time-picker").datetimepicker({
       format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
 
     // Enable Category select only for expenses
 
-    var toggleCatCombo = function(value) {
+    var onDirectionChange = function(value) {
       $(".select-category-id").attr("disabled", value == "inflow");
+      $(".input-amount").data("direction", value);
+
+      if (value == "inflow") {
+            $(".input-amount").removeClass("direction-outflow").addClass("direction-inflow");
+      } else {
+        $(".input-amount").removeClass("direction-inflow").addClass("direction-outflow");
+      }
     };
 
     $(".radio-direction").change(function(event) {
-      toggleCatCombo($(event.target).val())
+      onDirectionChange($(event.target).val())
     });
 
-    toggleCatCombo($(".radio-direction:checked").val());
+    onDirectionChange($(".radio-direction:checked").val());
   });
 </script>

@@ -99,17 +99,24 @@ table.budget-table tr > td.input-cell {
 }
 
 /*
-  Transaction kinds
+    Transaction kinds
 */
 
-.transaction-expense {
-  color: inherit;
-}
+.transaction-expense {}
 
 .transaction-income {
-  color: #00cc33;
+  color: #00bb00;
 }
 
-.transaction-transfer {
-  color: #0099cc;
+.transaction-transfer {}
+
+/*
+    Transaction form
+*/
+.direction-inflow {
+  color: #00bb00;
+}
+
+.direction-outflow {
+  color: #bb0000;
 }

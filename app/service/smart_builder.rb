@@ -58,7 +58,19 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   def radio_buttons(field, options = {})
     group do
       @template.content_tag(:div, class: 'btn-group', data: { toggle: 'buttons' }) do
-        radio_items(field, options[:options], object.send(field)).inject(:+)
+        radio_items(field, options[:options], object.send(field))
+      end
+    end
+  end
+
+  def amount_input
+    labeled_group(:amount) do
+      @template.content_tag(:div, class: 'input-group') do
+        classes = "form-control select-on-focus input-amount"
+        text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' }) +
+        @template.content_tag(:div, class: 'input-group-btn', data: { toggle: :buttons }) do
+          radio_items(:direction, { 'inflow' => 'Income', 'outflow' => 'Expense' }, object.direction)
+        end
       end
     end
   end
@@ -92,7 +104,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   end
 
   def radio_items(field, options, checked)
-    options.map { |k, v| radio_item(field, k, v, checked == k) }
+    options.map { |k, v| radio_item(field, k, v, checked == k) }.inject(:+)
   end
 
   def radio_item(field, value, caption, checked)

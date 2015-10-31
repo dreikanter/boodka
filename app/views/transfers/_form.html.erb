@@ -1,19 +1,20 @@
 <%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
 
-  <%= form.select :from_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= form.select :from_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
+    </div>
+    <div class="col-lg-6">
+      <%= form.select :to_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
+    </div>
+  </div>
 
-  <%= form.select :to_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
-
-  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
-
-  <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
-
-  <div class="form-group">
-    <div class="btn-group btn-group-sm" role="group">
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="USD">USD</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="GBP">GBP</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="EUR">EUR</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="RUB">RUB</a>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
+    </div>
+    <div class="col-lg-6">
+      <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
     </div>
   </div>
 

@@ -5,18 +5,7 @@
     <%= form.static :currency %>
   <% else %>
     <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
-
-    <div class="form-group">
-      <div class="btn-group btn-group-sm" role="group">
-        <a href="#" class="btn btn-sm btn-default currency-switch" data-value="USD">USD</a>
-        <a href="#" class="btn btn-sm btn-default currency-switch" data-value="GBP">GBP</a>
-        <a href="#" class="btn btn-sm btn-default currency-switch" data-value="EUR">EUR</a>
-        <a href="#" class="btn btn-sm btn-default currency-switch" data-value="RUB">RUB</a>
-      </div>
-    </div>
-
     <%= form.text :amount, placeholder: 'Amount' %>
-
     <%= form.datetime :reconciled_at, placeholder: 'Default is now' %>
   <% end %>
 
