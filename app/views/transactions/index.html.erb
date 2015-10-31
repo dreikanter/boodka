@@ -11,7 +11,7 @@
         <td class="col-lg-2 text-muted">
           <%= short_date transaction.created_at %>
         </td>
-        <td class="col-lg-1 text-right">
+        <td class="col-lg-2 text-right">
           <%= link_to transaction.display_amount, edit_transaction_path(transaction), class: "transaction-#{transaction.direction}" %>
         </td>
         <td class="col-lg-1">

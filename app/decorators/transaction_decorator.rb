@@ -3,7 +3,7 @@ class TransactionDecorator < Draper::Decorator
 
   # TODO: Remove extra query
   def display_category
-    return model.category.try(:title) if model.outflow?
+    return model.category.try(:title) if model.expense?
     classes = "kind kind-#{model.kind}"
     h.content_tag :span, model.kind.to_s.capitalize, class: classes
   end
@@ -13,7 +13,6 @@ class TransactionDecorator < Draper::Decorator
   end
 
   def amount_currency_label
-    classes = "currency currency-#{model.amount_currency}"
-    h.content_tag :span, model.amount_currency, class: classes
+    h.currency_label(model.amount_currency)
   end
 end

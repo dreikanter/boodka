@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def currency_label(currency)
-    classes = %W(label label-currency label-#{currency.to_s.downcase})
+    classes = %W(currency currency-#{currency.to_s.downcase})
     content_tag(:span, currency, class: classes)
   end
 
