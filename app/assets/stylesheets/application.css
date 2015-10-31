@@ -58,6 +58,10 @@ table.table.table-bordered.no-grid td {
   color: #00cc33;
 }
 
+.submit-button {
+  min-width:120px;
+}
+
 /*
     Budget#show
 */
