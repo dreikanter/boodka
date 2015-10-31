@@ -1,25 +1,32 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  timeout: 5000
+  host: localhost
+  port: 5432
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: <%= ENV['app_name'] %>_development
+  # No password for local DB, using trust connection
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: <%= ENV['app_name'] %>_test
+  # No password for local DB, using trust connection
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  host: <%= ENV['postgres_host'] %>
+  port: <%= ENV['postgres_port'] %>
+  database: <%= ENV['postgres_database'] %>
+  username: <%= ENV['postgres_username'] %>
+  password: <%= ENV['postgres_password'] %>
+
+staging:
+  <<: *default
+  host: <%= ENV['postgres_host'] %>
+  port: <%= ENV['postgres_port'] %>
+  database: <%= ENV['postgres_database'] %>
+  username: <%= ENV['postgres_username'] %>
+  password: <%= ENV['postgres_password'] %>
