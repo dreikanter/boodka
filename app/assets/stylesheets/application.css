@@ -102,18 +102,14 @@ table.budget-table tr > td.input-cell {
   Transaction kinds
 */
 
-.kind-expense {
-  color: #cc3333;
+.transaction-expense {
+  color: inherit;
 }
 
-.kind-income {
+.transaction-income {
   color: #00cc33;
 }
 
-.kind-transfer {
+.transaction-transfer {
   color: #0099cc;
-}
-
-.kind-reconciliation {
-  color: #666666;
 }

@@ -10,7 +10,6 @@
 #  calculated_amount_cents    :integer          default(0), not null
 #  calculated_amount_currency :string           default("USD"), not null
 #  rate                       :float            default(1.0), not null
-#  kind                       :integer          default(0), not null
 #  category_id                :integer
 #  transfer_id                :integer
 #  memo                       :string           default(""), not null

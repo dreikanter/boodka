@@ -49,7 +49,6 @@ class TransferBuilder
     {
       amount_cents: amount.cents,
       amount_currency: amount.currency,
-      kind: Const::TRANSFER,
       memo: generated_memo,
       created_at: params[:created_at]
     }

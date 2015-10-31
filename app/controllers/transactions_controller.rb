@@ -52,7 +52,7 @@ class TransactionsController < ApplicationController
   end
 
   def complemented_params
-    transaction_params.merge(kind: kind, direction: direction)
+    transaction_params.merge(direction: direction)
   end
 
   def transaction_params
@@ -65,10 +65,6 @@ class TransactionsController < ApplicationController
 
   def direction
     inflow? ? Const::INFLOW : Const::OUTFLOW
-  end
-
-  def kind
-    inflow? ? Const::INCOME : Const::EXPENSE
   end
 
   def processed_params

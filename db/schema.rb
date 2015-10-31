@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20151024224925) do
     t.integer  "calculated_amount_cents",    default: 0,     null: false
     t.string   "calculated_amount_currency", default: "USD", null: false
     t.float    "rate",                       default: 1.0,   null: false
-    t.integer  "kind",                       default: 0,     null: false
     t.integer  "category_id"
     t.integer  "transfer_id"
     t.string   "memo",                       default: "",    null: false

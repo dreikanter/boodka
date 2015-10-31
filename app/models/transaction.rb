@@ -10,7 +10,6 @@
 #  calculated_amount_cents    :integer          default(0), not null
 #  calculated_amount_currency :string           default("USD"), not null
 #  rate                       :float            default(1.0), not null
-#  kind                       :integer          default(0), not null
 #  category_id                :integer
 #  transfer_id                :integer
 #  memo                       :string           default(""), not null
@@ -31,10 +30,9 @@ class Transaction < ActiveRecord::Base
             :calculated_amount_currency,
             inclusion: { in: Const::CURRENCY_CODES }
 
-  validates :account_id, :direction, :kind, presence: true
+  validates :account_id, :direction, presence: true
 
   enum direction: Const::TRANSACTION_DIRECTIONS
-  enum kind: Const::TRANSACTION_KINDS
 
   belongs_to :category
   belongs_to :account
@@ -45,13 +43,17 @@ class Transaction < ActiveRecord::Base
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
   scope :outflows, -> { where(direction: Const::OUTFLOW) }
   scope :inflows, -> { where(direction: Const::INFLOW) }
-  scope :expenses, -> { where(kind: Const::EXPENSE) }
+  scope :expenses, -> { outflows.where(transfer_id: nil) }
 
   before_save :calculate_amount
   after_save :update_budget
   after_destroy :update_budget
 
   delegate :currency, to: :account, prefix: :account
+
+  def transfer?
+    transfer_id.present?
+  end
 
   private
 

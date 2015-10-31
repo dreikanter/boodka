@@ -4,12 +4,17 @@ class TotalUncategorizedExpenseCalculator < BasicCalculator
   end
 
   def calculate
-    as_money transactions.map { |t| t.amount.exchange_to(Conf.base_currency) }.sum
+    base_amount = -> (t) { t.amount.exchange_to(Conf.base_currency) }
+    as_money transactions.map(&base_amount).sum
   end
 
   private
 
   def transactions
-    @period.transactions.where(kind: Const::EXPENSE, category_id: nil)
+    @period.transactions.where(
+      direction: Const::OUTFLOW,
+      category_id: nil,
+      transaction_id: nil
+    )
   end
 end
