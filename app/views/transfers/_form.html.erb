@@ -12,8 +12,8 @@
   <div class="form-group<%= ' has-error' if error?(:amount) %>">
     <%= form.label :amount, class: 'control-label' %>
     <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control select-on-focus', autofocus: true %>
-    <% if error?(:amount) %>
-      <span class="help-block"><%= @errors[:amount].join(', ') %></span>
+    <% if error?(@form, :amount) %>
+      <span class="help-block"><%= error(@form, :amount) %></span>
     <% end %>
   </div>
 

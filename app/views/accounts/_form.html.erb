@@ -35,10 +35,11 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <%= form_group account_form, :memo do %>
     <%= form.label :memo, class: 'control-label' %>
     <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
-  </div>
+    <%= field_error account_form, :memo %>
+  <% end %>
 
   <div class="checkbox">
     <label>

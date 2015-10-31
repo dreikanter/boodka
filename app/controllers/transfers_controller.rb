@@ -12,7 +12,6 @@ class TransfersController < ApplicationController
       redirect_to transfers_path, notify: 'Transfer performed'
     else
       flash.now[:alert] = 'Something went wrong'
-      @errors = @form.errors
       render :new
     end
   end

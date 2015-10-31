@@ -17,8 +17,18 @@ module ApplicationHelper
     datetime.strftime(Const::SHORT_DATE_FORMAT)
   end
 
-  def error?(param)
-    @errors.present? && @errors.try(:[], param)
+  def field_error(model, field)
+    return unless error?(model, field)
+    content_tag(:span, model.errors[field].join(', '), class: 'help-block')
+  end
+
+  def form_group(model, field, &block)
+    classes = "form-group#{ ' has-error' if error?(model, field) }"
+    content_tag(:div, class: classes) { yield }
+  end
+
+  def error?(model, field)
+    model.errors[field].any?
   end
 
   def money_cell(value, options = {})
