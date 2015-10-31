@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  account_id   :integer          not null
-#  amount_cents :decimal(8, )     default(0), not null
+#  amount_cents :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

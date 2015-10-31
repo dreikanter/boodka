@@ -1,0 +1,170 @@
+# Accounts
+
+[[account]]
+id           = 1
+currency     = "USD"
+title        = "Raiffeisen"
+memo         = ""
+default      = true
+
+[[account]]
+id           = 2
+currency     = "RUB"
+title        = "City"
+memo         = ""
+default      = false
+
+[[account]]
+id           = 3
+currency     = "RUB"
+title        = "Tinkoff"
+memo         = ""
+default      = false
+
+[[account]]
+id           = 4
+currency     = "RUB"
+title        = "Cash"
+memo         = ""
+default      = false
+
+[[account]]
+id           = 5
+currency     = "USD"
+title        = "Cash USD"
+memo         = ""
+default      = false
+
+# Categories
+
+[[category]]
+id           = 1
+title        = "Groceries"
+memo         = ""
+
+[[category]]
+id           = 2
+title        = "Transport"
+memo         = ""
+
+[[category]]
+id           = 3
+title        = "Cell phone & ISP"
+memo         = ""
+
+[[category]]
+id           = 4
+title        = "Bills"
+memo         = ""
+
+[[category]]
+id           = 5
+title        = "Health & Meds"
+memo         = ""
+
+[[category]]
+id           = 6
+title        = "Spendings"
+memo         = ""
+
+[[category]]
+id           = 7
+title        = "Enterntainment"
+memo         = ""
+
+[[category]]
+id           = 8
+title        = "Cat food"
+memo         = ""
+
+# Reconciliations
+
+[[reconciliation]]
+id           = 1
+account_id   = 1
+amount_cents = 1000000
+
+[[reconciliation]]
+id           = 2
+account_id   = 2
+amount_cents = 500000000
+
+[[reconciliation]]
+id           = 3
+account_id   = 3
+amount_cents = 7000000
+
+[[reconciliation]]
+id           = 4
+account_id   = 4
+amount_cents = 1480000
+
+[[reconciliation]]
+id           = 5
+account_id   = 5
+amount_cents = 133700
+
+# Transactions
+
+[[transaction]]
+account_id                 = 1
+direction                  = "outflow"
+amount_cents               = 12313
+amount_currency            = "USD"
+kind                       = "expense"
+category_id                = 1
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 1
+direction                  = "outflow"
+amount_cents               = 1000
+amount_currency            = "RUB"
+kind                       = "expense"
+category_id                = 2
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 2
+direction                  = "outflow"
+amount_cents               = 4512
+amount_currency            = "EUR"
+kind                       = "expense"
+category_id                = 1
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 1
+direction                  = "outflow"
+amount_cents               = 87786
+amount_currency            = "USD"
+kind                       = "expense"
+category_id                = 4
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 3
+direction                  = "outflow"
+amount_cents               = 8790
+amount_currency            = "RUB"
+kind                       = "expense"
+category_id                = 3
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 1
+direction                  = "outflow"
+amount_cents               = 1200
+amount_currency            = "EUR"
+kind                       = "expense"
+category_id                = 7
+memo                       = "Sample transaction"
+
+[[transaction]]
+account_id                 = 4
+direction                  = "outflow"
+amount_cents               = 2134
+amount_currency            = "USD"
+kind                       = "expense"
+category_id                = 1
+memo                       = "Sample transaction"
