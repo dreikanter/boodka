@@ -11,9 +11,11 @@
         <td class="col-lg-2 text-muted">
           <%= short_date transaction.created_at %>
         </td>
-        <td class="col-lg-2 text-right">
-          <%= (transaction.direction == 'inflow') ? "+ " : "- " %>
-          <%= link_to transaction.amount.format, edit_transaction_path(transaction) %>
+        <td class="col-lg-1 text-right">
+          <%= link_to transaction.display_amount, edit_transaction_path(transaction), class: "transaction-#{transaction.direction}" %>
+        </td>
+        <td class="col-lg-1">
+          <%= transaction.amount_currency %>
         </td>
         <td class="col-lg-2">
           <%= transaction.display_category %>
@@ -21,9 +23,7 @@
         <td class="col-lg-6 text-muted">
           <%= transaction.memo %>
           <div class="table-row-actions">
-            <% if transaction.transfer? %>
-              <span class="text-muted">Transfer</span>
-            <% else %>
+            <% unless transaction.transfer? %>
               <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
             <% end %>
           </div>
