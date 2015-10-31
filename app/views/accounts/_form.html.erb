@@ -1,19 +1,10 @@
-<%= form_for account_form, url: submit_url, method: method, html: { class: 'form account-form' } do |form| %>
-  <div class="form-group">
-    <%= form.label :title, class: 'control-label' %>
-    <%= form.text_field :title, placeholder: 'Account title', class: 'form-control select-on-focus', autofocus: true %>
-  </div>
+<%= form_for account_form, url: submit_url, method: method, html: { class: 'form account-form' }, builder: SmartBuilder do |form| %>
+  <%= form.text :title, placeholder: 'Account title', class: 'select-on-focus', autofocus: true %>
 
   <% if account_form.persisted? %>
-    <div class="form-group">
-      <label class="control-label" for="account_currency">Currency</label>
-      <p class="form-control-static"><%= account_form.currency %></p>
-    </div>
+    <%= form.static :currency %>
   <% else %>
-    <div class="form-group">
-      <%= form.label :currency %>
-      <%= form.select :currency, options_for_select(Const::CURRENCY_CODES, account_form.currency), {}, data: { width: '100%' }, class: 'currency-select' %>
-    </div>
+    <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
 
     <div class="form-group">
       <div class="btn-group btn-group-sm" role="group">
@@ -24,52 +15,33 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <%= form.label :amount %>
-      <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control' %>
-    </div>
+    <%= form.text :amount, placeholder: 'Amount' %>
 
-    <div class="form-group">
-      <%= form.label :reconciled_at %>
-      <%= form.text_field :reconciled_at, value: account_form.reconciled_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker' %>
-    </div>
+    <%= form.datetime :reconciled_at, placeholder: 'Default is now' %>
   <% end %>
 
-  <%= form_group account_form, :memo do %>
-    <%= form.label :memo, class: 'control-label' %>
-    <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
-    <%= field_error account_form, :memo %>
-  <% end %>
+  <%= form.area :memo, placeholder: 'Optional notes' %>
 
-  <div class="checkbox">
-    <label>
-      <%= form.check_box(:default, {}, 'true', 'false') %> Set default
-    </label>
-  </div>
+  <%= form.check :default, 'Set default' %>
 
-  <hr>
-
-  <div class="form-group">
-    <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
-    <%= link_to 'Cancel', accounts_path, class: 'btn btn-default' %>
-  </div>
+  <%= form.submit_group caption: submit_caption, cancel: true %>
 <% end %>
 
 <script>
   $(function() {
     "use strict";
 
-    $(".account-form .currency-select").select2({
+    $(".account-form .select-currency").select2({
       theme: "bootstrap",
       allowClear: false
     });
 
 
     $(".currency-switch").click(function() {
-      $(".currency-select").val($(this).data("value")).trigger("change")
+      $(".select-currency").val($(this).data("value")).trigger("change")
     });
 
-    $(".created-at-datepicker").datetimepicker({
+    $(".date-time-picker").datetimepicker({
       format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
   });

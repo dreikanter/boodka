@@ -1,5 +1,5 @@
 <%= form_for @category, html: { class: 'form account-form' }, builder: SmartBuilder do |form| %>
-  <%= form.text_input_group :title, placeholder: 'Title', class: 'select-on-focus', autofocus: true %>
-  <%= form.text_area_group :memo, placeholder: 'Optional notes' %>
+  <%= form.text :title, placeholder: 'Title', class: 'select-on-focus', autofocus: true %>
+  <%= form.area :memo, placeholder: 'Optional notes' %>
   <%= form.submit_group caption: submit_caption, cancel: cancel %>
 <% end %>

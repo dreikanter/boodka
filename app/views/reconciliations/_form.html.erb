@@ -1,49 +1,28 @@
-<%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' } do |form| %>
+<%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' }, builder: SmartBuilder do |form| %>
   <% if edit %>
-    <div class="form-group">
-      <label class="control-label" for="reconciliation_account_id">Account</label>
-      <p class="form-control-static"><%= reconciliation.account.title %></p>
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="reconciliation_account_id">Currency</label>
-      <p class="form-control-static"><%= reconciliation.currency %></p>
-    </div>
+    <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
   <% else %>
-    <div class="form-group">
-      <%= form.label :account_id, class: 'control-label' %>
-      <%= form.select :account_id, options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id] }, reconciliation.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
-    </div>
+    <%= form.select :account_id, options: options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id] }, reconciliation.account_id) %>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control select-on-focus', autofocus: true %>
-  </div>
+  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
 
-  <div class="form-group">
-    <%= form.label :created_at %>
-    <%= form.text_field :created_at, value: reconciliation.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is now' %>
-  </div>
+  <%= form.datetime :created_at, placeholder: 'Default is now' %>
 
-  <div class="form-group">
-    <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
-    <% if cancel %>
-      <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-    <% end %>
-  </div>
+  <%= form.submit_group caption: submit_caption, cancel: true %>
 <% end %>
 
 <script>
   $(function() {
     "use strict";
 
-    $(".reconciliation-form .account-select").select2({
+    $(".reconciliation-form .select-account-id").select2({
       theme: "bootstrap",
       allowClear: false,
       minimumResultsForSearch: Infinity
     });
 
-    $(".created-at-datepicker").datetimepicker({
+    $(".date-time-picker").datetimepicker({
       format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
   });

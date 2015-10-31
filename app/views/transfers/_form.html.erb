@@ -1,26 +1,12 @@
-<%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' } do |form| %>
-  <div class="form-group">
-    <%= form.label :from_account_id, class: 'control-label' %>
-    <%= form.select :from_account_id, options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id, { 'data-currency' => account.currency }] }), {}, data: { width: '100%' }, class: 'account-select from-account-select' %>
-  </div>
+<%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
 
-  <div class="form-group">
-    <%= form.label :to_account_id, class: 'control-label' %>
-    <%= form.select :to_account_id, options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id] }), {}, data: { width: '100%' }, class: 'account-select to-account-select' %>
-  </div>
+  <%= form.select :from_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
 
-  <div class="form-group<%= ' has-error' if error?(:amount) %>">
-    <%= form.label :amount, class: 'control-label' %>
-    <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control select-on-focus', autofocus: true %>
-    <% if error?(@form, :amount) %>
-      <span class="help-block"><%= error(@form, :amount) %></span>
-    <% end %>
-  </div>
+  <%= form.select :to_account_id, options: options_for_select(@accounts.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }) %>
 
-  <div class="form-group">
-    <%= form.label :currency, class: 'control-label' %>
-    <%= form.select :currency, options_for_select(Const::CURRENCY_CODES), {}, data: { width: '100%' }, class: 'currency-select' %>
-  </div>
+  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
+
+  <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
 
   <div class="form-group">
     <div class="btn-group btn-group-sm" role="group">
@@ -31,46 +17,38 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :created_at %>
-    <%= form.text_field :created_at, value: @form.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Default is now' %>
-  </div>
+  <%= form.datetime :created_at, placeholder: 'Default is now' %>
 
-  <div class="form-group">
-    <%= form.label :memo, class: 'control-label' %>
-    <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
-  </div>
+  <%= form.area :memo, placeholder: 'Optional notes' %>
 
-  <div class="form-group">
-    <%= form.submit 'Create', class: 'btn btn-default', data: { disable_with: "Processing..." } %>
-  </div>
+  <%= form.submit_group caption: 'Create', cancel: true %>
 <% end %>
 
 <script>
   $(function() {
     "use strict";
 
-    $(".account-select").select2({
+    $(".select").select2({
       theme: "bootstrap",
       allowClear: false,
       minimumResultsForSearch: Infinity
     });
 
-    $(".from-account-select").change(function() {
-      var currency = $(".account-select option:selected").data("currency");
-      $(".currency-select").val(currency).trigger("change");
-    });;
+    $(".select-from-account-id").change(function() {
+      var currency = $(this).find("option:selected").data("currency");
+      $(".select-currency").val(currency).trigger("change");
+    });
 
-    $(".currency-select").select2({
+    $(".select-currency").select2({
       theme: "bootstrap",
       allowClear: false
     });
 
     $(".currency-switch").click(function() {
-      $(".currency-select").val($(this).data("value")).trigger("change")
+      $(".select-currency").val($(this).data("value")).trigger("change")
     });
 
-    $(".created-at-datepicker").datetimepicker({
+    $(".date-time-picker").datetimepicker({
       format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
   });

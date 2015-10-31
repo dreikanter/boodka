@@ -41,7 +41,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :transfer
 
   scope :with_account, -> { includes(:account) }
-  scope :history, -> { with_account.order('updated_at desc, created_at asc') }
+  scope :history, -> { with_account.order('created_at desc') }
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
   scope :outflows, -> { where(direction: Const::OUTFLOW) }
   scope :inflows, -> { where(direction: Const::INFLOW) }

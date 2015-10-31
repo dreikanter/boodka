@@ -1,95 +1,66 @@
-<%= form_for transaction, url: submit_url, method: method, remote: remote, html: { class: 'form transaction-form' } do |form| %>
-  <div class="form-group">
-    <%= form.label :account_id, class: 'control-label' %>
-    <%= form.select :account_id, options_for_select(Account.decorate.map { |account| [account.display_title_with_currency, account.id, { 'data-currency' => account.currency }] }, transaction.account_id), {}, data: { width: '100%' }, class: 'account-select' %>
-  </div>
+<%= form_for transaction, url: submit_url, method: method, remote: remote, html: { class: 'form transaction-form' }, builder: SmartBuilder do |form| %>
+  <%= form.select :account_id, options: options_for_select(Account.decorate.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }, transaction.account_id) %>
 
-  <div class="form-group">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, placeholder: 'Amount', class: 'form-control select-on-focus', autofocus: true %>
-  </div>
+  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
 
-  <div class="form-group">
-    <%= form.label :amount_currency %>
-    <%= form.select :amount_currency, options_for_select(Const::CURRENCY_CODES, transaction.amount_currency), {}, data: { width: '100%' }, class: 'currency-select' %>
-  </div>
+  <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.amount_currency) %>
 
   <div class="form-group">
     <div class="btn-group btn-group-sm" role="group">
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="USD">USD</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="GBP">GBP</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="EUR">EUR</a>
-      <a href="#" class="btn btn-sm btn-default currency-switch" data-value="RUB">RUB</a>
+      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="USD">USD</a>
+      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="GBP">GBP</a>
+      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="EUR">EUR</a>
+      <a href="#" class="btn btn-sm btn-default radio-currency" data-value="RUB">RUB</a>
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="btn-group" data-toggle="buttons">
-      <%= form.label :direction, class: "btn btn-default#{ ' active' if transaction.inflow?}" do %>
-        <%= form.radio_button :direction, 'inflow', checked: transaction.inflow?, autocomplete: 'off', class: ' direction-switch direction-switch-inflow' %> Income
-      <% end %>
+  <%= form.radio_buttons :direction, options: { 'inflow' => 'Income', 'outflow' => 'Expense' } %>
 
-      <%= form.label :direction, class: "btn btn-default#{' active' if transaction.outflow?}" do %>
-        <%= form.radio_button :direction, 'outflow', checked: transaction.outflow?, autocomplete: 'off', class: 'direction-switch direction-switch-outflow' %> Expense
-      <% end %>
-    </div>
-  </div>
+  <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
 
-  <div class="form-group">
-    <%= form.label :category_id, class: 'control-label' %>
-    <%= form.select :category_id, options_for_select(Category.ordered.map { |category| [category.title, category.id] }, transaction.category_id), {}, data: { width: '100%' }, class: 'category-select' %>
-  </div>
+  <%= form.datetime :created_at, placeholder: 'Default is now' %>
 
-  <div class="form-group">
-    <%= form.label :created_at %>
-    <%= form.text_field :created_at, value: transaction.created_at.try(:strftime, Const::DATEPICKER_FORMAT_PARSE), class: 'form-control created-at-datepicker', placeholder: 'Timestamp (default is current time)' %>
-  </div>
+  <%= form.area :memo, placeholder: 'Optional notes' %>
 
-  <div class="form-group">
-    <%= form.label :memo %>
-    <%= form.text_area :memo, class: 'form-control', placeholder: 'Optional notes' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
-    <% if cancel %>
-      <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-    <% end %>
-  </div>
+  <%= form.submit_group caption: 'Create', cancel: cancel %>
 <% end %>
 
 <script>
   $(function() {
     "use strict";
 
-    $(".account-select").select2({
+    $(".select-account-id").select2({
       theme: "bootstrap",
       allowClear: false,
       minimumResultsForSearch: Infinity
     }).change(function() {
-      var currency = $(".account-select option:selected").data("currency");
-      $(".currency-select").val(currency).trigger("change");
+      var currency = $(".select-account-id option:selected").data("currency");
+      $(".select-amount-currency").val(currency).trigger("change");
     });
 
-    $(".currency-select, .category-select").select2({
+    $(".select-amount-currency, .select-category-id").select2({
       theme: "bootstrap",
       allowClear: false
     });
 
-    $(".currency-switch").click(function() {
-      $(".currency-select").val($(this).data("value")).trigger("change");
+    $(".radio-currency").click(function() {
+      $(".select-amount-currency").val($(this).data("value")).trigger("change");
     });
 
-    $(".created-at-datepicker").datepicker({
-      autoclose: true,
+    $(".date-time-picker").datetimepicker({
       format: "<%= Const::DATEPICKER_FORMAT_MOMENTJS %>"
     });
 
-    var toggleCatCombo = function(target) {
-      $(".category-select").attr("disabled", $(target).val() == "inflow");
+    // Enable Category select only for expenses
+
+    var toggleCatCombo = function(value) {
+      $(".select-category-id").attr("disabled", value == "inflow");
     };
 
-    $(".direction-switch").change(function(event) { toggleCatCombo(event.target) });
-    toggleCatCombo(".direction-switch:checked");
+    $(".radio-direction").change(function(event) {
+      toggleCatCombo($(event.target).val())
+    });
+
+    toggleCatCombo($(".radio-direction:checked").val());
   });
 </script>
