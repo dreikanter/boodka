@@ -1,5 +1,5 @@
 <%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' }, builder: SmartBuilder do |form| %>
-  <% if edit %>
+  <% if edit || reconciliation.account_id %>
     <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
   <% else %>
     <%= form.select :account_id, options: options_for_select(@accounts.map { |account| [account.display_title_with_currency, account.id] }, reconciliation.account_id) %>
