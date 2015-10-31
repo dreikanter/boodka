@@ -17,15 +17,18 @@
     <% @reconciliations.each do |rec| %>
       <tr>
         <td class="col-lg-2 text-muted">
-          <%= short_date rec.created_at %>
+          <%= auto_date rec.created_at %>
         </td>
         <td class="col-lg-2">
           <%= rec.account.title %>
         </td>
         <td class="col-lg-2 text-right">
-          <%= link_to rec.amount.format, edit_reconciliation_path(rec)%>
+          <%= link_to rec.display_amount, edit_reconciliation_path(rec) %>
         </td>
-        <td class="col-lg-10">
+        <td class="col-lg-1">
+          <%= rec.account_currency_label %>
+        </td>
+        <td class="col-lg-7">
           <div class="table-row-actions">
             <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
           </div>

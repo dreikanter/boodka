@@ -97,3 +97,23 @@ table.budget-table tr > td.input-cell {
 .budget-table .available-to-budget-cell {
   font-size: 140%;
 }
+
+/*
+  Transaction kinds
+*/
+
+.kind-expense {
+  color: #cc3333;
+}
+
+.kind-income {
+  color: #00cc33;
+}
+
+.kind-transfer {
+  color: #0099cc;
+}
+
+.kind-reconciliation {
+  color: #666666;
+}

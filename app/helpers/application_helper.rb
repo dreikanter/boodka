@@ -13,8 +13,19 @@ module ApplicationHelper
     "#{params[:controller]}/#{params[:action]}"
   end
 
+  def auto_date(datetime)
+    now = Time.now
+    return "#{time_ago_in_words(datetime)} ago" if (now - datetime.to_time) < 2.day
+    current_year = (now.year == datetime.year)
+    current_year ? short_date(datetime) : full_date(datetime)
+  end
+
   def short_date(datetime)
     datetime.strftime(Const::SHORT_DATE_FORMAT)
+  end
+
+  def full_date(datetime)
+    datetime.strftime(Const::FULL_DATE_FORMAT)
   end
 
   def field_error(model, field)

@@ -75,6 +75,6 @@ class ReconciliationsController < ApplicationController
   end
 
   def load_reconciliations
-    @reconciliations = Reconciliation.recent_history
+    @reconciliations = Reconciliation.recent_history.decorate
   end
 end
