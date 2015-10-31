@@ -1,13 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:edit, :update, :destroy]
   before_action :load_categories, only: [:index, :create]
-
-  def index
-    @category = Category.new
-  end
-
-  def edit
-  end
+  before_action :new_category, only: [:index, :new]
 
   def create
     @category = Category.new(category_params)
@@ -49,5 +43,9 @@ class CategoriesController < ApplicationController
 
   def load_categories
     @categories = Category.ordered
+  end
+
+  def new_category
+    @category = Category.new
   end
 end

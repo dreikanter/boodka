@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :transactions
   resources :reconciliations
-  resources :categories, except: [:show, :new]
+  resources :categories, except: :show
   resources :transfers, except: [:show, :edit, :update]
 
   get 'budget' => 'periods#show', as: :current_budget
