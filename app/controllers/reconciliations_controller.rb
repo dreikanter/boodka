@@ -58,12 +58,11 @@ class ReconciliationsController < ApplicationController
   end
 
   def new_reconciliation_params
-    return { created_at: Time.now } unless account_id
+    return {} unless account_id
     account = Account.find(account_id)
     {
       account: account,
-      amount: Calc.total(account: account),
-      created_at: Time.now
+      amount: Calc.total(account: account)
     }
   end
 
