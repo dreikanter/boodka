@@ -1,11 +1,5 @@
 <%= form_for @category, html: { class: 'form account-form' }, builder: SmartBuilder do |form| %>
   <%= form.text_input_group :title, placeholder: 'Title', class: 'select-on-focus', autofocus: true %>
   <%= form.text_area_group :memo, placeholder: 'Optional notes' %>
-
-  <div class="form-group">
-    <%= form.submit submit_caption, class: 'btn btn-default', data: { disable_with: "Processing..." } %>
-    <% if cancel %>
-      <%= link_to 'Cancel', :back, class: 'btn btn-default' %>
-    <% end %>
-  </div>
+  <%= form.submit_group caption: submit_caption, cancel: cancel %>
 <% end %>
