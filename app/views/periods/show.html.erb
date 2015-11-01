@@ -22,7 +22,7 @@
   <tr>
     <th></th>
     <% @periods.each do |period| %>
-      <th colspan="3" class="text-center budget-form-heading">
+      <th colspan="3" class="text-center budget-table-heading">
         <%= period.title %>
       </th>
     <% end %>
@@ -36,18 +36,18 @@
     <% end %>
   </tr>
   <tr>
-    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-form-heading">
+    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-heading">
       <%= link_to 'Category', categories_path %>
     </th>
     <% @periods.each do |period| %>
-      <th class="budget-form-heading text-right">Budgeted</th>
-      <th class="budget-form-heading text-right">Outflows</th>
-      <th class="budget-form-heading text-right">Balance</th>
+      <th class="budget-table-heading text-right">Budgeted</th>
+      <th class="budget-table-heading text-right">Outflows</th>
+      <th class="budget-table-heading text-right">Balance</th>
     <% end %>
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
-    <tr>
-      <th class="budget-form-category">
+    <tr class="budget-category">
+      <th>
         <%= link_to category.title, edit_category_path(category) %>
       </th>
       <% @periods.each_with_index do |period, period_index| %>
@@ -64,8 +64,8 @@
     </tr>
   <% end %>
 
-  <tr>
-    <th class="budget-form-category">
+  <tr class="budget-category">
+    <th>
       Totals
     </th>
     <% @periods.each_with_index do |period, period_index| %>

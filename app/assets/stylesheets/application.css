@@ -98,6 +98,10 @@ table.budget-table tr > td.input-cell {
   font-size: 140%;
 }
 
+.budget-table .budget-category:hover {
+  background-color: #f8f8f8;
+}
+
 /*
     Transaction kinds
 */
@@ -113,6 +117,7 @@ table.budget-table tr > td.input-cell {
 /*
     Transaction form
 */
+
 .direction-inflow {
   color: #00bb00;
 }
