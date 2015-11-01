@@ -5,6 +5,6 @@
   "website": "https://github.com/dreikanter/boodka",
   "keywords": ["budget", "ynab", "money", "finance", "productivity"],
 	"scripts": {
-		"postdeploy": "bundle exec rake db:create db:migrate db:seed"
+		"postdeploy": "bundle exec rake db:migrate db:seed"
 	}
 }
