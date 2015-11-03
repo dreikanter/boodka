@@ -43,18 +43,12 @@ module ApplicationHelper
   end
 
   def cell(object, field, options = {})
-    value = object.send(field)
-
-    classes = %w(form-control text-right budget-cell)
-    classes << highlight_class(options[:highlight], value)
+    classes = %w(form-control text-right)
     classes << classificator(object, field)
     classes << options[:html].try(:[], :class)
 
-    format_defaults = { no_cents: true, symbol: false }
-    format_defaults.merge(options.slice(:no_cents, :symbol))
-
     attrs = {
-      value: value.format(format_defaults.merge(options.slice(:no_cents, :symbol))),
+      value: object.send(field).to_f,
       type: :text,
       class: classes.select(&:present?).join(' '),
       id: Selector.for(object, field),
@@ -74,18 +68,6 @@ module ApplicationHelper
   end
 
   private
-
-  def highlight_class(mode, value)
-    return 'negative' if (value < 0) && [:both, :negative].include?(mode)
-    return 'positive' if (value > 0) && [:both, :positive].include?(mode)
-  end
-
-  def format_money(value, options)
-    value.format(
-      symbol: options[:symbol] || false,
-      no_cents: options[:no_cents] || false
-    )
-  end
 
   def classificator(object, field)
     [object.class.name.underscore, field].join('-').gsub('_', '-')

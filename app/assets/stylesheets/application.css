@@ -50,11 +50,11 @@ table.table.table-bordered.no-grid td {
   margin: 15px 0;
 }
 
-.negative {
+.highlight-negative {
   color: #cc3333;
 }
 
-.positive {
+.highlight-positive {
   color: #00cc33;
 }
 

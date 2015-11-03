@@ -22,7 +22,7 @@ class BudgetDecorator < Draper::Decorator
   end
 
   def balance_cell
-    h.readonly_cell(model, :balance, highlight: :both)
+    h.readonly_cell(model, :balance, html: { class: 'highlight' })
   end
 
   private
@@ -31,11 +31,9 @@ class BudgetDecorator < Draper::Decorator
     {
       class: 'select-on-focus',
       data: {
-        "year"             => model.year,
-        "month"            => model.month,
-        "cat-id"           => model.category_id,
-        "plain-amount"     => model.amount.to_i,
-        "formatted-amount" => display_amount
+        'year'   => model.year,
+        'month'  => model.month,
+        'cat-id' => model.category_id
       }
     }.merge(options)
   end
