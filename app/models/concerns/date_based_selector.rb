@@ -1,5 +1,5 @@
 module DateBasedSelector
-  include ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
   def selector
     [self.class.name.underscore, year, month].join('-').gsub('_', '-')
