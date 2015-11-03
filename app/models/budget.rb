@@ -40,6 +40,8 @@ class Budget < ActiveRecord::Base
   after_initialize :init_boundaries
   after_initialize :init_currency
 
+  scope :history, -> { order(start_at: :asc) }
+
   def self.refresh!(year, month, category_id)
     Log.info "Updating budget #{year}/#{month}"
     params = { year: year, month: month, category_id: category_id }
@@ -59,7 +61,7 @@ class Budget < ActiveRecord::Base
     self.spent = Money.new(expence_cents_sum, Conf.base_currency)
     self.balance = amount - spent + prev_balance
     save!
-    next_budget.try(:refresh!)
+    next_existing_budget.try(:refresh!)
   end
 
   def self.at!(year, month, category_id)
@@ -72,19 +74,24 @@ class Budget < ActiveRecord::Base
   end
 
   def next_budget
-    history.where('start_at > ?', start_at).first
+    date = start_at + 1.month
+    cat_history.where('start_at > ?', date).first || Period.at(date.year, date.month).budget_for(category)
   end
 
-  def prev_budget
-    history.where('start_at < ?', start_at).last
+  def next_existing_budget
+    cat_history.where('start_at > ?', start_at).first
   end
 
-  def prev_balance
-    prev_budget.try(:balance) || zero
+  def prev_existing_budget
+    cat_history.where('start_at < ?', start_at).last
   end
 
   def selector
     "#{super}-#{category_id}"
+  end
+
+  def prev_balance
+    prev_existing_budget.try(:balance) || zero
   end
 
   private
@@ -118,7 +125,7 @@ class Budget < ActiveRecord::Base
     expense_transactions.map(&exchange).sum
   end
 
-  def history
-    self.class.where(category_id: category_id).order(start_at: :asc)
+  def cat_history
+    self.class.history.where(category_id: category_id)
   end
 end

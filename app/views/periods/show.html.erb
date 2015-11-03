@@ -66,9 +66,9 @@
   $(function() {
     "use strict";
 
-    $(".budget-cell").unbind();
+    $(".budget-amount").unbind();
 
-    $(".budget-cell").focus(function() {
+    $(".budget-amount").focus(function() {
       var cell = $(this);
       cell.data("handle-change", "false");
       cell.val(cell.data("plain-amount"));
@@ -81,7 +81,7 @@
       cell.data("handle-change", "true");
     });
 
-    $(".budget-cell").change(function() {
+    $(".budget-amount").change(function() {
       var cell = $(this);
       if (!cell.data("handle-change")) { return; }
       cell.data("handle-blur", "false");
@@ -95,18 +95,14 @@
         type: "PATCH",
         dataType: "json",
         success: function(data) {
-          var budget = data["budget"];
-          cell.val(budget["amount"]);
-          $(cell.data("actual")).val(budget["actual"]);
-          $(cell.data("balance")).val(budget["balance"]);
+          $.each(data, function(sel, val) { $("#" + sel).val(val); });
         }
       });
-
-      Turbolinks.visit(location.href);
 
       $(this).data("handle-blur", "true");
     });
 
-    $(".budget-cell").blur();
+    $(".budget-amount").blur();
   })
 </script>
+

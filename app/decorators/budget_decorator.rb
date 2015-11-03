@@ -29,16 +29,14 @@ class BudgetDecorator < Draper::Decorator
 
   def amount_cell_attributes(options = {})
     {
-      tabindex: options[:tabindex],
+      class: 'select-on-focus',
       data: {
         "year"             => model.year,
         "month"            => model.month,
         "cat-id"           => model.category_id,
-        # "spent"            => cell_id('spent', period, category),
-        # "balance"          => cell_id('balance', period, category),
         "plain-amount"     => model.amount.to_i,
         "formatted-amount" => display_amount
       }
-    }
+    }.merge(options)
   end
 end

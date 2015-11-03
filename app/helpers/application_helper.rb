@@ -48,17 +48,20 @@ module ApplicationHelper
     classes = %w(form-control text-right budget-cell)
     classes << highlight_class(options[:highlight], value)
     classes << classificator(object, field)
+    classes << options[:html].try(:[], :class)
 
     format_defaults = { no_cents: true, symbol: false }
     format_defaults.merge(options.slice(:no_cents, :symbol))
 
-    tag(:input,
-        value: value.format(format_defaults.merge(options.slice(:no_cents, :symbol))),
-        type: :text,
-        class: classes.select(&:present?).join(' '),
-        id: selector(object, field),
-        readonly: options[:readonly],
-        **(options[:html] || {}))
+    attrs = {
+      value: value.format(format_defaults.merge(options.slice(:no_cents, :symbol))),
+      type: :text,
+      class: classes.select(&:present?).join(' '),
+      id: Selector.for(object, field),
+      readonly: options[:readonly]
+    }
+
+    tag(:input, (options[:html] || {}).merge(attrs))
   end
 
   def readonly_cell(object, field, options = {})
@@ -86,11 +89,5 @@ module ApplicationHelper
 
   def classificator(object, field)
     [object.class.name.underscore, field].join('-').gsub('_', '-')
-  end
-
-  def selector(object, field)
-    return unless object.respond_to?(:selector)
-    parts = [object.try(:selector), field].select(&:present?)
-    parts.join('-').gsub('_', '-').downcase
   end
 end

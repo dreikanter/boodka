@@ -44,6 +44,7 @@ class Period < ActiveRecord::Base
 
   # TODO: Momoize this
   def budget_for(category)
+    # TODO: Drop decorate
     (budgets.where(category: category).first || zero_budget(category)).decorate
   end
 
