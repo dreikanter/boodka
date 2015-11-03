@@ -22,7 +22,7 @@
   <tr>
     <th></th>
     <% @periods.each do |period| %>
-      <th colspan="3" class="text-center budget-table-heading">
+      <th colspan="3" class="text-center budget-table-head">
         <%= period.title %>
       </th>
     <% end %>
@@ -30,54 +30,34 @@
   <tr>
     <th></th>
     <% @periods.each do |period| %>
-      <td colspan="3" class="text-center available-to-budget-cell">
-        <%= period.available_to_budget %>
-      </td>
+      <td colspan="3"><%= period.available_to_budget_cell %></td>
     <% end %>
   </tr>
   <tr>
-    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-heading">
-      <%= link_to 'Category', categories_path %>
-    </th>
+    <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-head"><%= link_to 'Category', categories_path %></th>
     <% @periods.each do |period| %>
-      <th class="budget-table-heading text-right">Budgeted</th>
-      <th class="budget-table-heading text-right">Outflows</th>
-      <th class="budget-table-heading text-right">Balance</th>
+      <th class="budget-table-head text-right">Budgeted</th>
+      <th class="budget-table-head text-right">Outflows</th>
+      <th class="budget-table-head text-right">Balance</th>
     <% end %>
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
-    <tr class="budget-category">
-      <th>
-        <%= link_to category.title, edit_category_path(category) %>
-      </th>
-      <% @periods.each_with_index do |period, period_index| %>
-        <td class="input-cell">
-          <input value="<%= period.budget_for(category).display_amount %>" tabindex="<%= period_index * @categories.count + category_index + 1 %>" type="text" class="form-control text-right budget-cell select-on-focus" data-year="<%= period.year %>" data-month="<%= period.month %>" data-cat-id="<%= category.id %>" data-spent=".<%= cell_id('spent', period, category) %>" data-balance=".<%= cell_id('balance', period, category) %>" data-plain-amount="<%= period.budget_for(category).amount.to_i %>" data-formatted-amount="<%= period.budget_for(category).display_amount %>">
-        </td>
-        <td class="input-cell">
-          <%= period.budget_for(category).spent_cell %>
-        </td>
-        <td class="input-cell">
-          <%= period.budget_for(category).balance_cell %>
-        </td>
+    <tr class="budget-table-category">
+      <th class="budget-table-head"><%= link_to category.title, edit_category_path(category) %></th>
+      <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
+        <td><%= budget.amount_cell(tabindex: period_index * @categories.count + category_index + 1) %></td>
+        <td><%= budget.spent_cell %></td>
+        <td><%= budget.balance_cell %></td>
       <% end %>
     </tr>
   <% end %>
 
-  <tr class="budget-category">
-    <th>
-      Totals
-    </th>
+  <tr>
+    <th class="budget-table-head">Totals</th>
     <% @periods.each_with_index do |period, period_index| %>
-      <td class="input-cell total-value">
-        <%= period.total_budgeted %>
-      </td>
-      <td class="input-cell total-value">
-        <%= period.total_expense %>
-      </td>
-      <td class="input-cell total-value">
-        <%= period.total_balance %>
-      </td>
+      <td class="total-value"><%= period.total_budgeted_cell %></td>
+      <td class="total-value"><%= period.total_expense_cell %></td>
+      <td class="total-value"><%= period.total_balance_cell %></td>
     <% end %>
   </tr>
 </table>

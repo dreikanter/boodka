@@ -19,6 +19,8 @@
 #
 
 class Budget < ActiveRecord::Base
+  include DateBasedSelector
+
   validates :period_id, :category_id, presence: true
 
   validates :amount_cents,
@@ -45,15 +47,11 @@ class Budget < ActiveRecord::Base
   end
 
   def self.new_zero(period, category)
-    budget = new(
-      period: period,
-      category_id: category.id,
-      currency: Conf.base_currency,
-      year: period.year,
-      month: period.month
-    )
-    budget.balance = budget.prev_balance
-    budget
+    new(period: period).tap do |b|
+      b.category_id = category.id
+      b.currency = Conf.base_currency
+      b.balance = b.prev_balance
+    end
   end
 
   def refresh!
@@ -83,6 +81,10 @@ class Budget < ActiveRecord::Base
 
   def prev_balance
     prev_budget.try(:balance) || zero
+  end
+
+  def selector
+    "#{super}-#{category_id}"
   end
 
   private

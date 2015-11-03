@@ -5,6 +5,8 @@ class PeriodDecorator < Draper::Decorator
     Date.new(model.year, model.month).strftime('%B %Y')
   end
 
+  # Navigation
+
   def link_to_prev_year
     return disabled_link_to_period('A.D.', '#') if model.year < 2
     text = "&larr; #{model.year - 1}".html_safe
@@ -24,32 +26,30 @@ class PeriodDecorator < Draper::Decorator
     link_to_offset(1, '&rarr;')
   end
 
-  def total_uncategorized_expense
-    value = Calc.total_uncategorized_expense(period: model)
-    h.money_cell(value, highlight: :negative, no_cents: true)
+  # Cells
+
+  def total_uncategorized_expense_cell
+    h.readonly_cell(model, :total_uncategorized_expense, highlight: :negative)
   end
 
-  def total_income
-    value = Calc.total_income(period: model)
-    h.money_cell(value, highlight: :both, no_cents: true)
+  def total_income_cell
+    h.readonly_cell(model, :total_income, highlight: :both)
   end
 
-  def total_budgeted
-    h.money_cell(Calc.total_budgeted(period: model), no_cents: true)
+  def total_budgeted_cell
+    h.readonly_cell(model, :total_budgeted)
   end
 
-  def total_expense
-    h.money_cell(Calc.total_expense(period: model), no_cents: true)
+  def total_expense_cell
+    h.readonly_cell(model, :total_expense)
   end
 
-  def total_balance
-    value = Calc.total_balance(period: model)
-    h.money_cell(value, highlight: :both, no_cents: true)
+  def total_balance_cell
+    h.readonly_cell(model, :total_balance, highlight: :both)
   end
 
-  def available_to_budget
-    value = Calc.available_to_budget(period: model)
-    h.money_value(value, highlight: :both, no_cents: true, symbol: true)
+  def available_to_budget_cell
+    h.readonly_cell(model, :available_to_budget, highlight: :both, symbol: true)
   end
 
   private

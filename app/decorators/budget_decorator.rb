@@ -13,19 +13,32 @@ class BudgetDecorator < Draper::Decorator
     model.balance.format(symbol: false, no_cents: true)
   end
 
+  def amount_cell(options = {})
+    h.cell(model, :amount, html: amount_cell_attributes(options))
+  end
+
   def spent_cell
-    h.money_cell(model.spent, no_cents: true)
+    h.readonly_cell(model, :spent)
   end
 
   def balance_cell
-    h.money_cell(model.balance, highlight: :both, no_cents: true)
+    h.readonly_cell(model, :balance, highlight: :both)
   end
 
-  def spent_value
-    h.money_value(model.spent, no_cents: true)
-  end
+  private
 
-  def balance_value
-    h.money_value(model.balance, highlight: :both, no_cents: true)
+  def amount_cell_attributes(options = {})
+    {
+      tabindex: options[:tabindex],
+      data: {
+        "year"             => model.year,
+        "month"            => model.month,
+        "cat-id"           => model.category_id,
+        # "spent"            => cell_id('spent', period, category),
+        # "balance"          => cell_id('balance', period, category),
+        "plain-amount"     => model.amount.to_i,
+        "formatted-amount" => display_amount
+      }
+    }
   end
 end

@@ -42,24 +42,27 @@ module ApplicationHelper
     model.errors[field].any?
   end
 
-  def money_cell(value, options = {})
-    classes = %w(form-control text-right)
+  def cell(object, field, options = {})
+    value = object.send(field)
+
+    classes = %w(form-control text-right budget-cell)
     classes << highlight_class(options[:highlight], value)
-    tag(
-      :input,
-      value: format_money(value, options),
-      type: :text,
-      class: classes.join(' '),
-      readonly: true
-    )
+    classes << classificator(object, field)
+
+    format_defaults = { no_cents: true, symbol: false }
+    format_defaults.merge(options.slice(:no_cents, :symbol))
+
+    tag(:input,
+        value: value.format(format_defaults.merge(options.slice(:no_cents, :symbol))),
+        type: :text,
+        class: classes.select(&:present?).join(' '),
+        id: selector(object, field),
+        readonly: options[:readonly],
+        **(options[:html] || {}))
   end
 
-  def money_value(value, options = {})
-    content_tag(
-      :span,
-      format_money(value, options),
-      class: highlight_class(options[:highlight], value)
-    )
+  def readonly_cell(object, field, options = {})
+    cell(object, field, options.merge(readonly: true))
   end
 
   def currency_label(currency)
@@ -69,9 +72,9 @@ module ApplicationHelper
 
   private
 
-  def highlight_class(highlight, value)
-    return 'negative' if (value < 0) && [:both, :negative].include?(highlight)
-    return 'positive' if (value > 0) && [:both, :positive].include?(highlight)
+  def highlight_class(mode, value)
+    return 'negative' if (value < 0) && [:both, :negative].include?(mode)
+    return 'positive' if (value > 0) && [:both, :positive].include?(mode)
   end
 
   def format_money(value, options)
@@ -79,5 +82,15 @@ module ApplicationHelper
       symbol: options[:symbol] || false,
       no_cents: options[:no_cents] || false
     )
+  end
+
+  def classificator(object, field)
+    [object.class.name.underscore, field].join('-').gsub('_', '-')
+  end
+
+  def selector(object, field)
+    return unless object.respond_to?(:selector)
+    parts = [object.try(:selector), field].select(&:present?)
+    parts.join('-').gsub('_', '-').downcase
   end
 end

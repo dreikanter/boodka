@@ -75,11 +75,11 @@ table.table.table-bordered.no-grid td {
 
 table.budget-table tr > th,
 table.budget-table tr > td {
-  padding: 10px 12px;
+  padding: 0;
 }
 
-table.budget-table tr > td.input-cell {
-  padding: 0;
+table.budget-table tr > .budget-table-head {
+  padding: 10px 12px;
 }
 
 .budget-table .form-control:not(:hover):not(:focus),
@@ -94,11 +94,15 @@ table.budget-table tr > td.input-cell {
   height: 40px;
 }
 
-.budget-table .available-to-budget-cell {
+.budget-table .period-available-to-budget {
   font-size: 140%;
+  text-align: center;
+  width: 100%;
+  border-color: transparent;
+  padding: 10px 12px;
 }
 
-.budget-table .budget-category:hover {
+.budget-table .budget-table-category:hover {
   background-color: #f8f8f8;
 }
 

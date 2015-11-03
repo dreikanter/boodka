@@ -13,6 +13,8 @@
 #
 
 class Period < ActiveRecord::Base
+  include DateBasedSelector
+
   validates :start_at, :end_at, presence: true
 
   has_many :budgets, dependent: :destroy
@@ -40,6 +42,7 @@ class Period < ActiveRecord::Base
     Category.all.map { |c| zero_budget(c) }
   end
 
+  # TODO: Momoize this
   def budget_for(category)
     (budgets.where(category: category).first || zero_budget(category)).decorate
   end
@@ -52,21 +55,33 @@ class Period < ActiveRecord::Base
     start_at..end_at
   end
 
-  # def budget_cents!(cat_id, amount_cents)
-  #   save! unless self.persisted?
-  #   budget = budget_for(Category.find(cat_id))
-  #   budget.update!(amount_cents: amount_cents, amount_currency: base_currency)
-  #   budget.decorate
-  # end
+  # Calculated properties
 
-  # def previous_period
-  #   self.class.where('start_at < ?', start_at).order(:start_at).last
-  # end
+  def total_uncategorized_expense
+    Calc.total_uncategorized_expense(period: self)
+  end
 
-  # def total_budgeted
-  #   amounts = budgets.map(&:amount)
-  #   amounts.empty? ? zero : amounts.sum
-  # end
+  def total_income
+    Calc.total_income(period: self)
+  end
+
+  def total_budgeted
+    Calc.total_budgeted(period: self)
+  end
+
+  def total_expense
+    Calc.total_expense(period: self)
+  end
+
+  def total_balance
+    Calc.total_balance(period: self)
+  end
+
+  def available_to_budget
+    Calc.available_to_budget(period: self)
+  end
+
+  private
 
   def init_boundaries
     return if persisted?
