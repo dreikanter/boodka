@@ -73,10 +73,6 @@ table.table.table-bordered.no-grid td {
   padding: 15px;
 }
 
-.budget-pagination .btn.current {
-  text-decoration: underline;
-}
-
 table.budget-table tr > th,
 table.budget-table tr > td {
   padding: 0;
@@ -109,6 +105,11 @@ table.budget-table tr > .budget-table-head {
 .budget-table .budget-table-category:hover {
   background-color: #f8f8f8;
 }
+
+.budget-table .total-value input {
+  font-weight: bold;
+}
+
 
 /*
     Transaction kinds

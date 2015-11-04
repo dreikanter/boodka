@@ -1,5 +1,6 @@
 module PeriodHelper
   MONTH_NUMS = 1..12
+  CURRENT_PERIOD_CLASS = 'active'
 
   def period_pagination(selected_date)
     MONTH_NUMS.map do |month|
@@ -23,7 +24,7 @@ module PeriodHelper
     classes = %w(btn btn-sm month-button)
     selected = selected_month?(selected_month, month)
     classes << (selected ? 'btn-primary' : 'btn-default')
-    classes << 'current' if current_month?(year, month)
+    classes << CURRENT_PERIOD_CLASS if current_month?(year, month)
     classes.join(' ')
   end
 
