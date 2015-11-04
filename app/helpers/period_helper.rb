@@ -16,8 +16,4 @@ module PeriodHelper
       period_nav_link(currenct_date.year, month, currenct_date.month)
     end.join.html_safe
   end
-
-  def cell_id(prefix, period, category)
-    [prefix, period.year, period.month, category.id].join('-')
-  end
 end
