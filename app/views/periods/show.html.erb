@@ -68,18 +68,20 @@
 
     $(".budget-amount").unbind();
 
-    // $(".budget-amount").focus(function() {
-    //   var cell = $(this);
-    //   cell.data("handle-change", "false");
-    //   cell.val(cell.data("plain-amount"));
-    //   cell.data("handle-change", "true");
-    // }).blur(function() {
-    //   var cell = $(this);
-    //   if (cell.data("handle-blur") == "false") { return; }
-    //   cell.data("handle-change", "false");
-    //   cell.val(cell.data("formatted-amount"));
-    //   cell.data("handle-change", "true");
-    // });
+    // TODO: Refactor
+    $(".budget-amount").focus(function() {
+      var cell = $(this);
+      cell.data("handle-change", "false");
+      cell.val(cell.data("value"));
+      cell.data("handle-change", "true");
+    }).blur(function() {
+      var cell = $(this);
+      if (cell.data("handle-blur") == "false") { return; }
+      cell.data("handle-change", "false");
+      cell.data('value', cell.autoNumeric('get'))
+      cell.autoNumeric('set', cell.autoNumeric('get'));
+      cell.data("handle-change", "true");
+    });
 
     $("input.highlight").each(function(_, element) {
       $(element).removeClass("highlight-positive").removeClass("highlight-negative");
@@ -90,7 +92,7 @@
 
     $(".budget-amount").change(function() {
       var cell = $(this);
-      // if (!cell.data("handle-change")) { return; }
+      if (!cell.data("handle-change")) { return; }
       cell.data("handle-blur", "false");
 
       var catId = cell.data("cat-id");
@@ -104,7 +106,7 @@
         success: function(data) {
           $.each(data, function(selector, value) {
             var element = $("#" + selector);
-            element.data("value", value).val(value); // Format
+            element.data("value", value).autoNumeric('set', value);
             if (element.hasClass("highlight")) {
               element.removeClass("highlight-positive").removeClass("highlight-negative");
               if (value > 0) element.addClass("highlight-positive");
@@ -118,7 +120,7 @@
         console.log($(this).val() > 0);
       });
 
-      // $(this).data("handle-blur", "true");
+      $(this).data("handle-blur", "true");
     });
 
     $(".budget-amount").blur();

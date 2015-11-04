@@ -52,7 +52,8 @@ module ApplicationHelper
       type: :text,
       class: classes.select(&:present?).join(' '),
       id: Selector.for(object, field),
-      readonly: options[:readonly]
+      readonly: options[:readonly],
+      data: (options[:html].try(:[], :data) || {}).merge(autonumeric: true)
     }
 
     tag(:input, (options[:html] || {}).merge(attrs))
