@@ -73,6 +73,10 @@ table.table.table-bordered.no-grid td {
   padding: 15px;
 }
 
+.budget-pagination .btn.current {
+  text-decoration: underline;
+}
+
 table.budget-table tr > th,
 table.budget-table tr > td {
   padding: 0;
