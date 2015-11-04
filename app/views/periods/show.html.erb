@@ -85,7 +85,7 @@
 
     $("input.highlight").each(function(_, element) {
       $(element).removeClass("highlight-positive").removeClass("highlight-negative");
-      var value = $(element).val();
+      var value = $(element).autoNumeric("get");
       if (value > 0) $(element).addClass("highlight-positive");
       if (value < 0) $(element).addClass("highlight-negative");
     });
