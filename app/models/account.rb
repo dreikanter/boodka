@@ -21,12 +21,20 @@ class Account < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :reconciliations, dependent: :destroy
 
-  scope :ordered, -> { order(:created_at) }
+  scope :ordered, -> { order(:title) }
 
   before_save :drop_old_default_if_needed
 
   def self.default!(id)
     Account.update(id, default: true)
+  end
+
+  def self.default
+    where(default: true).first
+  end
+
+  def self.default_id
+    where(default: true).pluck(:id).first
   end
 
   private

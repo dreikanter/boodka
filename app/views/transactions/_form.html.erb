@@ -6,8 +6,8 @@
       <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
     </div>
     <div class="col-lg-6">
-      <%= form.select :account_id, options: options_for_select(Account.decorate.map { |a| [a.display_title_with_currency, a.id, { 'data-currency' => a.currency }] }, transaction.account_id) %>
-      <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.amount_currency) %>
+      <%= form.select :account_id, options: options_for_account_select(transaction, :account_id) %>
+      <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.persisted? ? transaction.amount_currency : Account.default.currency) %>
     </div>
   </div>
 
