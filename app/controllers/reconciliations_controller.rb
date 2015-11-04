@@ -1,6 +1,5 @@
 class ReconciliationsController < ApplicationController
   before_action :check_availability
-  before_action :load_accounts, except: :destroy
   before_action :load_reconciliation, only: [:edit, :update, :destroy]
   before_action :new_reconciliation, only: [:index, :new]
 
@@ -68,10 +67,6 @@ class ReconciliationsController < ApplicationController
 
   def new_reconciliation
     @reconciliation = Reconciliation.new(new_reconciliation_params)
-  end
-
-  def load_accounts
-    @accounts = Account.decorate
   end
 
   def load_reconciliations

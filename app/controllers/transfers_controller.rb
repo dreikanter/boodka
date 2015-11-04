@@ -1,5 +1,5 @@
 class TransfersController < ApplicationController
-  before_action :check_availability, :load_accounts
+  before_action :check_availability
   before_action :init_new_form, except: :destroy
 
   def index
@@ -47,9 +47,5 @@ class TransfersController < ApplicationController
 
   def check_availability
     fail 'At least 2 accounts required to transfer' if Account.count < 2
-  end
-
-  def load_accounts
-    @accounts = Account.decorate
   end
 end
