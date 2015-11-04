@@ -13,19 +13,12 @@ module ApplicationHelper
     "#{params[:controller]}/#{params[:action]}"
   end
 
-  def auto_date(datetime)
-    now = Time.now
-    return "#{time_ago_in_words(datetime)} ago" if (now - datetime.to_time) < 2.day
-    current_year = (now.year == datetime.year)
-    current_year ? short_date(datetime) : full_date(datetime)
-  end
-
   def short_date(datetime)
-    datetime.strftime(Const::SHORT_DATE_FORMAT)
+    time_tag(datetime, datetime.strftime(Const::SHORT_DATE_FORMAT))
   end
 
   def full_date(datetime)
-    datetime.strftime(Const::FULL_DATE_FORMAT)
+    time_tag(datetime, datetime.strftime(Const::FULL_DATE_FORMAT))
   end
 
   def field_error(model, field)
@@ -66,6 +59,14 @@ module ApplicationHelper
   def currency_label(currency)
     classes = %W(currency currency-#{currency.to_s.downcase})
     content_tag(:span, currency, class: classes)
+  end
+
+  def relative_time(value)
+    now = Time.now
+    near = (now > value.to_time) && (now - value.to_time < 1.day)
+    return time_tag(value, class: 'ago') if near
+    current_year = (now.year == value.year)
+    current_year ? short_date(value) : full_date(value)
   end
 
   private

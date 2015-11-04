@@ -9,7 +9,7 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td class="col-lg-2 text-muted">
-          <%= auto_date transaction.created_at %>
+          <%= relative_time transaction.created_at %>
         </td>
         <td class="col-lg-2 text-right">
           <%= link_to transaction.display_amount, edit_transaction_path(transaction), class: "transaction-#{transaction.direction}" %>

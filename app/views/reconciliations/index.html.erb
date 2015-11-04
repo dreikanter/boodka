@@ -17,7 +17,7 @@
     <% @reconciliations.each do |rec| %>
       <tr>
         <td class="col-lg-2 text-muted">
-          <%= auto_date rec.created_at %>
+          <%= relative_time(rec.created_at) %>
         </td>
         <td class="col-lg-2">
           <%= rec.account.title %>

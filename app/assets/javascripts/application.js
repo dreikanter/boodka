@@ -24,9 +24,26 @@
 $(function() {
   "use strict";
 
+  // Select input value on focus
+
   $(".select-on-focus").focus(function() {
     $(this).select();
   }).mouseup(function() {
     return false;
   }).focus();
+
+  // Format date-time with moments.js in "7 hour ago" fashion
+
+  function formatTimes() {
+    moment.locale('en-gb');
+
+    $('time.ago').each(function(_, element) {
+      $(element).text(moment($(element).attr('datetime')).fromNow());
+    });
+  }
+
+  $(formatTimes);
+  $(document).on('page:load', formatTimes);
+
+  window.timeElementsUpdateTimer = setInterval(formatTimes, 60 * 1000);
 });
