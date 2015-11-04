@@ -19,6 +19,7 @@
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require js-routes
+//= require autonumeric
 
 $(function() {
   "use strict";
