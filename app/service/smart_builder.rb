@@ -44,7 +44,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     group_for(field) do
       value = object.send(field).try(:strftime, Const::DATEPICKER_FORMAT_PARSE)
       classes = ['form-control date-time-picker', options[:class]].join(' ')
-      text_field field, value: value, class: classes
+      text_field(field, **options.merge(value: value, class: classes))
     end
   end
 
