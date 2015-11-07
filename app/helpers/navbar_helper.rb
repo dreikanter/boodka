@@ -5,7 +5,7 @@ module NavbarHelper
 
   def navbar_item(options = {})
     content_tag(:li, class: navbar_item_classes(options)) do
-      link_to(options[:caption], options[:path], target: options[:target])
+      navbar_link(options)
     end
   end
 
@@ -26,6 +26,7 @@ module NavbarHelper
   def navbar_item_classes(options)
     classes = %w()
     classes += %w(active) if current_page?(options[:path])
+    classes += %w(disabled) if options[:enabled] === false
     classes.join(' ')
   end
 
@@ -41,4 +42,9 @@ module NavbarHelper
     'aria-haspopup' => 'true',
     'aria-expanded' => 'false'
   }
+
+  def navbar_link(options)
+    return link_to(options[:caption], '#') if options[:enabled] === false
+    link_to(options[:caption], options[:path], target: options[:target])
+  end
 end
