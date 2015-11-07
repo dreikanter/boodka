@@ -76,6 +76,10 @@ h2:first-of-type {
   font-size: 18px;
 }
 
+.action-icon {
+  color: #ddd;
+}
+
 /*
     Budget#show
 */

@@ -31,7 +31,7 @@
               <%= transaction.memo %>
               <div class="table-row-actions">
                 <% unless transaction.transfer? %>
-                  <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+                  <%= link_to '<i class="fa fa-times"></i>'.html_safe, transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-icon' %>
                 <% end %>
               </div>
             </td>

@@ -18,7 +18,7 @@
                 <%= "#{transfer.memo}" %>
               </span>
               <div class="table-row-actions">
-                <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+                <%= link_to '<i class="fa fa-times"></i>'.html_safe, transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-icon' %>
               </div>
             </td>
           </tr>
