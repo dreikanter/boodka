@@ -79,7 +79,26 @@ class Transaction < ActiveRecord::Base
   end
 
   def update_budget
-    return unless category_id.present?
-    Budget.refresh!(created_at.year, created_at.month, category_id)
+    budget_keys_to_refresh.each { |key| Budget.refresh!(key) }
+  end
+
+  def budget_keys_to_refresh
+    [previous_budget_key, budget_composite_key].compact.uniq
+  end
+
+  def budget_composite_key
+    {
+      year: created_at.year,
+      month: created_at.month,
+      category_id: category_id
+    } if outflow?
+  end
+
+  def previous_budget_key
+    {
+      year: created_at_was.year,
+      month: created_at_was.month,
+      category_id: category_id_was
+    } if direction_was == 'outflow'
   end
 end

@@ -42,9 +42,9 @@ class Budget < ActiveRecord::Base
 
   scope :history, -> { order(start_at: :asc) }
 
-  def self.refresh!(year, month, category_id)
-    Log.info "Updating budget #{year}/#{month}"
-    params = { year: year, month: month, category_id: category_id }
+  def self.refresh!(options = {})
+    params = options.slice(:year, :month, :category_id)
+    Log.info "Updating budget #{params.values.join('/')}"
     find_or_initialize_by(params).refresh!
   end
 
