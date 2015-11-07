@@ -35,7 +35,7 @@ class ReconciliationsController < ApplicationController
 
   def destroy
     @reconciliation.destroy
-    redirect_to new_reconciliation_path, notify: 'Reconciliation destroyed'
+    redirect_to :back, notify: 'Reconciliation destroyed'
   end
 
   private

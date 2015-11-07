@@ -18,7 +18,7 @@ class TransfersController < ApplicationController
 
   def destroy
     Transfer.find(params[:id]).destroy
-    redirect_to new_transfer_path, notify: 'Transfer destroyed'
+    redirect_to :back, notify: 'Transfer destroyed'
   end
 
   private
