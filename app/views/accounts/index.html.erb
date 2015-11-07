@@ -25,7 +25,10 @@
     <div class="panel-footer text-muted">You have <%= pluralize @accounts.count, 'account' %></div>
   </div>
 <% else %>
-  <h2>You have no account yet</h2>
+  <div class="emptyness">
+    There are no accounts yet. You need to create at least a single
+    one for budgeting.
+  </div>
 <% end %>
 
 <div class="margin-bl">
