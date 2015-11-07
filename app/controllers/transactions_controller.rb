@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_action :check_availability
   before_action :load_transaction, only: [:edit, :update, :destroy]
 
   def new
@@ -10,7 +11,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(complemented_params)
     begin
       @transaction.save!
-      redirect_to transactions_path, notice: 'Transaction created'
+      redirect_to new_transaction_path, notice: 'Transaction created'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :new
@@ -24,7 +25,7 @@ class TransactionsController < ApplicationController
     @transaction.assign_attributes(complemented_params)
     begin
       @transaction.save!
-      redirect_to transactions_path, notice: 'Transaction updated'
+      redirect_to new_transaction_path, notice: 'Transaction updated'
     rescue => e
       flash.now[:alert] = e.message
       render :edit
@@ -81,5 +82,11 @@ class TransactionsController < ApplicationController
 
   def load_transaction
     @transaction = Transaction.find(transaction_id)
+  end
+
+  def check_availability
+    return if Account.any?
+    message = 'At least one accounts is required to add a transaction.'
+    redirect_to(accounts_path, alert: message)
   end
 end

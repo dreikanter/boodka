@@ -5,7 +5,7 @@ class TransfersController < ApplicationController
   def create
     if @form.validate(transfer_params)
       @form.save { |hash| TransferBuilder.build!(hash) }
-      redirect_to transfers_path, notify: 'Transfer performed'
+      redirect_to new_transfer_path, notify: 'Transfer performed'
     else
       flash.now[:alert] = 'Something went wrong'
       render :new
@@ -18,7 +18,7 @@ class TransfersController < ApplicationController
 
   def destroy
     Transfer.find(params[:id]).destroy
-    redirect_to transfers_url, notify: 'Transfer destroyed'
+    redirect_to new_transfer_path, notify: 'Transfer destroyed'
   end
 
   private
@@ -43,6 +43,8 @@ class TransfersController < ApplicationController
   end
 
   def check_availability
-    fail 'At least 2 accounts required to transfer' if Account.count < 2
+    return if Account.count > 1
+    message = 'At least 2 accounts required to transfer.'
+    redirect_to(accounts_path, alert: message)
   end
 end

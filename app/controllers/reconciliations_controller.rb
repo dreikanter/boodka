@@ -15,7 +15,7 @@ class ReconciliationsController < ApplicationController
     @reconciliation = Reconciliation.new(rec_params)
     begin
       @reconciliation.save!
-      redirect_to reconciliations_path
+      redirect_to new_reconciliation_path
     rescue => e
       flash.now[:alert] = e.message
       render :index
@@ -26,7 +26,7 @@ class ReconciliationsController < ApplicationController
     @reconciliation.assign_attributes(rec_params)
     begin
       @reconciliation.save!
-      redirect_to reconciliations_path, notify: 'Reconciliation updated'
+      redirect_to new_reconciliation_path, notify: 'Reconciliation updated'
     rescue => e
       flash.now[:alert] = e.message
       render :edit
@@ -35,7 +35,7 @@ class ReconciliationsController < ApplicationController
 
   def destroy
     @reconciliation.destroy
-    redirect_to reconciliations_path, notify: 'Reconciliation destroyed'
+    redirect_to new_reconciliation_path, notify: 'Reconciliation destroyed'
   end
 
   private
@@ -53,7 +53,9 @@ class ReconciliationsController < ApplicationController
   end
 
   def check_availability
-    fail 'No accounts to reconcile' unless Account.any?
+    return if Account.any?
+    message = 'There are no accounts, nothing to reconcile.'
+    redirect_to(accounts_path, alert: message)
   end
 
   def account_id

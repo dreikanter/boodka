@@ -24,6 +24,7 @@ class Account < ActiveRecord::Base
   scope :ordered, -> { order(:title) }
 
   before_save :drop_old_default_if_needed
+  after_create :ensure_default_present
 
   def self.default!(id)
     Account.update(id, default: true)
@@ -42,5 +43,9 @@ class Account < ActiveRecord::Base
   def drop_old_default_if_needed
     return unless default && default_changed?
     Account.where(default: true).update_all(default: false)
+  end
+
+  def ensure_default_present
+    self.class.default!(id) unless self.class.default
   end
 end
