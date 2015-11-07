@@ -8,4 +8,12 @@ class ReconciliationDecorator < Draper::Decorator
   def account_currency_label
     h.currency_label(model.amount.currency)
   end
+
+  def to_row
+    h.content_tag(:tr) do
+      h.content_tag(:td) do
+        model.to_s
+      end
+    end
+  end
 end

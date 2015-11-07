@@ -4,17 +4,15 @@ class PeriodsController < ApplicationController
   def show
     @categories = Category.ordered
     @periods = periods
+    @history = history(@periods.first.start_at..@periods.last.end_at)
    end
 
   private
 
   def periods
-    get_period = -> (n) { period(first_period_date + n.month) }
-    Const::PERIODS_PER_PAGE.times.map(&get_period)
-  end
-
-  def period(date)
-    Period.at(date.year, date.month).decorate
+    to_date = -> (n) { first_period_date + n.month }
+    to_period = -> (d) { Period.at(d.year, d.month).decorate }
+    Const::PERIODS_PER_PAGE.times.map(&to_date).map(&to_period)
   end
 
   def first_period_date
@@ -34,11 +32,17 @@ class PeriodsController < ApplicationController
   end
 
   def check_availability
-    unless Account.any?
-      redirect_to(accounts_path, alert: 'No accounts, nothing to budget.')
-    end
-    unless Category.any?
-      redirect_to(categories_path, alert: 'Need categories to budget.')
-    end
+    message = 'No accounts, nothing to budget.'
+    redirect_to(accounts_path, alert: message) unless Account.any?
+    message = 'Need categories to budget.'
+    redirect_to(categories_path, alert: message) unless Category.any?
+  end
+
+  HISTORICAL_ENTITIES = [Transaction, Reconciliation]
+
+  def history(time_frame)
+    framed = -> (model) { model.where(created_at: time_frame).decorate }
+    by_creation = -> (a, b) { a.created_at <=> b.created_at }
+    HISTORICAL_ENTITIES.map(&framed).flatten.sort(&by_creation)
   end
 end

@@ -24,4 +24,12 @@ class TransactionDecorator < Draper::Decorator
     return 'Transfer' if model.transfer_id.present?
     model.inflow? ? 'Income' : model.category.try(:title)
   end
+
+  def to_row
+    h.content_tag(:tr) do
+      h.content_tag(:td) do
+        model.to_s
+      end
+    end
+  end
 end
