@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
     begin
       @transaction.save!
       redirect_to new_transaction_path, notice: 'Transaction updated'
-    rescue => e
+    rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :edit
     end
