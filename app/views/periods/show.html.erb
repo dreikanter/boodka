@@ -7,7 +7,7 @@
   <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 btn-toolbar budget-pagination">
     <div class="btn-group">
       <%= @periods.first.link_to_prev_month %>
-      <%= period_pagination(@date) %>
+      <%= period_pagination(@periods) %>
       <%= @periods.first.link_to_next_month %>
     </div>
   </div>

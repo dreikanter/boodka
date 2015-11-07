@@ -2,7 +2,6 @@ class PeriodsController < ApplicationController
   before_action :check_availability
 
   def show
-    @date = first_period_date
     @categories = Category.ordered
     @periods = periods
    end
