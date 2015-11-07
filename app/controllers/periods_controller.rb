@@ -2,7 +2,7 @@ class PeriodsController < ApplicationController
   before_action :check_availability
 
   def show
-    @date = base_date
+    @date = first_period_date
     @categories = Category.ordered
     @periods = periods
    end
@@ -10,27 +10,28 @@ class PeriodsController < ApplicationController
   private
 
   def periods
-    Const::PERIODS_PER_PAGE.times.map { |i| period(base_date + i.month) }
+    get_period = -> (n) { period(first_period_date + n.month) }
+    Const::PERIODS_PER_PAGE.times.map(&get_period)
   end
 
   def period(date)
     Period.at(date.year, date.month).decorate
   end
 
-  def base_date
-    @base_date ||= DateTime.new(year, month)
+  def first_period_date
+    @first_period_date ||= Date.new(year, month)
+  end
+
+  def current_time
+    @current_time ||= Time.use_zone(Const::TZ) { Time.current }
   end
 
   def year
-    params[:year] ? Integer(params[:year]) : Date.today.year
+    params[:year] ? Integer(params[:year]) : current_time.year
   end
 
   def month
-    params[:month] ? Integer(params[:month]) : Date.today.month
-  end
-
-  def time_frame
-    base_date..(base_date + Const::PERIODS_PER_PAGE.month - 1.second)
+    params[:month] ? Integer(params[:month]) : current_time.month
   end
 
   def check_availability

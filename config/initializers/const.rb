@@ -17,4 +17,6 @@ module Const
     outflow: OUTFLOW,
     inflow: INFLOW
   }
+
+  TZ = 'Moscow'
 end

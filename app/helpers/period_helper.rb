@@ -16,8 +16,8 @@ module PeriodHelper
   end
 
   def current_month?(year, month)
-    today = Date.today
-    (today.year == year) && (today.month == month)
+    now = Time.use_zone(Const::TZ) { Time.zone.now }
+    (now.year == year) && (now.month == month)
   end
 
   def period_nav_classes(year, month, selected_month)
