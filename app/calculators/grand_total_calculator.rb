@@ -1,6 +1,6 @@
 class GrandTotalCalculator < BasicCalculator
   def initialize(options = {})
-    @at = options.fetch(:at, DateTime.now)
+    @at = options[:at] || Time.current
   end
 
   def calculate

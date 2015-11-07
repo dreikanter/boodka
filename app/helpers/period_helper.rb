@@ -29,11 +29,8 @@ module PeriodHelper
     (first_month..last_visible).include?(month)
   end
 
-  def today
-    @today ||= Time.use_zone(Const::TZ) { Time.zone.now }
-  end
-
   def current_month?(year, month)
-    (today.year == year) && (today.month == month)
+    now = Time.current
+    (now.year == year) && (now.month == month)
   end
 end

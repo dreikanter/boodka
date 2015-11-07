@@ -86,7 +86,7 @@ class Period < ActiveRecord::Base
 
   def init_boundaries
     return if persisted?
-    now = Time.use_zone(Const::TZ) { Time.zone.now }
+    now = Time.current
     self.year = now.year unless year
     self.month = now.month unless month
     self.start_at = DateTime.new(year, month)

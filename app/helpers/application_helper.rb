@@ -62,16 +62,20 @@ module ApplicationHelper
   end
 
   def relative_time(value)
-    now = Time.now
-    near = (now > value.to_time) && (now - value.to_time < 1.day)
-    return time_tag(value, class: 'ago') if near
-    current_year = (now.year == value.year)
-    current_year ? short_date(value) : full_date(value)
+    return time_tag(value, class: 'ago') if recent_time?(value)
+    (Time.current.year == value.year) ? short_date(value) : full_date(value)
   end
 
   private
 
   def classificator(object, field)
     [object.class.name.underscore, field].join('-').gsub('_', '-')
+  end
+
+  NEAR_FRAME = 1.day
+
+  def recent_time?(value)
+    now = Time.current
+    (now > value) && (now - value < NEAR_FRAME)
   end
 end

@@ -1,7 +1,7 @@
 class TotalCalculator < BasicCalculator
   def initialize(options = {})
     @account = options.fetch(:account)
-    @at = options[:at] || DateTime.now
+    @at = options[:at] || Time.current
   end
 
   def calculate
@@ -31,7 +31,7 @@ class TotalCalculator < BasicCalculator
   end
 
   def first_transaction_created_at
-    first_transaction.try(:created_at) || DateTime.now
+    first_transaction.try(:created_at) || Time.current
   end
 
   def first_transaction

@@ -22,7 +22,7 @@ class PeriodsController < ApplicationController
   end
 
   def current_time
-    @current_time ||= Time.use_zone(Const::TZ) { Time.current }
+    @current_time ||= Time.current
   end
 
   def year

@@ -36,7 +36,7 @@ class Rate < ActiveRecord::Base
   end
 
   def self.ttl_threshold
-    Time.now - TTL_SECONDS
+    Time.current - TTL_SECONDS
   end
 
   def convert(amount)
@@ -44,6 +44,6 @@ class Rate < ActiveRecord::Base
   end
 
   def expired?
-    Time.now - created_at > TTL_SECONDS
+    Time.current - created_at > TTL_SECONDS
   end
 end
