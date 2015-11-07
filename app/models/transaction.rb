@@ -55,6 +55,10 @@ class Transaction < ActiveRecord::Base
     transfer_id.present?
   end
 
+  def expense?
+    outflow? && !transfer?
+  end
+
   private
 
   def calculate_amount
@@ -97,11 +101,11 @@ class Transaction < ActiveRecord::Base
   end
 
   def current_budget_key
-    budget_key(created_at, category_id) if outflow?
+    budget_key(created_at, category_id) if expense?
   end
 
   def previous_budget_key
-    present = !new_record? && (direction_was == 'outflow')
+    present = !new_record? && (direction_was == 'outflow') && category_id_was
     budget_key(created_at_was, category_id_was) if present
   end
 end
