@@ -1,9 +1,9 @@
 <% if @accounts.any? %>
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
-    <table class="table table-hover">
+    <table class="table table-hover clickable-rows">
       <% @accounts.each do |account| %>
-        <tr>
+        <tr data-href="<%= edit_account_path(account) %>">
           <td class="col-lg-5">
             <%= link_to account.title, edit_account_path(account) %>
 

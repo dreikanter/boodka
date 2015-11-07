@@ -128,6 +128,9 @@ table.budget-table tr > .budget-table-head {
   font-weight: bold;
 }
 
+.clickable-rows {
+  cursor: pointer;
+}
 
 /*
     Transaction kinds

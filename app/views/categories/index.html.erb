@@ -1,9 +1,9 @@
 <% if Category.any? %>
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">Budgeting categories</div>
-    <table class="table table-hover">
+    <table class="table table-hover clickable-rows">
       <% @categories.each do |category| %>
-        <tr>
+        <tr data-href="<%= edit_category_path(category) %>">
           <td class="col-lg-10">
             <%= link_to category.title, edit_category_path(category) %>
             <span class="text-muted"><%= category.memo %></span>
