@@ -1,10 +1,9 @@
-<h2>New account</h2>
-
 <%=
   render partial: 'form', locals: {
     account_form: @form,
     submit_url: accounts_path,
     method: :post,
+    form_caption: 'New account',
     submit_caption: 'Create new account',
     edit: false,
     cancel: true

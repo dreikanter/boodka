@@ -1,25 +1,25 @@
 <% if Category.any? %>
-  <h2>You have <%= pluralize Category.count, 'budgeting category' %></h2>
-
-  <table class="table table-bordered table-hover no-grid">
-    <% @categories.each do |category| %>
-      <tr>
-        <td class="col-lg-10">
-          <%= link_to category.title, edit_category_path(category) %>
-          <span class="text-muted"><%= category.memo %></span>
-          <div class="table-row-actions">
-            <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Budgeting categories</div>
+    <table class="table table-hover">
+      <% @categories.each do |category| %>
+        <tr>
+          <td class="col-lg-10">
+            <%= link_to category.title, edit_category_path(category) %>
+            <span class="text-muted"><%= category.memo %></span>
+            <div class="table-row-actions">
+              <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="panel-footer text-muted">You have <%= pluralize Category.count, 'budgeting category' %></div>
+  </div>
 <% else %>
   <div class="emptyness">
     There are no existing categories yet.
   </div>
 <% end %>
 
-<h2>New category</h2>
-
-<%= render partial: 'form', locals: { submit_caption: 'Add new category', cancel: false } %>
+<%= link_to 'Create new category', new_category_path, class: 'btn btn-default' %>

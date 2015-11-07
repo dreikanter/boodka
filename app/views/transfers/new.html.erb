@@ -1,3 +1,33 @@
-<h2>Transfers</h2>
+<% if Account.count > 1 %>
+  <%= render partial: 'form', locals: {
+    form_caption: 'New transfer',
+    cancel: false
+  } %>
 
-<%= render partial: 'form', locals: { cancel: false } %>
+  <% if Transfer.any? %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3 class="panel-title">Recent transfers</h3></div>
+      <table class="table table-hover">
+        <% Transfer.recent_history.each do |transfer| %>
+          <tr>
+            <td class="col-lg-2 text-muted">
+              <%= relative_time(transfer.created_at) %>
+            </td>
+            <td class="col-lg-10">
+              <span class="text-muted">
+                <%= "#{transfer.memo}" %>
+              </span>
+              <div class="table-row-actions">
+                <%= link_to 'Destroy', transfer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+<% else %>
+  <div class="emptyness">
+    At least two accounts required to transfer something to somewhere. <%= link_to 'Add account', new_account_path %>
+  </div>
+<% end %>

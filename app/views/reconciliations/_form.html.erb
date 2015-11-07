@@ -1,16 +1,23 @@
-<%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' }, builder: SmartBuilder do |form| %>
-  <% if edit || reconciliation.account_id %>
-    <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
-  <% else %>
-    <%= form.select :account_id, options: options_for_account_select(reconciliation, :account_id) %>
-  <% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= form_caption %></h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' }, builder: SmartBuilder do |form| %>
+      <% if edit || reconciliation.account_id %>
+        <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
+      <% else %>
+        <%= form.select :account_id, options: options_for_account_select(reconciliation, :account_id) %>
+      <% end %>
 
-  <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
+      <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
 
-  <%= form.datetime :created_at, placeholder: 'Default is now' %>
+      <%= form.datetime :created_at, placeholder: 'Default is now' %>
 
-  <%= form.submit_group caption: submit_caption, cancel: cancel %>
-<% end %>
+      <%= form.submit_group caption: submit_caption, cancel: cancel %>
+    <% end %>
+  </div>
+</div>
 
 <script>
   $(function() {

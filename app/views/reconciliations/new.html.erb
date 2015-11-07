@@ -1,11 +1,47 @@
-<h2>Account reconciliation</h2>
+<% if Account.any? %>
+  <%= render partial: 'form', locals: {
+    reconciliation: @reconciliation,
+    submit_url: reconciliations_path,
+    method: :post,
+    remote: false,
+    form_caption: 'New reconciliation',
+    submit_caption: 'Reconcile',
+    edit: false,
+    cancel: true
+  } %>
 
-<%= render partial: 'form', locals: {
-  reconciliation: @reconciliation,
-  submit_url: reconciliations_path,
-  method: :post,
-  remote: false,
-  submit_caption: 'Reconcile',
-  edit: false,
-  cancel: true
-} %>
+  <% if Reconciliation.any? %>
+    <div class="panel panel-default">
+      <div class="panel-heading"><h3 class="panel-title">Recent reconciliations</h3></div>
+      <table class="table table-hover">
+        <% @reconciliations.each do |rec| %>
+          <tr>
+            <td class="col-lg-2 text-muted">
+              <%= relative_time(rec.created_at) %>
+            </td>
+            <td class="col-lg-2">
+              <%= rec.account.title %>
+            </td>
+            <td class="col-lg-2 text-right">
+              <%= link_to rec.display_amount, edit_reconciliation_path(rec) %>
+            </td>
+            <td class="col-lg-1">
+              <%= rec.account_currency_label %>
+            </td>
+            <td class="col-lg-7">
+              <div class="table-row-actions">
+                <%= link_to 'Destroy', rec, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-default' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+<% else %>
+  <div class="emptyness">
+    There are no accounts, nothing to reconcile. <%= link_to 'Add account', new_account_path %>
+  </div>
+<% end %>
+
+

@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :load_transaction, only: [:edit, :update, :destroy]
 
-  def index
+  def new
     @transaction = Transaction.new
     @transactions = Transaction.recent_history.decorate
   end

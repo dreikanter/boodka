@@ -1,3 +1,7 @@
-<h2>New category</h2>
-
-<%= render partial: 'form', locals: { submit_caption: 'Create', cancel: true } %>
+<%=
+  render partial: 'form', locals: {
+    submit_caption: 'Create',
+    form_caption: 'New category',
+    cancel: true
+  }
+%>

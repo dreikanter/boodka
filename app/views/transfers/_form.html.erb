@@ -1,29 +1,34 @@
-<%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
-
-  <div class="row">
-    <div class="col-lg-6">
-      <%= form.select :from_account_id, options: options_for_account_select(@form, :from_account_id) %>
-    </div>
-    <div class="col-lg-6">
-      <%= form.select :to_account_id, options: options_for_account_select(@form, :to_account_id) %>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= form_caption %></h3>
   </div>
+  <div class="panel-body">
+    <%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
 
-  <div class="row">
-    <div class="col-lg-6">
-      <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
-    </div>
-    <div class="col-lg-6">
-      <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
-    </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <%= form.select :from_account_id, options: options_for_account_select(@form, :from_account_id) %>
+        </div>
+        <div class="col-lg-6">
+          <%= form.select :to_account_id, options: options_for_account_select(@form, :to_account_id) %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
+        </div>
+        <div class="col-lg-6">
+          <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
+        </div>
+      </div>
+
+      <%= form.datetime :created_at, placeholder: 'Default is now' %>
+      <%= form.area :memo, placeholder: 'Optional notes' %>
+      <%= form.submit_group caption: 'Create', cancel: cancel %>
+    <% end %>
   </div>
-
-  <%= form.datetime :created_at, placeholder: 'Default is now' %>
-
-  <%= form.area :memo, placeholder: 'Optional notes' %>
-
-  <%= form.submit_group caption: 'Create', cancel: cancel %>
-<% end %>
+</div>
 
 <script>
   $(function() {

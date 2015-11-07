@@ -7,6 +7,10 @@ class ReconciliationsController < ApplicationController
     load_reconciliations
   end
 
+  def new
+    load_reconciliations
+  end
+
   def create
     @reconciliation = Reconciliation.new(rec_params)
     begin

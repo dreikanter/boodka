@@ -1,10 +1,9 @@
-<h2>Reconciliation details</h2>
-
 <%= render partial: 'form', locals: {
   reconciliation: @reconciliation,
   submit_url: reconciliation_path(@reconciliation.id),
   method: :patch,
   remote: false,
+  form_caption: 'Reconciliation details',
   submit_caption: 'Update reconciliation',
   edit: true,
   cancel: true

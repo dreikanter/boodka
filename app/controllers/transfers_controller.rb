@@ -2,10 +2,6 @@ class TransfersController < ApplicationController
   before_action :check_availability
   before_action :init_new_form, except: :destroy
 
-  def index
-    @transfers = Transfer.recent_history
-  end
-
   def create
     if @form.validate(transfer_params)
       @form.save { |hash| TransferBuilder.build!(hash) }
@@ -17,6 +13,7 @@ class TransfersController < ApplicationController
   end
 
   def new
+    @transfers = Transfer.recent_history
   end
 
   def destroy

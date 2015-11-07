@@ -1,0 +1,239 @@
+// Margins
+
+.no-margin {
+  margin: 0;
+}
+
+// Margin bottom
+
+.margin-b0 {
+  margin-bottom: 0;
+}
+
+.margin-bs {
+  margin-bottom: 5px;
+}
+
+.margin-bs {
+  margin-bottom: 5px;
+}
+
+.margin-b,
+.margin-bm {
+  margin-bottom: 10px;
+}
+
+.margin-bl {
+  margin-bottom: 20px;
+}
+
+.margin-bxl {
+  margin-bottom: 50px;
+}
+
+.margin-bxxl {
+  margin-bottom: 150px;
+}
+
+.margin-ts {
+  margin-top: 5px;
+}
+
+// Margin top
+
+.margin-t0 {
+  margin-top: 0;
+}
+
+.margin-ts {
+  margin-top: 5px;
+}
+
+.margin-t,
+.margin-tm {
+  margin-top: 10px;
+}
+
+.margin-tl {
+  margin-top: 20px;
+}
+
+.margin-txl {
+  margin-top: 50px;
+}
+
+.margin-txxl {
+  margin-top: 150px;
+}
+
+// Margin right
+
+.margin-r0 {
+  margin-right: 0;
+}
+
+.margin-rs {
+  margin-right: 5px;
+}
+
+.margin-r,
+.margin-rm {
+  margin-right: 10px;
+}
+
+.margin-rl {
+  margin-right: 20px;
+}
+
+.margin-rxl {
+  margin-right: 50px;
+}
+
+.margin-rxxl {
+  margin-right: 150px;
+}
+
+// Margin left
+
+.margin-l0 {
+  margin-left: 0;
+}
+
+.margin-ls {
+  margin-left: 5px;
+}
+
+.margin-l,
+.margin-lm {
+  margin-left: 10px;
+}
+
+.margin-ll {
+  margin-left: 20px;
+}
+
+.margin-lxl {
+  margin-left: 50px;
+}
+
+.margin-lxxl {
+  margin-left: 150px;
+}
+
+// Paddings
+
+.no-padding {
+  padding: 0;
+}
+
+// Padding bottom
+
+.padding-b0 {
+  padding-bottom: 0;
+}
+
+.padding-bs {
+  padding-bottom: 5px;
+}
+
+.padding-b,
+.padding-bm {
+  padding-bottom: 10px;
+}
+
+.padding-bl {
+  padding-bottom: 20px;
+}
+
+.padding-bxl {
+  padding-bottom: 50px;
+}
+
+.padding-bxxl {
+  padding-bottom: 150px;
+}
+
+.padding-ts {
+  padding-top: 5px;
+}
+
+// Padding top
+
+.padding-t0 {
+  padding-top: 0;
+}
+
+.padding-ts {
+  padding-top: 5px;
+}
+
+.padding-t,
+.padding-tm {
+  padding-top: 10px;
+}
+
+.padding-tl {
+  padding-top: 20px;
+}
+
+.padding-txl {
+  padding-top: 50px;
+}
+
+.padding-txxl {
+  padding-top: 150px;
+}
+
+// Padding right
+
+.padding-r0 {
+  padding-right: 0;
+}
+
+.padding-rs {
+  padding-right: 5px;
+}
+
+.padding-r,
+.padding-rm {
+  padding-right: 10px;
+}
+
+.padding-rl {
+  padding-right: 20px;
+}
+
+.padding-rxl {
+  padding-right: 50px;
+}
+
+.padding-rxxl {
+  padding-right: 150px;
+}
+
+// Padding left
+
+.padding-l0 {
+  padding-left: 0;
+}
+
+.padding-ls {
+  padding-left: 5px;
+}
+
+.padding-l,
+.padding-lm {
+  padding-left: 10px;
+}
+
+.padding-ll {
+  padding-left: 20px;
+}
+
+.padding-lxl {
+  padding-left: 50px;
+}
+
+.padding-lxxl {
+  padding-left: 150px;
+}
