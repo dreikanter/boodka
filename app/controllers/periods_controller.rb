@@ -42,7 +42,7 @@ class PeriodsController < ApplicationController
 
   def history(time_frame)
     historical_frame = -> (model) { model.history.where(created_at: time_frame) }
-    by_creation = -> (a, b) { a.created_at <=> b.created_at }
+    by_creation = -> (a, b) { b.created_at <=> a.created_at }
     HISTORICAL_ENTITIES.map(&historical_frame).flatten.sort(&by_creation)
   end
 end
