@@ -13,7 +13,7 @@
     <div class="panel-heading"><h3 class="panel-title">Recent transactions</h3></div>
     <table class="table table-hover clickable-rows">
       <% @transactions.each do |transaction| %>
-        <%= transaction.row %>
+        <%= presenter(transaction).row %>
       <% end %>
     </table>
   </div>

@@ -14,7 +14,7 @@
     <div class="panel-heading"><h3 class="panel-title">Recent reconciliations</h3></div>
     <table class="table table-hover clickable-rows">
       <% @reconciliations.each do |rec| %>
-        <%= rec.row %>
+        <%= presenter(rec).row %>
       <% end %>
     </table>
   </div>

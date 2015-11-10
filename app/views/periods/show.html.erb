@@ -72,7 +72,7 @@
     <div class="panel-heading"><h3 class="panel-title">History</h3></div>
     <table class="table table-hover clickable-rows">
       <% @history.each do |r| %>
-        <%= r.decorate.row %>
+        <%= presenter(r).row %>
       <% end %>
     </table>
   </div>

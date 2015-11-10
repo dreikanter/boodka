@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new
-    @transactions = Transaction.recent_history.decorate
+    @transactions = Transaction.recent_history
   end
 
   def create
