@@ -38,11 +38,11 @@ class PeriodsController < ApplicationController
     redirect_to(categories_path, alert: message) unless Category.any?
   end
 
-  HISTORICAL_ENTITIES = [Transaction, Reconciliation]
+  HISTORICAL_ENTITIES = [Transaction, Reconciliation, Transfer]
 
   def history(time_frame)
-    framed = -> (model) { model.where(created_at: time_frame) }
+    historical_frame = -> (model) { model.history.where(created_at: time_frame) }
     by_creation = -> (a, b) { a.created_at <=> b.created_at }
-    HISTORICAL_ENTITIES.map(&framed).flatten.sort(&by_creation)
+    HISTORICAL_ENTITIES.map(&historical_frame).flatten.sort(&by_creation)
   end
 end

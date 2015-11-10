@@ -38,12 +38,14 @@ class Transaction < ActiveRecord::Base
   belongs_to :account
   belongs_to :transfer
 
-  scope :with_account, -> { includes(:account) }
-  scope :history, -> { with_account.order('created_at desc') }
-  scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
-  scope :outflows, -> { where(direction: Const::OUTFLOW) }
-  scope :inflows, -> { where(direction: Const::INFLOW) }
-  scope :expenses, -> { outflows.where(transfer_id: nil) }
+  scope :with_account,      -> { includes(:account) }
+  scope :without_transfers, -> { with_account.where(transfer_id: nil) }
+  scope :history,           -> { without_transfers.order('created_at desc') }
+  scope :recent_history,    -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
+
+  scope :outflows,          -> { where(direction: Const::OUTFLOW) }
+  scope :inflows,           -> { where(direction: Const::INFLOW) }
+  scope :expenses,          -> { outflows.where(transfer_id: nil) }
 
   before_save :calculate_amount
   after_save :update_budget
