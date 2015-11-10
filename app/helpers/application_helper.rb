@@ -13,12 +13,16 @@ module ApplicationHelper
     "#{params[:controller]}/#{params[:action]}"
   end
 
+  def recent_time(datetime)
+    time_tag(datetime, datetime.strftime(Const::TIME_FORMAT).strip)
+  end
+
   def short_date(datetime)
-    time_tag(datetime, datetime.strftime(Const::SHORT_DATE_FORMAT))
+    time_tag(datetime, datetime.strftime(Const::SHORT_DATE_FORMAT).strip)
   end
 
   def full_date(datetime)
-    time_tag(datetime, datetime.strftime(Const::FULL_DATE_FORMAT))
+    time_tag(datetime, datetime.strftime(Const::FULL_DATE_FORMAT).strip)
   end
 
   def field_error(model, field)
@@ -62,8 +66,8 @@ module ApplicationHelper
   end
 
   def relative_time(value)
-    return time_tag(value, class: 'ago') if recent_time?(value)
-    (Time.current.year == value.year) ? short_date(value) : full_date(value)
+    return recent_time(value) if recent_time?(value)
+    ((Time.current.year == value.year) ? short_date(value) : full_date(value))
   end
 
   private
