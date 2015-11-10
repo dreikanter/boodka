@@ -7,7 +7,7 @@
       <% if edit %>
         <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
       <% else %>
-        <%= form.select :account_id, options: options_for_account_select(reconciliation, :account_id) %>
+        <%= form.account_select :account_id %>
       <% end %>
 
       <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>

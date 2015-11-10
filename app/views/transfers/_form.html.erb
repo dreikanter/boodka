@@ -7,10 +7,10 @@
 
       <div class="row">
         <div class="col-lg-6">
-          <%= form.select :from_account_id, options: options_for_account_select(@form, :from_account_id) %>
+          <%= form.account_select :from_account_id %>
         </div>
         <div class="col-lg-6">
-          <%= form.select :to_account_id, options: options_for_account_select(@form, :to_account_id) %>
+          <%= form.account_select :to_account_id %>
         </div>
       </div>
 

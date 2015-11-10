@@ -42,6 +42,10 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def account_select(field)
+    select(field, options: options_for_account_select(field))
+  end
+
   def datetime(field, options = {})
     group_for(field) do
       value = object.send(field).try(:strftime, Const::DATEPICKER_FORMAT_PARSE)
@@ -115,5 +119,19 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
       radio_button(field, value, checked: checked,
         autocomplete: 'off', class: classes) + " #{caption}"
     end
+  end
+
+  def options_for_account_select(field)
+    optionate = lambda do |account|
+      [
+        account.display_title_with_currency,
+        account.id,
+        { 'data-currency' => account.currency }
+      ]
+    end
+
+    accounts = Account.ordered.decorate.map(&optionate)
+    selected = @object.send(field) || Account.default_id
+    @template.options_for_select(accounts, selected)
   end
 end

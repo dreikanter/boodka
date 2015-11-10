@@ -11,7 +11,7 @@
           <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
         </div>
         <div class="col-lg-6">
-          <%= form.select :account_id, options: options_for_account_select(transaction, :account_id) %>
+          <%= form.account_select :account_id %>
           <%= form.select :amount_currency, options: options_for_select(Const::CURRENCY_CODES, transaction.persisted? ? transaction.amount_currency : Account.default.try(:currency)) %>
         </div>
       </div>
