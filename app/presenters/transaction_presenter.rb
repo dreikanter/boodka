@@ -1,8 +1,8 @@
 class TransactionPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
-  def time
-    h.relative_time(model.created_at)
+  def icon
+    model.outflow? ? 'arrow-circle-down' : 'arrow-circle-up'
   end
 
   def account_title
@@ -22,10 +22,6 @@ class TransactionPresenter < OperationPresenter
   def description
     classes = "transaction transaction-#{transaction_class}"
     h.content_tag :span, transaction_type, class: classes
-  end
-
-  def memo
-    h.content_tag(:span, model.memo, class: 'text-muted')
   end
 
   def actions

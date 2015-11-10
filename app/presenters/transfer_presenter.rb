@@ -1,8 +1,8 @@
 class TransferPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
-  def time
-    h.relative_time(model.created_at)
+  def icon
+    'arrow-circle-right'
   end
 
   def account_title
@@ -17,14 +17,6 @@ class TransferPresenter < OperationPresenter
 
   def currency
     h.currency_label(model.transactions.first.amount_currency)
-  end
-
-  def description
-    'Transfer'
-  end
-
-  def memo
-    model.memo
   end
 
   def actions

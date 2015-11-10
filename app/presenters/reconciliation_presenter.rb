@@ -1,8 +1,8 @@
 class ReconciliationPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
-  def time
-    h.relative_time(model.created_at)
+  def icon
+    'check-circle'
   end
 
   def account_title
@@ -19,10 +19,6 @@ class ReconciliationPresenter < OperationPresenter
 
   def description
     'Reconciliation'
-  end
-
-  def memo
-    ''
   end
 
   def actions
