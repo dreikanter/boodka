@@ -19,7 +19,7 @@
           <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
         </div>
         <div class="col-lg-6">
-          <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
+          <%= form.currency_select :currency %>
         </div>
       </div>
 

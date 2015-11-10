@@ -46,6 +46,10 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     select(field, options: options_for_account_select(field))
   end
 
+  def currency_select(field)
+    select(field, options: options_for_currency_select(field))
+  end
+
   def datetime(field, options = {})
     group_for(field) do
       value = object.send(field).try(:strftime, Const::DATEPICKER_FORMAT_PARSE)
@@ -121,6 +125,8 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  # TODO: Cache Account#default_id
+
   def options_for_account_select(field)
     optionate = lambda do |account|
       [
@@ -133,5 +139,12 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     accounts = Account.ordered.decorate.map(&optionate)
     selected = @object.send(field) || Account.default_id
     @template.options_for_select(accounts, selected)
+  end
+
+  # TODO: Cache Account.default.try(:currency)
+
+  def options_for_currency_select(field)
+    selected = @object.send(field) || Account.default.try(:currency)
+    @template.options_for_select(Const::CURRENCY_CODES, selected)
   end
 end

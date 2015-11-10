@@ -9,7 +9,7 @@
       <% if account_form.persisted? %>
         <%= form.static :currency %>
       <% else %>
-        <%= form.select :currency, options: options_for_select(Const::CURRENCY_CODES) %>
+        <%= form.currency_select :currency %>
         <%= form.text :amount, placeholder: 'Amount' %>
         <%= form.datetime :reconciled_at, placeholder: 'Default is now' %>
       <% end %>
