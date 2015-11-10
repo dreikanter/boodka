@@ -19,6 +19,8 @@
 
       <%= navbar side: :right do %>
         <%= navbar_item caption: 'New transaction', path: new_transaction_path, enabled: Account.count > 0 %>
+        <%= navbar_item caption: 'Transfer', path: new_transfer_path, enabled: Account.count > 1 %>
+        <%= navbar_item caption: 'Reconcile', path: new_reconciliation_path, enabled: Account.count > 0 %>
       <% end %>
     </div>
   </div>
