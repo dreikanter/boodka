@@ -12,4 +12,11 @@ module FormsHelper
     selected = model.persisted? ? model.send(field) : Account.default_id
     options_for_select(accounts, selected)
   end
+
+  def button_to(title, path, options = {})
+    enabled = options[:enabled].present? ? options[:enabled] : true
+    classes = %w(btn btn-default)
+    classes << 'disabled' unless enabled
+    link_to(title, path, class: classes.join(' '))
+  end
 end
