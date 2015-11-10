@@ -59,6 +59,10 @@ class Transaction < ActiveRecord::Base
     outflow? && !transfer?
   end
 
+  def description
+    'Transaction description'
+  end
+
   private
 
   def calculate_amount
@@ -90,22 +94,24 @@ class Transaction < ActiveRecord::Base
     [previous_budget_key, current_budget_key].compact.uniq
   end
 
-  def budget_key(created_at, category_id)
+  def budget_key(direction, created_at, category_id)
+    return unless has_budget?(direction, created_at, category_id)
     {
       year: created_at.year,
       month: created_at.month,
       category_id: category_id
     }
-  rescue
-    nil
   end
 
   def current_budget_key
-    budget_key(created_at, category_id) if expense?
+    budget_key(direction, created_at, category_id)
   end
 
   def previous_budget_key
-    present = !new_record? && (direction_was == 'outflow') && category_id_was
-    budget_key(created_at_was, category_id_was) if present
+    budget_key(direction_was, created_at_was, category_id_was)
+  end
+
+  def has_budget?(direction, created_at, category_id)
+    (direction == 'expense') && created_at.present? && category_id.present?
   end
 end

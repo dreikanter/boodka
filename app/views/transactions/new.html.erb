@@ -13,28 +13,7 @@
     <div class="panel-heading"><h3 class="panel-title">Recent transactions</h3></div>
     <table class="table table-hover clickable-rows">
       <% @transactions.each do |transaction| %>
-        <tr data-href="<%= edit_transaction_path(transaction) %>">
-          <td class="col-lg-2 text-muted">
-            <%= relative_time transaction.created_at %>
-          </td>
-          <td class="col-lg-2 text-right">
-            <%= link_to transaction.display_amount, edit_transaction_path(transaction), class: "transaction-#{transaction.direction}" %>
-          </td>
-          <td class="col-lg-1">
-            <%= transaction.amount_currency_label %>
-          </td>
-          <td class="col-lg-2">
-            <%= transaction.display_category %>
-          </td>
-          <td class="col-lg-6 text-muted">
-            <%= transaction.memo %>
-            <div class="table-row-actions">
-              <% unless transaction.transfer? %>
-                <%= link_to '<i class="fa fa-times"></i>'.html_safe, transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-icon' %>
-              <% end %>
-            </div>
-          </td>
-        </tr>
+        <%= transaction.row %>
       <% end %>
     </table>
   </div>
