@@ -98,12 +98,25 @@ table.budget-table tr > td {
 
 table.budget-table tr > .budget-table-head {
   padding: 10px 12px;
+  font-weight: 500;
+  line-height: 1.1;
 }
 
 .budget-table .form-control:not(:hover):not(:focus),
 .budget-table .form-control[disabled], .form-control[readonly] {
   background-color: transparent;
   box-shadow: none;
+  border-color: transparent;
+}
+
+.budget-table .table-heading {
+  background-color: #f8f8f8; # Bootstrap .panel-heading
+}
+
+.budget-table.table-bordered > tbody > tr.table-heading > th {
+  font-size: 16px; # .panel-title
+  font-weight: 500;
+  line-height: 1.1;
   border-color: transparent;
 }
 
@@ -126,11 +139,43 @@ table.budget-table tr > .budget-table-head {
 
 .budget-table .total-value input {
   font-weight: bold;
+  font-weight: 500;
 }
 
 .clickable-rows {
   cursor: pointer;
 }
+
+.hide-overlapping td,
+.hide-overlapping th {
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.budget-table-head > a {
+  color: #555;
+}
+
+.budget-table-head > a:hover {
+  color: #555;
+  text-decoration: none;
+}
+
+.op-time {
+  max-width: 100px;
+}
+
+.op-account {}
+
+.op-amount {}
+
+.op-currency {}
+
+.op-description {}
+
+.op-memo {}
+
+.op-actions {}
 
 /*
     Transaction kinds
@@ -154,4 +199,12 @@ table.budget-table tr > .budget-table-head {
 
 .direction-outflow {
   color: #bb0000;
+}
+
+/*
+    Icons
+*/
+
+.history-icon {
+  padding-right: 15px;
 }
