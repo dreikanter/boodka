@@ -4,7 +4,7 @@
     cancel: false
   } %>
 
-  <% if Transfer.any? %>
+  <% if @transfers.present? %>
     <div class="panel panel-default">
       <div class="panel-heading"><h3 class="panel-title">Recent transfers</h3></div>
       <table class="table table-hover clickable-rows">

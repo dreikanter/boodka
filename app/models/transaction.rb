@@ -18,19 +18,15 @@
 #
 
 class Transaction < ActiveRecord::Base
-  monetize :amount_cents,
-           with_model_currency: :amount_cents_currency
+  monetize :amount_cents
+  monetize :calculated_amount_cents
 
-  monetize :calculated_amount_cents,
-           with_model_currency: :calculated_amount_currency
-
+  validates :account_id, :direction, presence: true
   validates :amount_cents, numericality: { greater_than: 0 }
 
   validates :amount_currency,
             :calculated_amount_currency,
             inclusion: { in: Const::CURRENCY_CODES }
-
-  validates :account_id, :direction, presence: true
 
   enum direction: Const::TRANSACTION_DIRECTIONS
 

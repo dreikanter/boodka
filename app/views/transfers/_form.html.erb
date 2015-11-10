@@ -3,7 +3,7 @@
     <h3 class="panel-title"><%= form_caption %></h3>
   </div>
   <div class="panel-body">
-    <%= form_for @form, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
+    <%= form_for @transfer, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
 
       <div class="row">
         <div class="col-lg-6">
@@ -19,7 +19,7 @@
           <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
         </div>
         <div class="col-lg-6">
-          <%= form.currency_select :currency %>
+          <%= form.currency_select :amount_currency %>
         </div>
       </div>
 

@@ -1,18 +1,19 @@
 class TransfersController < ApplicationController
   before_action :check_availability
-  before_action :init_new_form, except: :destroy
 
   def create
-    if @form.validate(transfer_params)
-      @form.save { |hash| TransferBuilder.build!(hash) }
+    @transfer = Transfer.new(form_params)
+    begin
+      @transfer.save!
       redirect_to new_transfer_path, notify: 'Transfer performed'
-    else
-      flash.now[:alert] = 'Something went wrong'
+    rescue ActiveRecord::RecordInvalid => e
+      flash.now[:alert] = e.message
       render :new
     end
   end
 
   def new
+    @transfer = Transfer.new(new_form_params)
     @transfers = Transfer.recent_history
   end
 
@@ -23,21 +24,18 @@ class TransfersController < ApplicationController
 
   private
 
-  def transfer_params
-    params[:transfer].permit([
-      :memo,
-      :amount,
-      :currency,
-      :from_account_id,
-      :to_account_id,
-      :created_at
-    ])
-  end
+  PERMITTED_PARAMS = %i(
+    memo
+    created_at
+    amount_cents
+    amount_currency
+    from_account_id
+    to_account_id
+  )
 
-  def form
-    TransferForm.new(params)
+  def form_params
+    params[:transfer].permit(PERMITTED_PARAMS)
   end
-
 
   def from_account_id
     params[:from_account_id]
@@ -46,16 +44,7 @@ class TransfersController < ApplicationController
   def new_form_params
     return {} unless from_account_id
     from_account = Account.find(from_account_id)
-    {
-      from_account_id: from_account.id,
-      currency: from_account.currency
-    }
-  end
-
-  def init_new_form
-    @form = TransferForm.new(Transfer.new)
-    new_form_params.each { |param, value| @form.send("#{param}=", value) }
-    @form
+    { from_account_id: from_account.id, amount_currency: from_account.currency }
   end
 
   def check_availability
