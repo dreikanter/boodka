@@ -20,7 +20,7 @@
 
 <div class="panel panel-default">
   <table class="table table-bordered budget-table">
-    <tr>
+    <tr class="table-heading">
       <th></th>
       <% @periods.each do |period| %>
         <th colspan="3" class="text-center budget-table-head">
@@ -29,13 +29,15 @@
       <% end %>
     </tr>
     <tr>
-      <th></th>
+      <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-head">
+        Available to budget
+      </th>
       <% @periods.each do |period| %>
         <td colspan="3"><%= period.available_to_budget_cell %></td>
       <% end %>
     </tr>
     <tr>
-      <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 budget-table-head">
+      <th class="budget-table-head">
         <%= link_to 'Category', categories_path %>
       </th>
       <% @periods.each do |period| %>
@@ -70,7 +72,7 @@
 <% if @history.any? %>
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">History</h3></div>
-    <table class="table table-hover clickable-rows">
+    <table class="table table-hover clickable-rows hide-overlapping">
       <% @history.each do |r| %>
         <%= presenter(r).row %>
       <% end %>
