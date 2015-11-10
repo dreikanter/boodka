@@ -1,12 +1,12 @@
 class OperationPresenter < BasicPresenter
   COLUMNS = {
-    time_and_icon: 'col-lg-1 text-muted',
-    account_title: 'col-lg-1',
-    amount:        'col-lg-1 text-right',
-    currency:      'col-lg-1',
-    description:   'col-lg-1',
-    memo:          'col-lg-2',
-    actions:       'col-lg-1'
+    time_and_icon: 'col-lg-1 op-time text-muted',
+    account_title: 'col-lg-1 op-account',
+    amount:        'col-lg-1 op-amount text-right',
+    currency:      'col-lg-1 op-currency',
+    description:   'col-lg-1 op-description',
+    memo:          'col-lg-2 op-memo',
+    actions:       'col-lg-1 op-actions'
   }
 
   MANDATORY_COLUMNS = [
