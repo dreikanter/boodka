@@ -110,6 +110,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def has_budget?(direction, created_at, category_id)
-    (direction == 'expense') && created_at.present? && category_id.present?
+    (direction == 'outflow') && created_at.present? && category_id.present?
   end
 end
