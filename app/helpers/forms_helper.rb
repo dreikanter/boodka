@@ -9,7 +9,7 @@ module FormsHelper
     end
 
     accounts = Account.ordered.decorate.map(&optionate)
-    selected = model.persisted? ? model.send(field) : Account.default_id
+    selected = model.send(field) || Account.default_id
     options_for_select(accounts, selected)
   end
 

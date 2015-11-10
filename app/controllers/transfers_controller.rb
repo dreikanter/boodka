@@ -38,8 +38,24 @@ class TransfersController < ApplicationController
     TransferForm.new(params)
   end
 
+
+  def from_account_id
+    params[:from_account_id]
+  end
+
+  def new_form_params
+    return {} unless from_account_id
+    from_account = Account.find(from_account_id)
+    {
+      from_account_id: from_account.id,
+      currency: from_account.currency
+    }
+  end
+
   def init_new_form
     @form = TransferForm.new(Transfer.new)
+    new_form_params.each { |param, value| @form.send("#{param}=", value) }
+    @form
   end
 
   def check_availability

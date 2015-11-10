@@ -14,11 +14,13 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   end
 
   def submit_group(options = {})
-    group do
-      submit(options[:caption], class: 'btn btn-success submit-button',
-        data: { disable_with: 'Processing...' }) + ' ' +
-        (options[:cancel] ? cancel_button : '')
-    end
+    group { submit_button(options) }
+  end
+
+  def submit_button(options = {})
+    submit(options[:caption], class: 'btn btn-success submit-button',
+      data: { disable_with: 'Processing...' }) + ' ' +
+      (options[:cancel] ? cancel_button : '')
   end
 
   def check(field, label, options = {})

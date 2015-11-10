@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <%= form_for reconciliation, url: submit_url, method: method, remote: remote, html: { class: 'form reconciliation-form' }, builder: SmartBuilder do |form| %>
-      <% if edit || reconciliation.account_id %>
+      <% if edit %>
         <%= form.static :account, reconciliation.account.decorate.display_title_with_currency %>
       <% else %>
         <%= form.select :account_id, options: options_for_account_select(reconciliation, :account_id) %>

@@ -31,14 +31,8 @@
   </div>
 <% end %>
 
-<div class="row margin-bl">
-  <div class="col-lg-6">
-    <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
-  </div>
-  <div class="col-lg-6 text-right">
-    <%= button_to 'Transfer', new_transfer_path, enabled: Account.count > 1 %>
-    <%= button_to 'Reconcile', new_reconciliation_path, enabled: Account.count > 0 %>
-  </div>
+<div class="margin-bl">
+  <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
 </div>
 
 <% if @totals_per_currency.any? %>

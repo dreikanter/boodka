@@ -18,7 +18,19 @@
 
       <%= form.check :default, 'Set default' %>
 
-      <%= form.submit_group caption: submit_caption, cancel: cancel %>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-lg-6">
+            <%= form.submit_button caption: submit_caption, cancel: cancel %>
+          </div>
+          <% if account_form.persisted? %>
+            <div class="col-lg-6 text-right">
+              <%= button_to 'Transfer', new_transfer_path(from_account_id: params[:id]), enabled: Account.count > 1 %>
+              <%= button_to 'Reconcile', new_reconciliation_path(account_id: params[:id]), enabled: Account.count > 0 %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
