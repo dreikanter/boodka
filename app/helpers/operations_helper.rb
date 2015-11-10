@@ -17,10 +17,10 @@ module OperationsHelper
   private
 
   def columns(operation)
-    COLUMNS.map { |c| cell(operation.send[c[:content]], c[:classes]) }
+    COLUMNS.map { |c| operation_call(operation.send[c[:content]], c[:classes]) }
   end
 
-  def cell(content, classes)
+  def operation_call(content, classes)
     content_tag(:td, content, class: classes)
   end
 end

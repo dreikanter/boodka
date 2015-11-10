@@ -41,7 +41,7 @@ class PeriodsController < ApplicationController
   HISTORICAL_ENTITIES = [Transaction, Reconciliation]
 
   def history(time_frame)
-    framed = -> (model) { model.where(created_at: time_frame).decorate }
+    framed = -> (model) { model.where(created_at: time_frame) }
     by_creation = -> (a, b) { a.created_at <=> b.created_at }
     HISTORICAL_ENTITIES.map(&framed).flatten.sort(&by_creation)
   end

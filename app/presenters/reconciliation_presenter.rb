@@ -29,13 +29,12 @@ class ReconciliationPresenter < OperationPresenter
     h.content_tag(:div, class: 'table-row-actions') do
       h.link_to(
         DESTROY_ICON,
-        h.reconciliation_path(model.id),
+        h.reconciliation_path(model),
         method: :delete,
         data: { confirm: 'Are you sure?' },
         class: 'action-icon'
       )
     end
-
   end
 
   def href
