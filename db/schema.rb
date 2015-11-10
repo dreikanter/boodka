@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024224925) do
+ActiveRecord::Schema.define(version: 20151110145712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,8 +92,12 @@ ActiveRecord::Schema.define(version: 20151024224925) do
 
   create_table "transfers", force: :cascade do |t|
     t.string   "memo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.integer  "from_account_id",                 null: false
+    t.integer  "to_account_id",                   null: false
   end
 
 end
