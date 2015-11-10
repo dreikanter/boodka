@@ -27,8 +27,7 @@ class TransfersController < ApplicationController
   PERMITTED_PARAMS = %i(
     memo
     created_at
-    amount_cents
-    amount_currency
+    amount
     from_account_id
     to_account_id
   )
