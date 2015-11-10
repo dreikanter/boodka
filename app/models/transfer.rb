@@ -47,7 +47,7 @@ class Transfer < ActiveRecord::Base
   TRANSACTION_PARAM_NAMES = %w(amount_cents amount_currency created_at)
 
   def transaction_params
-    attributes.slice(TRANSACTION_PARAM_NAMES)
+    attributes.slice(*TRANSACTION_PARAM_NAMES)
   end
 
   def accounts_are_different
