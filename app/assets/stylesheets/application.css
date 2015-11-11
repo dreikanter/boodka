@@ -122,7 +122,7 @@ table.budget-table tr > .budget-table-head {
 
 .budget-table .form-control {
   border-radius: 0;
-  height: 40px;
+  height: 36px;
 }
 
 .budget-table .period-available-to-budget {
@@ -130,7 +130,7 @@ table.budget-table tr > .budget-table-head {
   text-align: center;
   width: 100%;
   border-color: transparent;
-  padding: 10px 12px;
+  padding: 12px;
 }
 
 .budget-table .budget-table-category:hover {
@@ -156,26 +156,7 @@ table.budget-table tr > .budget-table-head {
   color: #555;
 }
 
-.budget-table-head > a:hover {
-  color: #555;
-  text-decoration: none;
 }
-
-.op-time {
-  max-width: 100px;
-}
-
-.op-account {}
-
-.op-amount {}
-
-.op-currency {}
-
-.op-description {}
-
-.op-memo {}
-
-.op-actions {}
 
 /*
     Transaction kinds
