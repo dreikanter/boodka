@@ -41,28 +41,26 @@ class TransactionsController < ApplicationController
 
   private
 
-  def permitted_params
-    [
-      :account_id,
-      :amount,
-      :amount_currency,
-      :direction,
-      :memo,
-      :category_id,
-      :created_at
-    ]
-  end
+  PERMITTED_PARAMS = %i(
+      account_id
+      amount
+      amount_currency
+      direction
+      memo
+      category_id
+      created_at
+    )
 
   def complemented_params
-    transaction_params.merge(direction: direction)
+    form_params.merge(direction: direction)
   end
 
-  def transaction_params
-    params.require(:transaction).permit(permitted_params)
+  def form_params
+    params.require(:transaction).permit(PERMITTED_PARAMS)
   end
 
   def inflow?
-    transaction_params[:direction] == 'inflow'
+    form_params[:direction] == 'inflow'
   end
 
   def direction
@@ -70,7 +68,7 @@ class TransactionsController < ApplicationController
   end
 
   def processed_params
-    transaction_params.merge(created_at: created_at)
+    form_params.merge(created_at: created_at)
   end
 
   def created_at
