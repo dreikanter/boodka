@@ -69,16 +69,7 @@
   </table>
 </div>
 
-<% if @history.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">History</h3></div>
-    <table class="table table-hover clickable-rows hide-overlapping">
-      <% @history.each do |r| %>
-        <%= presenter(r).row %>
-      <% end %>
-    </table>
-  </div>
-<% end %>
+<%= link_to 'Manage categories', categories_path, class: 'btn btn-default' %>
 
 <script>
   $(function() {

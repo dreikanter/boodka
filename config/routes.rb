@@ -14,6 +14,13 @@ Rails.application.routes.draw do
 
   scope 'budget/:year/:month' do
     resource :period, only: :show, shallow: true, path: ''
-    resources :budgets, only: [:show, :update], shallow: true, path: 'categories', constraints: { :format => /(js|json)/ }
+    resources :budgets, only: :update, shallow: true,
+              path: 'categories', constraints: { :format => /(js|json)/ }
+  end
+
+  get 'history' => 'operations#index', as: :current_history
+
+  scope 'history/:year/:month' do
+    resources :operations, only: :index, shallow: true, path: ''
   end
 end
