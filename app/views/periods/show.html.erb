@@ -49,7 +49,7 @@
     <% @categories.each_with_index do |category, category_index| %>
       <tr class="budget-table-category">
         <th class="budget-table-head">
-          <%= link_to category.title, edit_category_path(category) %>
+          <%= link_to category.title, new_transaction_path(category_id: category.id) %>
         </th>
         <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
           <td><%= budget.amount_cell(tabindex: period_index * @categories.count + category_index + 1) %></td>

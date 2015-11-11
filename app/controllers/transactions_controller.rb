@@ -3,7 +3,8 @@ class TransactionsController < ApplicationController
   before_action :load_transaction, only: [:edit, :update, :destroy]
 
   def new
-    @transaction = Transaction.new
+
+    @transaction = Transaction.new(new_form_params)
     @transactions = Transaction.recent_history
   end
 
@@ -88,5 +89,13 @@ class TransactionsController < ApplicationController
     return if Account.any?
     message = 'At least one accounts is required to add a transaction.'
     redirect_to(accounts_path, alert: message)
+  end
+
+  def category_id
+    params[:category_id]
+  end
+
+  def new_form_params
+    category_id.present? ? { category: Category.find(category_id) } : {}
   end
 end
