@@ -1,50 +1,56 @@
-<% if @accounts.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
-    <table class="table table-hover clickable-rows">
-      <% @accounts.each do |account| %>
-        <tr data-href="<%= edit_account_path(account) %>">
-          <td class="col-lg-5">
-            <%= link_to account.title, edit_account_path(account) %>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <% if @accounts.any? %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
+        <table class="table table-hover clickable-rows">
+          <% @accounts.each do |account| %>
+            <tr data-href="<%= edit_account_path(account) %>">
+              <td class="col-lg-5">
+                <%= link_to account.title, edit_account_path(account) %>
 
-            <% if account.default %>
-              <span class="text-mured">(Default)</span>
-            <% end %>
+                <% if account.default %>
+                  <span class="text-mured">(Default)</span>
+                <% end %>
 
-            <% unless account.memo.empty? %>
-              <span class="text-muted"><%= account.memo %></span>
-            <% end %>
-          </td>
-          <td class="col-lg-6 text-right">
-            <%= link_to account.display_total, new_reconciliation_path(account_id: account.id) %>
-            <%= account.currency_label %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-    <div class="panel-footer text-muted">You have <%= pluralize @accounts.count, 'account' %></div>
+                <% unless account.memo.empty? %>
+                  <span class="text-muted"><%= account.memo %></span>
+                <% end %>
+              </td>
+              <td class="col-lg-6 text-right">
+                <%= link_to account.display_total, new_reconciliation_path(account_id: account.id) %>
+                <%= account.currency_label %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        <div class="panel-footer text-muted">You have <%= pluralize @accounts.count, 'account' %></div>
+      </div>
+    <% else %>
+      <div class="emptyness">
+        There are no accounts yet. You need to create at least a single
+        one for budgeting.
+      </div>
+    <% end %>
+
+    <div class="margin-bl">
+      <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
+    </div>
   </div>
-<% else %>
-  <div class="emptyness">
-    There are no accounts yet. You need to create at least a single
-    one for budgeting.
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <% if @totals_per_currency.any? %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Grand total per currency</h3></div>
+        <table class="table table-hover">
+          <% @totals_per_currency.each do |currency, value| %>
+            <tr>
+              <td class="col-lg-2"><%= currency_label(currency) %></td>
+              <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
-<div class="margin-bl">
-  <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
 </div>
 
-<% if @totals_per_currency.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">Grand total per currency</h3></div>
-    <table class="table table-hover">
-      <% @totals_per_currency.each do |currency, value| %>
-        <tr>
-          <td class="col-lg-2"><%= currency_label(currency) %></td>
-          <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-<% end %>
