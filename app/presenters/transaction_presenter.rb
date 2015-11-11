@@ -50,6 +50,6 @@ class TransactionPresenter < OperationPresenter
 
   def transaction_type
     return 'Transfer' if model.transfer_id.present?
-    model.inflow? ? 'Income' : model.category.try(:title)
+    model.inflow? ? 'Income' : "Expense: #{model.category.try(:title)}"
   end
 end
