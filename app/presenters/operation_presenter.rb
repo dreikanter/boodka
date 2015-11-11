@@ -1,10 +1,10 @@
 class OperationPresenter < BasicPresenter
   COLUMNS = {
-    time_and_icon: 'col-lg-1 op-time text-muted',
-    account_title: 'col-lg-1 op-account',
-    amount:        'col-lg-1 op-amount text-right',
+    time_and_icon: 'col-lg-2 op-time text-muted',
+    account_title: 'col-lg-2 op-account',
+    amount:        'col-lg-2 op-amount text-right',
     currency:      'col-lg-1 op-currency',
-    description:   'col-lg-1 op-description',
+    description:   'col-lg-2 op-description',
     memo:          'col-lg-2 op-memo',
     actions:       'col-lg-1 op-actions'
   }
