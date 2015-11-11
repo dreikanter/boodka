@@ -100,6 +100,7 @@ table.budget-table tr > .budget-table-head {
   padding: 10px 12px;
   font-weight: 500;
   line-height: 1.1;
+  vertical-align: middle;
 }
 
 .budget-table .form-control:not(:hover):not(:focus),
@@ -126,9 +127,10 @@ table.budget-table tr > .budget-table-head {
 }
 
 .budget-table .period-available-to-budget {
-  font-size: 140%;
+  font-size: 20px;
   text-align: center;
   width: 100%;
+  height: 50px;
   border-color: transparent;
   padding: 12px;
 }
