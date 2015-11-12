@@ -2,6 +2,8 @@ class Pagination
   MONTH_NUMS = 1..12
   BTN_CLASSES = 'btn btn-sm btn-default'
   ONE_MONTH = 1
+  RARR = '&rarr;'.html_safe
+  LARR = '&larr;'.html_safe
 
   attr_reader :year, :month, :base_path, :period_length
 
@@ -22,7 +24,8 @@ class Pagination
   end
 
   def pagination_bar
-    MONTH_NUMS.map { |m| page_link(m) }.join.html_safe
+    month_links = MONTH_NUMS.map { |m| page_link(m) }
+    month_links.unshift(link_to_prev).push(link_to_next).join.html_safe
   end
 
   private
@@ -34,7 +37,7 @@ class Pagination
     [year, month]
   end
 
-  def current_page_date(year, month)
+  def selected_date
     @current_page_date ||= DateTime.new(year, month)
   end
 
@@ -56,6 +59,16 @@ class Pagination
     classes << 'active' if current?(year, month)
     classes << (selected?(year, month) ? 'btn-primary' : 'btn-default')
     classes.join(' ')
+  end
+
+  def link_to_next
+    date = selected_date + 1.month
+    link(date.year, date.month, RARR)
+  end
+
+  def link_to_prev
+    date = selected_date - 1.month
+    link(date.year, date.month, LARR)
   end
 
   def current_time
