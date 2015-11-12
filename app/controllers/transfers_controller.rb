@@ -10,7 +10,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(form_params)
     begin
       @transfer.save!
-      redirect_to new_transfer_path, notify: 'Transfer performed'
+      redirect_to new_transfer_path, notice: 'Transfer performed'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :new
@@ -25,7 +25,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.find(transfer_id)
     begin
       @transfer.update!(form_params)
-      redirect_to :back, notify: 'Transfer updated'
+      redirect_to new_transfer_path, notice: 'Transfer updated'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :edit
@@ -34,7 +34,7 @@ class TransfersController < ApplicationController
 
   def destroy
     Transfer.find(params[:id]).destroy
-    redirect_to :back, notify: 'Transfer destroyed'
+    redirect_to :back, notice: 'Transfer destroyed'
   end
 
   private
