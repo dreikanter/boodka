@@ -1,18 +1,6 @@
 class BudgetDecorator < Draper::Decorator
   delegate_all
 
-  def display_amount
-    model.amount.format(symbol: false, no_cents: true)
-  end
-
-  def display_spent
-    model.spent.format(symbol: false, no_cents: true)
-  end
-
-  def display_balance
-    model.balance.format(symbol: false, no_cents: true)
-  end
-
   def amount_cell(options = {})
     h.cell(model, :amount, html: amount_cell_attributes(options))
   end
