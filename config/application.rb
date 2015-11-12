@@ -11,6 +11,7 @@ module Boodka
     config.autoload_paths << Rails.root.join('app', 'calculators')
     config.autoload_paths << Rails.root.join('app', 'models', 'concerns')
     config.autoload_paths << Rails.root.join('app', 'presenters')
+    config.autoload_paths << Rails.root.join('app', 'facades')
     config.time_zone = 'UTC'
 
     config.generators do |g|

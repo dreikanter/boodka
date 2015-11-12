@@ -3,32 +3,47 @@ class OperationsController < ApplicationController
 
   OPS = %w(transaction reconciliation transfer)
 
-  before_action :load_history
+  before_action :validate_params, :load_history
 
   private
 
   def load_history
-    ops = operation_types.map { |klass| historical_frame(klass) }.flatten
-    @history = ops.sort { |a, b| b.created_at <=> a.created_at }
+    @ops = OperationsFacade.new(
+      filtered?,
+      operation_types,
+      category,
+      operations
+    )
+  end
+
+  def filtered?
+    category.present? || (operation_types != OPS)
+  end
+
+  def operations
+    order = -> (a, b) { b.created_at <=> a.created_at }
+    operation_types.map { |model| scope(model) }.flatten.sort(&order)
   end
 
   def operation_types
-    fail 'Illegal operation type' if operation && !OPS.include?(operation)
-    (operation && [operation] || OPS).map { |n| n.classify.constantize }
+    operation.present? ? [operation] : OPS
   end
 
-  def historical_frame(model)
-    model.history.where(historical_frame_criteria(model))
+  def scope(model)
+    model.classify.constantize.history.where(scope_criteria(model))
   end
 
-  def historical_frame_criteria(model)
-    criteria = { created_at: time_frame }
-    expenses = (model == Transaction && category_id)
-    criteria.merge(expenses ? { category_id: category_id } : {})
+  def scope_criteria(model)
+    { created_at: time_frame, category: category }.delete_if { |_, v| v.nil? }
   end
 
   def time_frame
     start_date.beginning_of_month..start_date.end_of_month
+  end
+
+  def category
+    return unless category_id
+    @category ||= Category.find(category_id)
   end
 
   def category_id
@@ -37,5 +52,9 @@ class OperationsController < ApplicationController
 
   def operation
     params[:operation]
+  end
+
+  def validate_params
+    fail 'Illegal operation type' if operation && !OPS.include?(operation)
   end
 end

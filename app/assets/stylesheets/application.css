@@ -161,6 +161,11 @@ table.budget-table tr > .budget-table-head {
   white-space: nowrap;
 }
 
+.budget-table .budget-spent {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /*
     Transaction kinds
 */

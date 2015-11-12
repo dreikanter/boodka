@@ -108,11 +108,11 @@
         }
       });
 
-      $(".budget-balance").change(function() {
-        console.log($(this).val() > 0);
-      });
-
       $(this).data("handle-blur", "true");
+    });
+
+    $(".budget-spent").click(function() {
+      Turbolinks.visit($(this).data("href"));
     });
 
     $(".budget-amount").blur();

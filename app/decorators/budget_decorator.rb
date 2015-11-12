@@ -6,7 +6,7 @@ class BudgetDecorator < Draper::Decorator
   end
 
   def spent_cell
-    h.readonly_cell(model, :spent)
+    h.readonly_cell(model, :spent, html: { data: { href: h.operations_path(model.year, model.month, operation: :transaction, category_id: model.category_id) } })
   end
 
   def balance_cell

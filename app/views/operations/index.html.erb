@@ -1,12 +1,28 @@
 <%= render partial: 'partials/pagination', locals: { base_path: :operations_path } %>
 
-<% if @history.any? %>
+<% if @ops.filtered %>
+  <div class="alert alert-info" role="alert">
+    <!-- TODO: Move this to helper or facade -->
+    <b>Filter:</b> show only <%= @ops.types.map { |value| value.pluralize }.join(', ') %>
+    <%= "Category: #{@ops.category.title}" if @ops.category %>
+    <%= link_to 'Reset filter', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'alert-link' %>
+  </div>
+<% end %>
+
+<% if @ops.records.any? %>
   <div class="panel panel-default">
     <div class="panel-heading"><h3 class="panel-title">History</h3></div>
     <table class="table table-hover clickable-rows hide-overlapping">
-      <% @history.each do |r| %>
+      <% @ops.records.each do |r| %>
         <%= presenter(r).row %>
       <% end %>
     </table>
   </div>
+<% else %>
+  <div class="emptyness">
+    No operations for this period.
+  </div>
 <% end %>
+
+<%= link_to 'Current period', current_operations_path, class: 'btn btn-default' %>
+<%= link_to 'Budget for this period', (params[:year] ? period_path(params[:year], params[:month]) : current_period_path), class: 'btn btn-default' %>
