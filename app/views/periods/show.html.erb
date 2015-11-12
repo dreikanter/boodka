@@ -51,8 +51,8 @@
   </table>
 </div>
 
-<%= link_to 'Manage categories', categories_path, class: 'btn btn-default' %>
-<%= link_to 'Operations for this period', (params[:year] ? operations_path(params[:year], params[:month]) : current_history_path), class: 'btn btn-default' %>
+<%= link_to 'Current period', current_period_path, class: 'btn btn-default' %>
+<%= link_to 'Operations for this period', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'btn btn-default' %>
 
 <script>
   $(function() {

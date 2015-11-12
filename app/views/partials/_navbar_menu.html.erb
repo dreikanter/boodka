@@ -13,8 +13,8 @@
     <div class="collapse navbar-collapse" id="the-navbar">
       <%= navbar do %>
         <%= navbar_item caption: 'Accounts', path: accounts_path %>
-        <%= navbar_item caption: 'Budget', path: current_budget_path, enabled: Account.any? && Category.any? %>
-        <%= navbar_item caption: 'History', path: current_history_path %>
+        <%= navbar_item caption: 'Budget', path: current_period_path, enabled: Account.any? && Category.any? %>
+        <%= navbar_item caption: 'History', path: current_operations_path %>
       <% end %>
 
       <%= navbar side: :right do %>
