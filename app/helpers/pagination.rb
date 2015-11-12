@@ -1,13 +1,15 @@
 class Pagination
   MONTH_NUMS = 1..12
   BTN_CLASSES = 'btn btn-sm btn-default'
+  ONE_MONTH = 1
 
-  attr_reader :year, :month, :base_path
+  attr_reader :year, :month, :base_path, :period_length
 
-  def initialize(view, year, month, base_path)
+  def initialize(view, year, month, base_path, period_length = nil)
     @view = view
     @year, @month = sanitize_year_and_moth(year, month)
     @base_path = base_path
+    @period_length = period_length || ONE_MONTH
   end
 
   def link_to_next_year
@@ -65,7 +67,8 @@ class Pagination
   end
 
   def selected?(year, month)
-    (self.year == year) && (self.month == month)
+    months = self.month..(self.month + period_length - 1)
+    (self.year == year) && months.include?(month)
   end
 
   def path(year, month)
