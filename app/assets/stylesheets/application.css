@@ -84,11 +84,14 @@ h2:first-of-type {
     Budget#show
 */
 
-.budget-pagination {
+.pagination-bar {
+  padding: 15px 0 30px 0;
+}
+
+.pagination-month-buttons {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
 }
 
 table.budget-table tr > th,

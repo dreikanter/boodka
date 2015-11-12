@@ -1,0 +1,17 @@
+<div class="row pagination-bar">
+  <div class="col-lg-1 col-md-2 hidden-sm hidden-xs">
+    <div class="btn-group">
+      <%= link_to_previous_year(params[:year], params[:month], base_path) %>
+    </div>
+  </div>
+  <div class="col-lg-10 col-md-8 col-sm-12 col-xs-12 btn-toolbar pagination-month-buttons">
+    <div class="btn-group">
+      <%= pagination_bar(params[:year], params[:month], base_path) %>
+    </div>
+  </div>
+  <div class="col-lg-1 col-md-2 hidden-sm hidden-xs text-right">
+    <div class="btn-group">
+      <%= link_to_next_year(params[:year], params[:month], base_path) %>
+    </div>
+  </div>
+</div>
