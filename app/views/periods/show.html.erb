@@ -19,7 +19,7 @@
 </div>
 
 <div class="panel panel-default">
-  <table class="table table-bordered budget-table">
+  <table class="table table-bordered budget-table hide-overlapping">
     <tr class="table-heading">
       <th></th>
       <% @periods.each do |period| %>
@@ -70,6 +70,7 @@
 </div>
 
 <%= link_to 'Manage categories', categories_path, class: 'btn btn-default' %>
+<%= link_to 'Operations for this period', (params[:year] ? operations_path(params[:year], params[:month]) : current_history_path), class: 'btn btn-default' %>
 
 <script>
   $(function() {

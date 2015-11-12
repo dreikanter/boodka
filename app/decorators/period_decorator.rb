@@ -8,7 +8,7 @@ class PeriodDecorator < Draper::Decorator
   # Navigation
 
   def link_to_prev_year
-    return disabled_link_to_period('A.D.', '#') if model.year < 2
+    return disabled_link_to_period('A.D.') if model.year < 2
     text = "&larr; #{model.year - 1}".html_safe
     link_to_period(model.year - 1, model.month, text)
   end

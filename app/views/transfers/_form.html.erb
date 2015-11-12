@@ -3,7 +3,7 @@
     <h3 class="panel-title"><%= form_caption %></h3>
   </div>
   <div class="panel-body">
-    <%= form_for @transfer, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
+    <%= form_for object, url: transfers_path, method: :post, html: { class: 'form transfer-form' }, builder: SmartBuilder do |form| %>
 
       <div class="row">
         <div class="col-lg-6">

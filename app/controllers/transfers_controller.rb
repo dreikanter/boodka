@@ -1,6 +1,11 @@
 class TransfersController < ApplicationController
   before_action :check_availability
 
+  def new
+    @transfer = Transfer.new(new_form_params)
+    @transfers = Transfer.recent_history
+  end
+
   def create
     @transfer = Transfer.new(form_params)
     begin
@@ -12,9 +17,19 @@ class TransfersController < ApplicationController
     end
   end
 
-  def new
-    @transfer = Transfer.new(new_form_params)
-    @transfers = Transfer.recent_history
+  def edit
+    @transfer = Transfer.find(transfer_id)
+  end
+
+  def update
+    @transfer = Transfer.find(transfer_id)
+    begin
+      @transfer.update!(form_params)
+      redirect_to :back, notify: 'Transfer updated'
+    rescue ActiveRecord::RecordInvalid => e
+      flash.now[:alert] = e.message
+      render :edit
+    end
   end
 
   def destroy
@@ -50,5 +65,9 @@ class TransfersController < ApplicationController
     return if Account.count > 1
     message = 'At least 2 accounts required to transfer.'
     redirect_to(accounts_path, alert: message)
+  end
+
+  def transfer_id
+    params.require(:id)
   end
 end

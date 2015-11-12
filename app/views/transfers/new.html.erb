@@ -1,6 +1,7 @@
 <% if Account.count > 1 %>
   <%= render partial: 'form', locals: {
     form_caption: 'New transfer',
+    object: @transfer,
     cancel: false
   } %>
 

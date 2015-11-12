@@ -28,12 +28,15 @@ class Transfer < ActiveRecord::Base
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
   after_create :create_transactions
+  after_update :update_transactions
 
   private
 
   def create_transactions
-    transactions.create!(from_transaction_params)
-    transactions.create!(to_transaction_params)
+    Transaction.transaction do
+      transactions.create!(from_transaction_params)
+      transactions.create!(to_transaction_params)
+    end
   end
 
   def from_transaction_params
@@ -53,5 +56,12 @@ class Transfer < ActiveRecord::Base
   def accounts_are_different
     return unless from_account_id == to_account_id
     errors[:to_account_id] << 'destination account should be different'
+  end
+
+  def update_transactions
+    Transaction.transaction do
+      Transaction.update(from_account_id, from_transaction_params)
+      Transaction.update(to_account_id, to_transaction_params)
+    end
   end
 end
