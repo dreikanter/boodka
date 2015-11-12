@@ -3,7 +3,6 @@ class TransactionsController < ApplicationController
   before_action :load_transaction, only: [:edit, :update, :destroy]
 
   def new
-
     @transaction = Transaction.new(new_form_params)
     @transactions = Transaction.recent_history
   end
@@ -17,9 +16,6 @@ class TransactionsController < ApplicationController
       flash.now[:alert] = e.message
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
