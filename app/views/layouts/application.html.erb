@@ -13,13 +13,11 @@
 </head>
 <body class="<%= "#{controller_name}-#{action_name}-body" %>">
   <%= render partial: 'partials/navbar_menu' %>
-  <div class="wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <%= render partial: 'partials/flash' unless flash.empty? %>
-          <%= yield %>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <%= render partial: 'partials/flash' unless flash.empty? %>
+        <%= yield %>
       </div>
     </div>
   </div>
