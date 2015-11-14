@@ -23,8 +23,8 @@
     <% end %>
   </tr>
   <tr>
-    <th class="budget-table-head">
-      <%= link_to 'Category', categories_path %>
+    <th class="budget-table-head clickable" data-href="<%= categories_path %>">
+      Category
     </th>
     <% @periods.each do |period| %>
       <th class="budget-table-head text-right">Budgeted</th>
