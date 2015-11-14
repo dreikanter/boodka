@@ -4,17 +4,5 @@
   method: :post,
   remote: false,
   form_caption: 'New transaction',
-  submit_caption: 'Add new transaction',
-  cancel: false
+  submit_caption: 'Add new transaction'
 } %>
-
-<% if @transactions.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">Recent transactions</h3></div>
-    <table class="table table-hover clickable-rows">
-      <% @transactions.each do |transaction| %>
-        <%= presenter(transaction).row %>
-      <% end %>
-    </table>
-  </div>
-<% end %>

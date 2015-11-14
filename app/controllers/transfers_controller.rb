@@ -1,9 +1,10 @@
 class TransfersController < ApplicationController
   before_action :check_availability
 
+  layout 'popup'
+
   def new
     @transfer = Transfer.new(new_form_params)
-    @transfers = Transfer.recent_history
   end
 
   def create

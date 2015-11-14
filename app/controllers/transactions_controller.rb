@@ -2,9 +2,10 @@ class TransactionsController < ApplicationController
   before_action :check_availability
   before_action :load_transaction, only: [:edit, :update, :destroy]
 
+  layout 'popup'
+
   def new
     @transaction = Transaction.new(new_form_params)
-    @transactions = Transaction.recent_history
   end
 
   def create

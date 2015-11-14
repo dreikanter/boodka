@@ -2,7 +2,8 @@ class ReconciliationsController < ApplicationController
   before_action :check_availability
   before_action :load_reconciliation, only: [:edit, :update, :destroy]
   before_action :new_reconciliation, only: [:index, :new]
-  before_action :load_history, only: [:index, :new]
+
+  layout 'popup'
 
   def create
     @reconciliation = Reconciliation.new(rec_params)
@@ -66,9 +67,5 @@ class ReconciliationsController < ApplicationController
 
   def new_reconciliation
     @reconciliation = Reconciliation.new(new_reconciliation_params)
-  end
-
-  def load_history
-    @reconciliations = Reconciliation.recent_history
   end
 end

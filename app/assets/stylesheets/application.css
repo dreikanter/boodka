@@ -42,6 +42,14 @@ h2:first-of-type {
 }
 
 /*
+    layouts/popup
+*/
+
+.popup-container {
+  margin-top: 20px;
+}
+
+/*
     Common elements
 */
 

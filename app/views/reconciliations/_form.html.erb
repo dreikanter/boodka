@@ -11,10 +11,8 @@
       <% end %>
 
       <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
-
       <%= form.datetime :created_at, placeholder: 'Default is now' %>
-
-      <%= form.submit_group caption: submit_caption, cancel: cancel %>
+      <%= form.submit_group caption: submit_caption, cancel: local_assigns[:cancel] || true %>
     <% end %>
   </div>
 </div>

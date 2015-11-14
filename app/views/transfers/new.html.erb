@@ -1,17 +1,5 @@
 <%= render partial: 'form', locals: {
   form_caption: 'New transfer',
   object: @transfer,
-  submit_caption: 'Create transfer',
-  cancel: false
+  submit_caption: 'Create transfer'
 } %>
-
-<% if @transfers.present? %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">Recent transfers</h3></div>
-    <table class="table table-hover clickable-rows">
-      <% @transfers.each do |transfer| %>
-        <%= presenter(transfer).row %>
-      <% end %>
-    </table>
-  </div>
-<% end %>
