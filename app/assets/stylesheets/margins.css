@@ -1,10 +1,14 @@
-// Margins
+/*
+    Margins
+*/
 
 .no-margin {
   margin: 0;
 }
 
-// Margin bottom
+/*
+    Margin bottom
+*/
 
 .margin-b0 {
   margin-bottom: 0;
@@ -39,7 +43,9 @@
   margin-top: 5px;
 }
 
-// Margin top
+/*
+    Margin top
+*/
 
 .margin-t0 {
   margin-top: 0;
@@ -66,7 +72,9 @@
   margin-top: 150px;
 }
 
-// Margin right
+/*
+    Margin right
+*/
 
 .margin-r0 {
   margin-right: 0;
@@ -93,7 +101,9 @@
   margin-right: 150px;
 }
 
-// Margin left
+/*
+    Margin left
+*/
 
 .margin-l0 {
   margin-left: 0;
@@ -120,13 +130,17 @@
   margin-left: 150px;
 }
 
-// Paddings
+/*
+    Paddings
+*/
 
 .no-padding {
   padding: 0;
 }
 
-// Padding bottom
+/*
+    Padding bottom
+*/
 
 .padding-b0 {
   padding-bottom: 0;
@@ -157,7 +171,9 @@
   padding-top: 5px;
 }
 
-// Padding top
+/*
+    Padding top
+*/
 
 .padding-t0 {
   padding-top: 0;
@@ -184,7 +200,9 @@
   padding-top: 150px;
 }
 
-// Padding right
+/*
+    Padding right
+*/
 
 .padding-r0 {
   padding-right: 0;
@@ -211,7 +229,9 @@
   padding-right: 150px;
 }
 
-// Padding left
+/*
+    Padding left
+*/
 
 .padding-l0 {
   padding-left: 0;
