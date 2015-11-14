@@ -41,6 +41,11 @@ h2:first-of-type {
   padding: 10px;
 }
 
+.table-bordered.no-grid th:not(:last-child),
+.table-bordered.no-grid td:not(:last-child) {
+  border-right-color: transparent;
+}
+
 /*
     layouts/popup
 */
