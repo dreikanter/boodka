@@ -34,8 +34,8 @@
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
     <tr class="budget-table-category">
-      <th class="budget-table-head">
-        <%= link_to category.title, edit_category_path(category.id) %>
+      <th class="budget-table-head clickable" data-href="<%= edit_category_path(category.id) %>">
+        <%= category.title %>
       </th>
       <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
         <td><%= budget.amount_cell(tabindex: period_index * @categories.count + category_index + 1) %></td>
@@ -111,7 +111,7 @@
       $(this).data("handle-blur", "true");
     });
 
-    $(".budget-spent, .period-total-expense").click(function() {
+    $(".clickable").click(function() {
       Turbolinks.visit($(this).data("href"));
     });
 

@@ -6,7 +6,10 @@ class BudgetDecorator < Draper::Decorator
   end
 
   def spent_cell
-    h.readonly_cell(model, :spent, html: { data: { href: h.operations_path(model.year, model.month, operation: :transaction, category_id: model.category_id) } })
+    h.readonly_cell(model, :spent, html: {
+      class: :clickable,
+      data: { href: spent_cell_href }
+    })
   end
 
   def balance_cell
@@ -24,5 +27,10 @@ class BudgetDecorator < Draper::Decorator
         'cat-id' => model.category_id
       }
     }.merge(options)
+  end
+
+  def spent_cell_href
+    h.operations_path(model.year, model.month,
+      operation: :transaction, category_id: model.category_id)
   end
 end

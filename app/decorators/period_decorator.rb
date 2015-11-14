@@ -41,8 +41,9 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def total_expense_cell
-    href = h.operations_path(model.year, model.month, operation: :transaction)
-    h.readonly_cell(model, :total_expense, html: { data: { href: href } })
+    h.readonly_cell(model, :total_expense, html: { class: 'clickable', data: {
+      href: total_expense_cell_href
+    } })
   end
 
   def total_balance_cell
@@ -70,5 +71,10 @@ class PeriodDecorator < Draper::Decorator
   def link_to_offset(offset, text)
     date = DateTime.new(model.year, model.month) + offset.month
     link_to_period(date.year, date.month, text.html_safe)
+  end
+
+  def total_expense_cell_href
+    h.operations_path(model.year, model.month,
+      operation: :transaction, direction: Const::OUTFLOW)
   end
 end
