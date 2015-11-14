@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'accounts#index'
+  root 'periods#show'
 
   resources :accounts do
     patch :default
