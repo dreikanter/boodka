@@ -10,7 +10,7 @@
   <div class="alert alert-info" role="alert">
     <b>Filter:</b> show only <%= @ops.types.map { |value| value.pluralize }.join(', ') %>
     <%= "for #{@ops.category.title}" if @ops.category %>
-    <%= link_to 'Reset filter', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'reset-filter' %>
+    <%= link_to '<i class="fa fa-times"></i>'.html_safe, (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'reset-filter' %>
   </div>
 <% end %>
 

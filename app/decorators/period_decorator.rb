@@ -41,15 +41,20 @@ class PeriodDecorator < Draper::Decorator
   end
 
   def total_expense_cell
-    h.readonly_cell(model, :total_expense)
+    href = h.operations_path(model.year, model.month, operation: :transaction)
+    h.readonly_cell(model, :total_expense, html: { data: { href: href } })
   end
 
   def total_balance_cell
-    h.readonly_cell(model, :total_balance, highlight: :both, html: { class: 'highlight' })
+    h.readonly_cell(model, :total_balance, highlight: :both, html: {
+      class: 'highlight'
+    })
   end
 
   def available_to_budget_cell
-    h.readonly_cell(model, :available_to_budget, highlight: :both, html: { class: 'highlight' })
+    h.readonly_cell(model, :available_to_budget, highlight: :both, html: {
+      class: 'highlight'
+    })
   end
 
   private

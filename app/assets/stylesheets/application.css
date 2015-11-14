@@ -168,7 +168,8 @@ table.budget-table tr > .budget-table-head {
   white-space: nowrap;
 }
 
-.budget-table .budget-spent {
+.budget-table .budget-spent,
+.budget-table .period-total-expense {
   text-decoration: underline;
   cursor: pointer;
 }

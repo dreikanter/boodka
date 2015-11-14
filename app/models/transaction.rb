@@ -28,7 +28,7 @@ class Transaction < ActiveRecord::Base
             :calculated_amount_currency,
             inclusion: { in: Const::CURRENCY_CODES }
 
-  enum direction: Const::TRANSACTION_DIRECTIONS
+  enum direction: Const::DIRECTIONS
 
   belongs_to :category
   belongs_to :account

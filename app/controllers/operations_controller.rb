@@ -30,11 +30,19 @@ class OperationsController < ApplicationController
   end
 
   def scope(model)
-    model.classify.constantize.history.where(scope_criteria(model))
+    model.classify.constantize.history.where(enabled_scope_criteria)
   end
 
-  def scope_criteria(model)
-    { created_at: time_frame, category: category }.delete_if { |_, v| v.nil? }
+  def available_criteria
+    {
+      created_at: time_frame,
+      category: category,
+      direction: direction
+    }
+  end
+
+  def enabled_scope_criteria
+    available_criteria.delete_if { |_, v| v.nil? }
   end
 
   def time_frame
@@ -50,11 +58,25 @@ class OperationsController < ApplicationController
     params[:category_id]
   end
 
+  def direction
+    params[:direction]
+  end
+
   def operation
     params[:operation]
   end
 
   def validate_params
+    valisate_operation
+    validate_direction
+  end
+
+  def valisate_operation
     fail 'Illegal operation type' if operation && !OPS.include?(operation)
+  end
+
+  def validate_direction
+    dirs = Const::DIRECTIONS.values
+    fail 'Illegal direction' if direction && !dirs.include?(Integer(direction))
   end
 end

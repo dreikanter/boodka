@@ -14,7 +14,7 @@ module Const
   OUTFLOW = 0
   INFLOW = 1
 
-  TRANSACTION_DIRECTIONS = {
+  DIRECTIONS = {
     outflow: OUTFLOW,
     inflow: INFLOW
   }
