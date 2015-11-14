@@ -130,7 +130,7 @@ table.budget-table tr > .budget-table-head {
 }
 
 .budget-table .table-heading {
-  background-color: #f8f8f8; # Bootstrap .panel-heading
+  background-color: #f8f8f8;
 }
 
 .budget-table.table-bordered > tbody > tr.table-heading > th {
