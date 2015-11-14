@@ -11,8 +11,8 @@ class AddDetailsToTransfer < ActiveRecord::Migration
       transfer.update(
         amount_cents: to.amount_cents,
         amount_currency: to.amount_currency,
-        from_account_id: from.id,
-        to_account_id: to.id
+        from_account_id: from.account_id,
+        to_account_id: to.account_id
       )
     end
 
