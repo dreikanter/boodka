@@ -27,9 +27,9 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'pg'
 gem 'toml-rb'
 gem 'autonumeric-rails'
+gem 'font-awesome-rails'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-font-awesome'
   gem 'rails-assets-bootstrap', '~> 3.3.5'
 end
 

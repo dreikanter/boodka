@@ -236,7 +236,6 @@ GEM
       sprockets-rails
     rails-assets-bootstrap (3.3.5)
       rails-assets-jquery (>= 1.9.1)
-    rails-assets-font-awesome (4.4.0)
     rails-assets-jquery (2.1.4)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -348,6 +347,7 @@ DEPENDENCIES
   eslint-rails
   factory_girl_rails (~> 4.0)
   figaro
+  font-awesome-rails
   foreman
   google_currency
   guard (>= 2.2.2)
@@ -370,7 +370,6 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.4)
   rails-assets-bootstrap (~> 3.3.5)!
-  rails-assets-font-awesome!
   rails_12factor
   rails_db
   rb-fsevent
