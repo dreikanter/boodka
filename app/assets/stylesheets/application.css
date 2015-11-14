@@ -134,7 +134,7 @@ table.budget-table tr > .budget-table-head {
 }
 
 .budget-table.table-bordered > tbody > tr.table-heading > th {
-  font-size: 16px; # .panel-title
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.1;
   border-color: transparent;
