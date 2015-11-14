@@ -192,3 +192,11 @@ table.budget-table tr > .budget-table-head {
 .history-icon {
   padding-right: 15px;
 }
+
+/*
+    operations/show
+*/
+
+.reset-filter {
+  float: right;
+}

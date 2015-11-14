@@ -6,11 +6,11 @@
 </ul>
 
 <% if @ops.filtered %>
+  <!-- TODO: Move this to helper or facade -->
   <div class="alert alert-info" role="alert">
-    <!-- TODO: Move this to helper or facade -->
     <b>Filter:</b> show only <%= @ops.types.map { |value| value.pluralize }.join(', ') %>
-    <%= "Category: #{@ops.category.title}" if @ops.category %>
-    <%= link_to 'Reset filter', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'alert-link' %>
+    <%= "for #{@ops.category.title}" if @ops.category %>
+    <%= link_to 'Reset filter', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'reset-filter' %>
   </div>
 <% end %>
 
