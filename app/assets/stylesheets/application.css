@@ -51,7 +51,7 @@ h2:first-of-type {
 */
 
 .popup-container {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 /*
@@ -163,6 +163,7 @@ table.budget-table tr > .budget-table-head {
   font-weight: 500;
 }
 
+.clickable,
 .clickable-rows {
   cursor: pointer;
 }
@@ -175,7 +176,6 @@ table.budget-table tr > .budget-table-head {
 
 .budget-table .budget-spent,
 .budget-table .period-total-expense {
-  text-decoration: underline;
   cursor: pointer;
 }
 
