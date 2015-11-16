@@ -12,7 +12,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(complemented_params)
     begin
       @transaction.save!
-      redirect_to new_transaction_path, notice: 'Transaction created'
+      redirect_to ops_path, notice: 'Transaction created'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :new
@@ -23,7 +23,7 @@ class TransactionsController < ApplicationController
     @transaction.assign_attributes(complemented_params)
     begin
       @transaction.save!
-      redirect_to new_transaction_path, notice: 'Transaction updated'
+      redirect_to ops_path, notice: 'Transaction updated'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :edit
@@ -92,5 +92,11 @@ class TransactionsController < ApplicationController
 
   def new_form_params
     category_id.present? ? { category: Category.find(category_id) } : {}
+  end
+
+  def ops_path
+    year = @transaction.created_at.year
+    month = @transaction.created_at.month
+    operations_path(year, month)
   end
 end

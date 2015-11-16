@@ -11,7 +11,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(form_params)
     begin
       @transfer.save!
-      redirect_to new_transfer_path, notice: 'Transfer performed'
+      redirect_to ops_path, notice: 'Transfer performed'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :new
@@ -26,7 +26,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.find(transfer_id)
     begin
       @transfer.update!(form_params)
-      redirect_to new_transfer_path, notice: 'Transfer updated'
+      redirect_to ops_path, notice: 'Transfer updated'
     rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :edit
@@ -70,5 +70,11 @@ class TransfersController < ApplicationController
 
   def transfer_id
     params.require(:id)
+  end
+
+  def ops_path
+    year = @transfer.created_at.year
+    month = @transfer.created_at.month
+    operations_path(year, month)
   end
 end
