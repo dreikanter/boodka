@@ -9,8 +9,8 @@ class ReconciliationsController < ApplicationController
     @reconciliation = Reconciliation.new(rec_params)
     begin
       @reconciliation.save!
-      redirect_to new_reconciliation_path
-    rescue => e
+      redirect_to ops_path
+    rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :index
     end
@@ -20,8 +20,8 @@ class ReconciliationsController < ApplicationController
     @reconciliation.assign_attributes(rec_params)
     begin
       @reconciliation.save!
-      redirect_to new_reconciliation_path, notify: 'Reconciliation updated'
-    rescue => e
+      redirect_to ops_path, notify: 'Reconciliation updated'
+    rescue ActiveRecord::RecordInvalid => e
       flash.now[:alert] = e.message
       render :edit
     end
@@ -67,5 +67,11 @@ class ReconciliationsController < ApplicationController
 
   def new_reconciliation
     @reconciliation = Reconciliation.new(new_reconciliation_params)
+  end
+
+  def ops_path
+    year = @reconciliation.created_at.year
+    month = @reconciliation.created_at.month
+    operations_path(year, month)
   end
 end
