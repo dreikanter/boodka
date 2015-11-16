@@ -71,10 +71,17 @@ module ApplicationHelper
   end
 
   def ops_path(operation)
-    now = Time.current
     year = operation.created_at.try(:year) || now.year
     month = operation.created_at.try(:month) || now.month
     operations_path(year, month)
+  end
+
+  def current_period_path
+    period_path(now.year, now.month)
+  end
+
+  def current_operations_path
+    operations_path(now.year, now.month)
   end
 
   private
@@ -85,8 +92,11 @@ module ApplicationHelper
 
   NEAR_FRAME = 1.day
 
+  def now
+    @now ||= Time.current
+  end
+
   def recent_time?(value)
-    now = Time.current
     (now > value) && (now - value < NEAR_FRAME)
   end
 end

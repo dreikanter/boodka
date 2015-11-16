@@ -1,6 +1,7 @@
 class PeriodsController < ApplicationController
   include Periodical
 
+  before_action :redirect_from_root, only: :show
   before_action :check_availability, :load_categories, :load_periods
 
   private
@@ -20,5 +21,10 @@ class PeriodsController < ApplicationController
     redirect_to(accounts_path, alert: message) unless Account.any?
     message = 'Need categories to budget.'
     redirect_to(categories_path, alert: message) unless Category.any?
+  end
+
+  def redirect_from_root
+    return if params[:year].present? && params[:month].present?
+    redirect_to period_path(year, month)
   end
 end

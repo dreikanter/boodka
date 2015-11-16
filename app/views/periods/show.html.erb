@@ -1,8 +1,12 @@
 <%= render partial: 'partials/pagination', locals: { base_path: :period_path, period_length: 2 } %>
 
 <ul class="nav nav-tabs margin-bl">
-  <li role="presentation" class="active"><%= link_to 'Budget', (params[:year] ? period_path(params[:year], params[:month]) : current_period_path) %></li>
-  <li role="presentation"><%= link_to 'Operations', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path) %></li>
+  <li role="presentation" class="active">
+    <%= link_to 'Budget', (params[:year] ? period_path(params[:year], params[:month]) : current_period_path) %>
+  </li>
+  <li role="presentation">
+    <%= link_to 'Operations', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path) %>
+  </li>
 </ul>
 
 <table class="table table-bordered budget-table hide-overlapping">

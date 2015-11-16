@@ -3,6 +3,7 @@ class OperationsController < ApplicationController
 
   OPS = %w(transaction reconciliation transfer)
 
+  before_action :redirect_from_root, only: :show
   before_action :validate_params, :load_history
 
   private
@@ -78,5 +79,10 @@ class OperationsController < ApplicationController
   def validate_direction
     dirs = Const::DIRECTIONS.values
     fail 'Illegal direction' if direction && !dirs.include?(Integer(direction))
+  end
+
+  def redirect_from_root
+    return if params[:year].present? && params[:month].present?
+    redirect_to operations_path(year, month)
   end
 end
