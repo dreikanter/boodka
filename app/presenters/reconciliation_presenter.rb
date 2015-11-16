@@ -13,12 +13,23 @@ class ReconciliationPresenter < OperationPresenter
     model.amount.format(symbol: false, no_cents: false)
   end
 
+  DELTA_FORMAT = {
+    symbol: false,
+    no_cents: false,
+    sign_before_symbol: true,
+    sign_positive: true
+  }
+
+  def delta
+    model.delta.format(DELTA_FORMAT)
+  end
+
   def currency
     h.currency_label(model.amount.currency)
   end
 
   def description
-    'Reconciliation'
+    "Reconciliation: #{delta}"
   end
 
   def actions

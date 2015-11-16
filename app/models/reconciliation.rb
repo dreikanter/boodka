@@ -14,6 +14,7 @@ class Reconciliation < ActiveRecord::Base
   validates :account_id, :amount, presence: true
 
   monetize :amount_cents, with_model_currency: :currency
+  monetize :delta_cents, with_model_currency: :currency
 
   belongs_to :account
 
@@ -25,7 +26,7 @@ class Reconciliation < ActiveRecord::Base
   after_save :calculate_delta
 
   def currency
-    account.try(:currency)
+    @currency ||= account.try(:currency)
   end
 
   def self.last_for(account)
