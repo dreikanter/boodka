@@ -28,6 +28,7 @@ gem 'pg'
 gem 'toml-rb'
 gem 'autonumeric-rails'
 gem 'font-awesome-rails'
+gem 'seedbank'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '~> 3.3.5'

@@ -3,6 +3,8 @@ class CategoriesController < ApplicationController
   before_action :load_categories, only: [:index, :create]
   before_action :new_category, only: [:index, :new]
 
+  layout 'popup'
+
   def create
     @category = Category.new(category_params)
     begin
