@@ -7,6 +7,7 @@
 #  amount_cents :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  delta_cents  :integer          default(0), not null
 #
 
 class Reconciliation < ActiveRecord::Base
@@ -21,6 +22,7 @@ class Reconciliation < ActiveRecord::Base
   scope :recent_history, -> { history.limit(Const::RECENT_HISTORY_LENGTH) }
 
   after_initialize :defaults
+  after_save :calculate_delta
 
   def currency
     account.try(:currency)
@@ -32,5 +34,12 @@ class Reconciliation < ActiveRecord::Base
 
   def defaults
     self.amount_cents ||= 0
+  end
+
+  private
+
+  def calculate_delta
+    total = Calc.total(account: account, at: created_at)
+    update_column(:delta_cents, amount_cents - total.cents)
   end
 end
