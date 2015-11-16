@@ -70,6 +70,13 @@ module ApplicationHelper
     ((Time.current.year == value.year) ? short_date(value) : full_date(value))
   end
 
+  def ops_path(operation)
+    now = Time.current
+    year = operation.created_at.try(:year) || now.year
+    month = operation.created_at.try(:month) || now.month
+    operations_path(year, month)
+  end
+
   private
 
   def classificator(object, field)

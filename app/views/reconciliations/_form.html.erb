@@ -12,7 +12,7 @@
 
       <%= form.text :amount, placeholder: 'Amount', class: 'select-on-focus', autofocus: true %>
       <%= form.datetime :created_at, placeholder: 'Default is now' %>
-      <%= form.submit_group caption: submit_caption, cancel: local_assigns[:cancel] || true %>
+      <%= form.submit_group caption: submit_caption, cancel: ops_path(reconciliation) %>
     <% end %>
   </div>
 </div>

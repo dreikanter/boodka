@@ -33,7 +33,7 @@ class TransactionsController < ApplicationController
   def destroy
     fail if @transaction.transfer?
     @transaction.destroy
-    redirect_to :back, notice: 'Transaction destroyed'
+    redirect_to ops_path, notice: 'Transaction destroyed'
   end
 
   private

@@ -20,7 +20,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   def submit_button(options = {})
     submit(options[:caption], class: 'btn btn-success submit-button',
       data: { disable_with: 'Processing...' }) + ' ' +
-      (options[:cancel] ? cancel_button : '')
+      cancel_button(options[:cancel])
   end
 
   def check(field, label, options = {})
@@ -109,8 +109,9 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:span, errors(field).join(', '), class: 'help-block')
   end
 
-  def cancel_button
-    @template.link_to('Cancel', :back, class: 'btn btn-default')
+  def cancel_button(cancel)
+    return '' unless cancel
+    @template.link_to('Cancel', cancel, class: 'btn btn-default')
   end
 
   def radio_items(field, options, checked)
