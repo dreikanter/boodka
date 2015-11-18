@@ -116,11 +116,12 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     @template.link_to('Cancel', cancel, class: 'btn btn-default')
   end
 
-  def radio_items(field, options, checked)
-    options.map { |k, v| radio_item(field, k, v, checked == k) }.inject(:+)
+  def radio_items(field, options, checked_value)
+    options.map { |k, v| radio_item(field, k, v, checked_value) }.inject(:+)
   end
 
-  def radio_item(field, value, caption, checked)
+  def radio_item(field, value, caption, checked_value)
+    checked = (checked_value.to_s == value.to_s)
     label(field, class: "btn btn-default #{' active' if checked}") do
       classes = "radio-#{field} radio-option-#{value}"
       radio_button(field, value, checked: checked,
