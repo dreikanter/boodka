@@ -1,15 +1,16 @@
 class GrandTotalCalculator < BasicCalculator
   def initialize(options = {})
     @at = options[:at] || Time.current
+    @currency = options[:currency] || Conf.base_currency
   end
 
   def calculate
-    as_money(Account.all.map { |a| total(a) }.sum, Conf.base_currency)
+    as_money(Account.all.map { |a| total(a) }.sum, @currency)
   end
 
   private
 
   def total(account)
-    Calc.total(account: account, at: @at).exchange_to(Conf.base_currency)
+    Calc.total(account: account, at: @at).exchange_to(@currency)
   end
 end
