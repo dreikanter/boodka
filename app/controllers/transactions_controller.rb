@@ -90,8 +90,16 @@ class TransactionsController < ApplicationController
     params[:category_id]
   end
 
+  def default_account
+    @default_account ||= Account.default
+  end
+
   def new_form_params
-    category_id.present? ? { category: Category.find(category_id) } : {}
+    {
+      account_id: default_account.id,
+      amount_currency: default_account.currency,
+      category: category_id.present? ? Category.find(category_id) : nil
+    }
   end
 
   def ops_path

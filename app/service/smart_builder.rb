@@ -141,14 +141,12 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     end
 
     accounts = Account.ordered.decorate.map(&optionate)
-    selected = @object.send(field) || Account.default_id
+    selected = @object.send(field)
     @template.options_for_select(accounts, selected)
   end
 
-  # TODO: Cache Account.default.try(:currency)
-
   def options_for_currency_select(field)
-    selected = @object.send(field) || Account.default.try(:currency)
+    selected = @object.send(field)
     @template.options_for_select(Const::CURRENCY_CODES, selected)
   end
 end
