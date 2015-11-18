@@ -46,6 +46,10 @@ h2:first-of-type {
   border-right-color: transparent;
 }
 
+.text-muted {
+  color: #999;
+}
+
 /*
     layouts/popup
 */
@@ -93,7 +97,7 @@ h2:first-of-type {
 }
 
 /*
-    Budget#show
+    budget/show
 */
 
 .pagination-bar {
@@ -111,14 +115,15 @@ table.budget-table tr > td {
   padding: 0;
 }
 
-table.budget-table tr > .budget-table-head {
+.table-head,
+table.budget-table tr > .table-head {
   padding: 10px 12px;
   font-weight: 500;
   line-height: 1.1;
   vertical-align: middle;
 }
 
-.budget-table-head > a {
+.table-head > a {
   color: #555;
 }
 
@@ -179,6 +184,14 @@ table.budget-table tr > .budget-table-head {
   cursor: pointer;
 }
 
+.table-top > .table-head {
+  border-top-color: transparent;
+}
+
+.table-top > .table-head:not(:last-child) {
+  border-right-color: transparent;
+}
+
 /*
     Transaction kinds
 */
@@ -213,4 +226,20 @@ table.budget-table tr > .budget-table-head {
 
 .reset-filter {
   float: right;
+}
+
+/*
+    partials/budget_tabs
+*/
+
+.tab-info {
+  margin: 0;
+  padding: 10px 12px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.tab-info,
+.tab-info a {
+  color: #999;
 }

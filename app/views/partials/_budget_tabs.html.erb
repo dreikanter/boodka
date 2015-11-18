@@ -1,0 +1,4 @@
+<%= tabs_group do %>
+  <%= tab_item caption: 'Budget', path: (params[:year] ? period_path(params[:year], params[:month]) : current_period_path) %>
+  <%= tab_item caption: 'Operations', path: (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path) %>
+<% end %>

@@ -13,7 +13,8 @@ class OperationsController < ApplicationController
       filtered: filtered?,
       types: operation_types,
       category: category,
-      records: operations
+      records: operations,
+      reset_filter_path: reset_filter_path
     )
   end
 
@@ -84,5 +85,10 @@ class OperationsController < ApplicationController
   def redirect_from_root
     return if params[:year].present? && params[:month].present?
     redirect_to operations_path(year, month)
+  end
+
+  def reset_filter_path
+    return current_operations_path unless params[:year].present?
+    operations_path(params[:year], params[:month])
   end
 end

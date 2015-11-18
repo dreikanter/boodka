@@ -1,21 +1,13 @@
 <%= render partial: 'partials/pagination', locals: { base_path: :operations_path } %>
-
-<ul class="nav nav-tabs margin-bl">
-  <li role="presentation"><%= link_to 'Budget', (params[:year] ? period_path(params[:year], params[:month]) : current_period_path) %></li>
-  <li role="presentation" class="active"><%= link_to 'Operations', (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path) %></li>
-</ul>
-
-<% if @ops.filtered %>
-  <!-- TODO: Move this to helper or facade -->
-  <div class="alert alert-info" role="alert">
-    <b>Filter:</b> show only <%= @ops.types.map { |value| value.pluralize }.join(', ') %>
-    <%= "for #{@ops.category.title}" if @ops.category %>
-    <%= link_to '<i class="fa fa-times"></i>'.html_safe, (params[:year] ? operations_path(params[:year], params[:month]) : current_operations_path), class: 'reset-filter' %>
-  </div>
-<% end %>
+<%= render partial: 'partials/budget_tabs' %>
 
 <% if @ops.records.any? %>
-  <table class="table table-bordered no-grid table-hover clickable-rows hide-overlapping">
+  <table class="table table-bordered no-grid table-hover clickable-rows hide-overlapping ops-table">
+    <tr class="table-top">
+      <th colspan="<%= OperationPresenter::COLUMNS.count %>" class="table-head">
+        <%= presenter(@ops).info %>
+      </th>
+    </tr>
     <% @ops.records.each do |r| %>
       <%= presenter(r).row %>
     <% end %>

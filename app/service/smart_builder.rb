@@ -81,7 +81,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
           text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' })
         end +
         @template.content_tag(:div, class: 'col-lg-6') do
-          radio_buttons(:direction, options: { 'inflow' => 'Income', 'outflow' => 'Expense' })
+          radio_buttons(:direction, options: { inflow: 'Income', outflow: 'Expense' })
         end
       end
     end

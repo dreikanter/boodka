@@ -4,6 +4,8 @@ class PeriodsController < ApplicationController
   before_action :redirect_from_root, only: :show
   before_action :check_availability, :load_categories, :load_periods
 
+  # TODO: Use facade
+
   private
 
   def load_periods
