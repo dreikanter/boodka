@@ -8,15 +8,20 @@ Rails.application.routes.draw do
   resources :transactions
   resources :reconciliations
   resources :categories, except: :show
-  resources :transfers, except: [:show]
+  resources :transfers, except: :show
 
-  scope 'budget(/:year/:month)' do
-    resource :period, only: :show, shallow: true, path: ''
-    resources :budgets, only: :update, shallow: true,
-              path: 'categories', constraints: { :format => /(js|json)/ }
+  def period_defaults
+    now = Time.current
+    { year: now.year, month: now.month }
   end
 
-  scope 'operations(/:year/:month)' do
+  scope 'budget/:year/:month', defaults: period_defaults do
+    resource :period, only: :show, shallow: true, path: ''
+    resources :budgets, only: :update, shallow: true,
+              path: 'categories', constraints: { format: /(js|json)/ }
+  end
+
+  scope 'operations/:year/:month', defaults: period_defaults do
     resources :operations, only: :index, shallow: true, path: ''
   end
 end
