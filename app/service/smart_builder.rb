@@ -75,11 +75,13 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
 
   def amount_input
     labeled_group(:amount) do
-      @template.content_tag(:div, class: 'input-group') do
-        classes = "form-control select-on-focus input-amount"
-        text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' }) +
-        @template.content_tag(:div, class: 'input-group-btn', data: { toggle: :buttons }) do
-          radio_items(:direction, { 'inflow' => 'Income', 'outflow' => 'Expense' }, object.direction)
+      @template.content_tag(:div, class: 'row') do
+        @template.content_tag(:div, class: 'col-lg-6') do
+          classes = "form-control select-on-focus input-amount"
+          text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' })
+        end +
+        @template.content_tag(:div, class: 'col-lg-6') do
+          radio_buttons(:direction, options: { 'inflow' => 'Income', 'outflow' => 'Expense' })
         end
       end
     end
