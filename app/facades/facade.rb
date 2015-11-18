@@ -1,4 +1,8 @@
 class Facade
+  def self.method_missing(name, options = {})
+    build(name, options)
+  end
+
   def self.build(name, options = {})
     facade(name).new.tap { |f| populate(f, options) }
   end

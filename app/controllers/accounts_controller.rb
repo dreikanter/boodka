@@ -4,8 +4,7 @@ class AccountsController < ApplicationController
 
   def index
     records = Account.ordered.decorate
-    @accounts = Facade.build(
-      :accounts,
+    @accounts = Facade.accounts(
       records: records,
       totals_per_currency: Calc.totals_per_currency(accounts: records),
       accounts_per_currency: Calc.accounts_per_currency(accounts: records),

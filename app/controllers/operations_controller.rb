@@ -9,8 +9,7 @@ class OperationsController < ApplicationController
   private
 
   def load_history
-    @ops = Facade.build(
-      :operations,
+    @ops = Facade.operations(
       filtered: filtered?,
       types: operation_types,
       category: category,
