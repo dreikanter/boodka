@@ -46,7 +46,25 @@
             <tr>
               <td>
                 <%= currency_label(currency) %>
-                <span class="text-muted">(total for <%= pluralize(@accounts.accounts_per_currency[currency], 'account') %>)</span>
+                <span class="text-muted">- <%= pluralize(@accounts.accounts_per_currency[currency], 'account') %></span>
+              </td>
+              <td class="text-right">
+                <%= value.format(symbol: false, no_cents: true) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+
+    <% if @accounts.converted_equivalent.any? %>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Total per currency</h3></div>
+        <table class="table table-hover">
+          <% @accounts.converted_equivalent.each do |currency, value| %>
+            <tr>
+              <td>
+                <%= currency_label(currency) %>
               </td>
               <td class="text-right">
                 <%= value.format(symbol: false, no_cents: true) %>

@@ -12,7 +12,7 @@
 
     <div class="collapse navbar-collapse" id="the-navbar">
       <%= navbar do %>
-        <%= navbar_item caption: 'Here and now', path: current_period_path %>
+        <%= navbar_item caption: 'Here &amp; now'.html_safe, path: current_period_path %>
         <%= navbar_item caption: 'Accounts', path: accounts_path %>
       <% end %>
 

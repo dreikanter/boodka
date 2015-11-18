@@ -8,7 +8,8 @@ class AccountsController < ApplicationController
       :accounts,
       records: records,
       totals_per_currency: Calc.totals_per_currency(accounts: records),
-      accounts_per_currency: Calc.accounts_per_currency(accounts: records)
+      accounts_per_currency: Calc.accounts_per_currency(accounts: records),
+      converted_equivalent: Calc.converted_equivalent(accounts: records)
     )
   end
 
