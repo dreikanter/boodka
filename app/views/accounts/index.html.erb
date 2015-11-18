@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-12">
-    <% if @accounts.any? %>
+    <% if @accounts.records.any? %>
       <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
         <table class="table table-hover clickable-rows">
-          <% @accounts.each do |account| %>
+          <% @accounts.records.each do |account| %>
             <tr data-href="<%= edit_account_path(account) %>">
               <td class="col-lg-5">
                 <%= link_to account.title, edit_account_path(account) %>
@@ -24,7 +24,7 @@
             </tr>
           <% end %>
         </table>
-        <div class="panel-footer text-muted">You have <%= pluralize @accounts.count, 'account' %></div>
+        <div class="panel-footer text-muted">You have <%= pluralize @accounts.records.count, 'account' %></div>
       </div>
     <% else %>
       <div class="emptyness">
@@ -38,14 +38,19 @@
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12">
-    <% if @totals_per_currency.any? %>
+    <% if @accounts.totals_per_currency.any? %>
       <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">Grand total per currency</h3></div>
+        <div class="panel-heading"><h3 class="panel-title">Total per currency</h3></div>
         <table class="table table-hover">
-          <% @totals_per_currency.each do |currency, value| %>
+          <% @accounts.totals_per_currency.each do |currency, value| %>
             <tr>
-              <td class="col-lg-2"><%= currency_label(currency) %></td>
-              <td class="text-right"><%= value.format(symbol: false, no_cents: true) %></td>
+              <td>
+                <%= currency_label(currency) %>
+                <span class="text-muted">(total for <%= pluralize(@accounts.accounts_per_currency[currency], 'account') %>)</span>
+              </td>
+              <td class="text-right">
+                <%= value.format(symbol: false, no_cents: true) %>
+              </td>
             </tr>
           <% end %>
         </table>

@@ -3,8 +3,13 @@ class AccountsController < ApplicationController
   before_action :init_edit_form, only: [:edit, :update]
 
   def index
-    @accounts = Account.ordered.decorate
-    @totals_per_currency = Calc.totals_per_currency(accounts: @accounts)
+    records = Account.ordered.decorate
+    @accounts = Facade.build(
+      :accounts,
+      records: records,
+      totals_per_currency: Calc.totals_per_currency(accounts: records),
+      accounts_per_currency: Calc.accounts_per_currency(accounts: records)
+    )
   end
 
   def create
