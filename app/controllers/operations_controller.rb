@@ -88,7 +88,7 @@ class OperationsController < ApplicationController
   end
 
   def reset_filter_path
-    return current_operations_path unless params[:year].present?
+    return operations_path unless params[:year].present?
     operations_path(params[:year], params[:month])
   end
 end

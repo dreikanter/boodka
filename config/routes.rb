@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     { year: now.year, month: now.month }
   end
 
+  get 'budget' => 'periods#show', as: :current_period
+  get 'operations' => 'operations#index', as: :current_operations
+
   scope 'budget/:year/:month', defaults: period_defaults do
     resource :period, only: :show, shallow: true, path: ''
     resources :budgets, only: :update, shallow: true,

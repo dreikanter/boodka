@@ -5,14 +5,6 @@ module PathHelper
     operations_path(year, month)
   end
 
-  def current_period_path
-    period_path(now.year, now.month)
-  end
-
-  def current_operations_path
-    operations_path(now.year, now.month)
-  end
-
   private
 
   def now
