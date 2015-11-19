@@ -10,14 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap
  *= require select2
  *= require select2-bootstrap
  *= require bootstrap-datetimepicker
  *= require font-awesome
  *= require margins
- *= require_self
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 h2 {
   font-size: 20px;
@@ -242,4 +243,14 @@ table.budget-table tr > .table-head {
 .tab-info,
 .tab-info a {
   color: #999;
+}
+
+/*
+    partials/pagination
+*/
+
+.btn-selected {
+  background-color: $gray;
+  color: white;
+  border-color: $gray-light;
 }

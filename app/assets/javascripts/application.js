@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require select2
 //= require moment
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
 //= require js-routes
 //= require autonumeric
