@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 gem 'rails', '4.2.4'
-gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
@@ -29,10 +28,8 @@ gem 'toml-rb'
 gem 'autonumeric-rails'
 gem 'font-awesome-rails'
 gem 'seedbank'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap', '~> 3.3.5'
-end
+gem 'sassc-rails'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 group :development, :test do
   gem 'binding_of_caller'
