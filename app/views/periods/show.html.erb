@@ -30,8 +30,8 @@
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
     <tr class="budget-table-category">
-      <th class="table-head text-muted clickable" data-href="<%= edit_category_path(category.id) %>">
-        <i class="fa fa-envelope-o"></i> <%= category.title %>
+      <th class="table-head clickable" data-href="<%= edit_category_path(category.id) %>">
+        <span class="text-muted">-</span> <%= category.title %>
       </th>
       <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
         <td><%= budget.amount_cell(tabindex: period_index * @categories.count + category_index + 1) %></td>
