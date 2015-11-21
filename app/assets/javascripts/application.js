@@ -52,7 +52,9 @@ $(function() {
   $(".clickable-rows tr").click(function(event) {
     if ($(event.target).closest("a").length == 0) {
       var url = $(this).data("href");
-      if (url) { Turbolinks.visit(url); }
+      if (url) { $.ajax({
+        url: url
+      }) }
     }
   });
 });
