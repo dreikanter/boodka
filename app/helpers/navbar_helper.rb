@@ -45,6 +45,6 @@ module NavbarHelper
 
   def navbar_link(options)
     return link_to(options[:caption], '#') if options[:enabled] === false
-    link_to(options[:caption], options[:path], target: options[:target])
+    link_to(options[:caption], options[:path], **options)
   end
 end

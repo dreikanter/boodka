@@ -36,8 +36,9 @@ class ReconciliationPresenter < OperationPresenter
     h.content_tag(:div, class: 'table-row-actions') do
       h.link_to(
         DESTROY_ICON,
-        h.reconciliation_path(model),
+        h.reconciliation_path(model, format: :js),
         method: :delete,
+        remote: true,
         data: { confirm: 'Are you sure?' },
         class: 'action-icon'
       )
@@ -45,6 +46,6 @@ class ReconciliationPresenter < OperationPresenter
   end
 
   def href
-    h.edit_reconciliation_path(model)
+    h.edit_reconciliation_path(model, format: :js)
   end
 end

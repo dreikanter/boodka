@@ -4,7 +4,7 @@
 <% if @ops.records.any? %>
   <table class="table table-bordered no-grid table-hover clickable-rows hide-overlapping ops-table">
     <tr class="table-top">
-      <th colspan="<%= OperationPresenter::COLUMNS.count %>" class="table-head">
+      <th colspan="<%= OperationPresenter::COLUMNS.count %>" class="table-head text-muted">
         <%= presenter(@ops).info %>
       </th>
     </tr>

@@ -3,33 +3,22 @@ class ReconciliationsController < ApplicationController
   before_action :load_reconciliation, only: [:edit, :update, :destroy]
   before_action :new_reconciliation, only: [:index, :new]
 
-  layout 'popup'
-
   def create
     @reconciliation = Reconciliation.new(rec_params)
-    begin
-      @reconciliation.save!
-      redirect_to ops_path
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :index
-    end
+    @reconciliation.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :new
   end
 
   def update
     @reconciliation.assign_attributes(rec_params)
-    begin
-      @reconciliation.save!
-      redirect_to ops_path, notify: 'Reconciliation updated'
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :edit
-    end
+    @reconciliation.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :edit
   end
 
   def destroy
     @reconciliation.destroy
-    redirect_to ops_path, notify: 'Reconciliation destroyed'
   end
 
   private
