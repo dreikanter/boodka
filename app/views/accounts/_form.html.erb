@@ -1,9 +1,10 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
     <h3 class="panel-title"><%= form_caption %></h3>
   </div>
   <div class="panel-body">
-    <%= form_for account_form, url: submit_url, method: method, html: { class: 'form account-form' }, builder: SmartBuilder do |form| %>
+    <%= form_for account_form, url: submit_url, method: method, remote: true, html: { class: 'form account-form' }, builder: SmartBuilder do |form| %>
       <%= form.text :title, placeholder: 'Account title', class: 'select-on-focus', autofocus: true %>
 
       <% if account_form.persisted? %>
@@ -21,14 +22,8 @@
       <div class="form-group">
         <div class="row">
           <div class="col-lg-6">
-            <%= form.submit_button caption: submit_caption, cancel: cancel %>
+            <%= form.popup_submit_button caption: submit_caption %>
           </div>
-          <% if account_form.persisted? %>
-            <div class="col-lg-6 text-right">
-              <%= button_to 'Transfer', new_transfer_path(from_account_id: params[:id]), enabled: Account.count > 1 %>
-              <%= button_to 'Reconcile', new_reconciliation_path(account_id: params[:id]), enabled: Account.count > 0 %>
-            </div>
-          <% end %>
         </div>
       </div>
     <% end %>

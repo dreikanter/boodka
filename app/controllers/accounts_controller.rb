@@ -18,9 +18,7 @@ class AccountsController < ApplicationController
         account = Account.create!(hash[:account])
         account.reconciliations.create!(hash[:reconciliation])
       end
-      redirect_to accounts_path, notify: 'Account created'
     else
-      flash.now[:alert] = @form.errors.messages
       render :new
     end
   end
@@ -28,10 +26,8 @@ class AccountsController < ApplicationController
   def update
     if @form.validate(params[:edit_account])
       @form.save
-      redirect_to accounts_path, notify: 'Account updated'
     else
-      flash.now[:alert] = @form.errors.messages
-      render :new
+      render :edit
     end
   end
 

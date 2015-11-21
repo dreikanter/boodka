@@ -5,9 +5,9 @@
         <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
         <table class="table table-hover clickable-rows">
           <% @accounts.records.each do |account| %>
-            <tr data-href="<%= edit_account_path(account) %>">
+            <tr data-href="<%= edit_account_path(account, format: :js) %>">
               <td class="col-lg-5">
-                <%= link_to account.title, edit_account_path(account) %>
+                <%= account.title %>
 
                 <% if account.default %>
                   <span class="text-mured">(Default)</span>
@@ -18,7 +18,7 @@
                 <% end %>
               </td>
               <td class="col-lg-6 text-right">
-                <%= link_to account.display_total, new_reconciliation_path(account_id: account.id) %>
+                <%= link_to account.display_total, new_reconciliation_path(account_id: account.id, format: :js), remote: true %>
                 <%= account.currency_label %>
               </td>
             </tr>
@@ -34,7 +34,7 @@
     <% end %>
 
     <div class="margin-bl">
-      <%= link_to 'Create new account', new_account_path, class: 'btn btn-default' %>
+      <%= link_to 'Create new account', new_account_path(format: :js), class: 'btn btn-default', remote: true %>
     </div>
   </div>
   <div class="col-lg-6 col-md-6 col-sm-12">
