@@ -51,6 +51,14 @@ h2:first-of-type {
   color: #999;
 }
 
+.panel-heading .close {
+  font-size: 17px;
+}
+
+.fade {
+  transition: opacity 0.05s linear;
+}
+
 /*
     layouts/popup
 */
