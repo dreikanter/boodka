@@ -3,30 +3,19 @@ class CategoriesController < ApplicationController
   before_action :load_categories, only: [:index, :create]
   before_action :new_category, only: [:index, :new]
 
-  layout 'popup'
-
   def create
     @category = Category.new(category_params)
-    begin
-      @category.save!
-      redirect_to categories_path, notice: 'Category created'
-    rescue => e
-      flash.now[:alert] = e.message
-      render :index
-    end
+    @category.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :new
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to categories_path, notice: 'Category updated'
-    else
-      render :edit
-    end
+    render :edit unless @category.update(category_params)
   end
 
   def destroy
     @category.destroy
-    redirect_to categories_url, notice: 'Category destroyed'
   end
 
   private

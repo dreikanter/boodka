@@ -17,10 +17,19 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     group { submit_button(options) }
   end
 
+  def popup_submit_group(options = {})
+    group { popup_submit_button(options) }
+  end
+
+  def popup_submit_button(options = {})
+    submit(options[:caption], class: 'btn btn-success submit-button',
+      data: { disable_with: 'Processing...' }) + ' ' + popup_cancel_button
+  end
+
   def submit_button(options = {})
     submit(options[:caption], class: 'btn btn-success submit-button',
       data: { disable_with: 'Processing...' }) + ' ' +
-      cancel_button(options[:cancel])
+      cancel_button(options[:cancel], options[:popup])
   end
 
   def check(field, label, options = {})
@@ -111,9 +120,15 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     @template.content_tag(:span, errors(field).join(', '), class: 'help-block')
   end
 
-  def cancel_button(cancel)
+  def cancel_button(cancel, popup)
     return '' unless cancel
-    @template.link_to('Cancel', cancel, class: 'btn btn-default')
+    data = popup ? { dismiss: 'modal' } : {}
+    @template.link_to('Cancel', cancel, class: 'btn btn-default', data: data)
+  end
+
+  def popup_cancel_button
+    params = { class: 'btn btn-default', data: { dismiss: 'modal' } }
+    @template.link_to('Cancel', '#', **params)
   end
 
   def radio_items(field, options, checked_value)

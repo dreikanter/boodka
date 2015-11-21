@@ -1,0 +1,7 @@
+$("#the-modal .modal-dialog").html("<%=
+  j render(partial: 'form', locals: {
+      submit_caption: 'Create',
+      form_caption: 'New category'
+    }) %>");
+
+$("#the-modal").modal();
