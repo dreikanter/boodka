@@ -29,8 +29,9 @@ class TransactionPresenter < OperationPresenter
     h.content_tag(:div, class: 'table-row-actions') do
       h.link_to(
         DESTROY_ICON,
-        h.transaction_path(model),
+        h.transaction_path(model, format: :js),
         method: :delete,
+        remote: true,
         data: { confirm: 'Are you sure?' },
         class: 'action-icon'
       )
