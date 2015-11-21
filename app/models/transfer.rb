@@ -34,16 +34,16 @@ class Transfer < ActiveRecord::Base
 
   def create_transactions
     Transaction.transaction do
-      transactions.create!(from_transaction_params)
-      transactions.create!(to_transaction_params)
+      transactions.create!(from_params)
+      transactions.create!(to_params)
     end
   end
 
-  def from_transaction_params
+  def from_params
     transaction_params.merge(direction: :outflow, account_id: from_account_id)
   end
 
-  def to_transaction_params
+  def to_params
     transaction_params.merge(direction: :inflow, account_id: to_account_id)
   end
 
@@ -60,8 +60,8 @@ class Transfer < ActiveRecord::Base
 
   def update_transactions
     Transaction.transaction do
-      Transaction.update(from_account_id, from_transaction_params)
-      Transaction.update(to_account_id, to_transaction_params)
+      transactions.find_by(account_id: from_account_id).update(from_params)
+      transactions.find_by(account_id: to_account_id).update(to_params)
     end
   end
 end

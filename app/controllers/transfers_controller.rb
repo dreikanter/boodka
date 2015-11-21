@@ -1,5 +1,6 @@
 class TransfersController < ApplicationController
   before_action :check_availability
+  before_action :load_transfer, only: [:edit, :update, :destroy]
 
   def new
     @transfer = Transfer.new(new_form_params)
@@ -7,33 +8,19 @@ class TransfersController < ApplicationController
 
   def create
     @transfer = Transfer.new(form_params)
-    begin
-      @transfer.save!
-      redirect_to ops_path, notice: 'Transfer performed'
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :new
-    end
-  end
-
-  def edit
-    @transfer = Transfer.find(transfer_id)
+    @transfer.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :new
   end
 
   def update
-    @transfer = Transfer.find(transfer_id)
-    begin
-      @transfer.update!(form_params)
-      redirect_to ops_path, notice: 'Transfer updated'
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :edit
-    end
+    @transfer.update!(form_params)
+  rescue ActiveRecord::RecordInvalid => e
+    render :edit
   end
 
   def destroy
-    Transfer.find(params[:id]).destroy
-    redirect_to ops_path, notice: 'Transfer destroyed'
+    @transfer.destroy
   end
 
   private
@@ -74,5 +61,9 @@ class TransfersController < ApplicationController
     year = @transfer.created_at.year
     month = @transfer.created_at.month
     operations_path(year, month)
+  end
+
+  def load_transfer
+    @transfer = Transfer.find(transfer_id)
   end
 end

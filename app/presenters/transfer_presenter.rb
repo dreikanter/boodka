@@ -33,6 +33,6 @@ class TransferPresenter < OperationPresenter
   end
 
   def href
-    h.edit_transfer_path(model)
+    h.edit_transfer_path(model, format: :js)
   end
 end
