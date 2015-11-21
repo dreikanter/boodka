@@ -89,10 +89,6 @@ h2:first-of-type {
   min-width:120px;
 }
 
-.table-header {
-  font-size: 18px;
-}
-
 .action-icon {
   color: #ddd;
 }
@@ -132,17 +128,6 @@ table.budget-table tr > .table-head {
 .budget-table .form-control[disabled], .form-control[readonly] {
   background-color: transparent;
   box-shadow: none;
-  border-color: transparent;
-}
-
-.budget-table .table-heading {
-  background-color: #f8f8f8;
-}
-
-.budget-table.table-bordered > tbody > tr.table-heading > th {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.1;
   border-color: transparent;
 }
 
