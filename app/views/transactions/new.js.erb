@@ -1,0 +1,11 @@
+$("#the-modal .modal-dialog").html("<%=
+  j render partial: 'form', locals: {
+    transaction: @transaction,
+    submit_url: transactions_path,
+    method: :post,
+    form_caption: 'New transaction',
+    submit_caption: 'Add new transaction'
+  }
+%>");
+
+$("#the-modal").modal("show");

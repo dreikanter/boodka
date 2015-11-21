@@ -8,30 +8,21 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(complemented_params)
-    begin
-      @transaction.save!
-      redirect_to ops_path, notice: 'Transaction created'
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :new
-    end
+    @transaction.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :new
   end
 
   def update
     @transaction.assign_attributes(complemented_params)
-    begin
-      @transaction.save!
-      redirect_to ops_path, notice: 'Transaction updated'
-    rescue ActiveRecord::RecordInvalid => e
-      flash.now[:alert] = e.message
-      render :edit
-    end
+    @transaction.save!
+  rescue ActiveRecord::RecordInvalid => e
+    render :edit
   end
 
   def destroy
     fail if @transaction.transfer?
     @transaction.destroy
-    redirect_to ops_path, notice: 'Transaction destroyed'
   end
 
   private
