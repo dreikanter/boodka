@@ -1,11 +1,9 @@
-$("#the-modal .modal-dialog").html("<%=
-  j render(partial: 'form', locals: {
-    reconciliation: @reconciliation,
-    submit_url: reconciliation_path(@reconciliation, format: :js),
-    method: :patch,
-    form_caption: 'Reconciliation details',
-    submit_caption: 'Update reconciliation',
-    edit: true
-  }) %>");
-
-$("#the-modal").modal();
+<%= render partial: 'partials/show_popup', locals: {
+  form: 'reconciliations/form',
+  reconciliation: @reconciliation,
+  submit_url: reconciliation_path(@reconciliation, format: :js),
+  method: :patch,
+  form_caption: 'Reconciliation details',
+  submit_caption: 'Update reconciliation',
+  edit: true
+} %>

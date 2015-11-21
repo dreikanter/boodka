@@ -1,3 +1,1 @@
-$("#<%= Selector.for_model(@reconciliation) %>").slideUp("slow", function() {
-  $(this).remove();
-});
+<%= render partial: 'partials/open_popup', locals: { object: @reconciliation } %>

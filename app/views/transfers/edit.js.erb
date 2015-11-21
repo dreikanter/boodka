@@ -1,11 +1,8 @@
-$("#the-modal .modal-dialog").html("<%=
-  j render partial: 'form', locals: {
-    form_caption: 'New transfer',
-    submit_url: transfer_path(@transfer, format: :js),
-    method: :patch,
-    transfer: @transfer,
-    submit_caption: 'Update transfer'
-  }
-%>");
-
-$("#the-modal").modal("show");
+<%= render partial: 'partials/show_popup', locals: {
+  form: 'transfers/form',
+  form_caption: 'New transfer',
+  submit_url: transfer_path(@transfer, format: :js),
+  method: :patch,
+  transfer: @transfer,
+  submit_caption: 'Update transfer'
+} %>
