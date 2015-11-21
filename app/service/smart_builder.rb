@@ -82,15 +82,20 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  DIRECTION_OPTIONS = {
+    inflow: 'Income',
+    outflow: 'Expense'
+  }
+
   def amount_input
     labeled_group(:amount) do
       @template.content_tag(:div, class: 'row') do
-        @template.content_tag(:div, class: 'col-lg-6 col-md-8 col-sm-8 col-xs-8') do
+        @template.content_tag(:div, class: 'col-sm-5') do
           classes = "form-control select-on-focus input-amount"
           text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' })
         end +
-        @template.content_tag(:div, class: 'col-lg-6 col-md-4 col-sm-4 col-xs-4 text-right') do
-          radio_buttons(:direction, options: { inflow: 'Income', outflow: 'Expense' })
+        @template.content_tag(:div, class: 'col-sm-7 text-right') do
+          radio_buttons(:direction, options: DIRECTION_OPTIONS)
         end
       end
     end
@@ -140,7 +145,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     label(field, class: "btn btn-default #{' active' if checked}") do
       classes = "radio-#{field} radio-option-#{value}"
       radio_button(field, value, checked: checked,
-        autocomplete: 'off', class: classes) + " #{caption}"
+        autocomplete: 'off', class: classes).html_safe + " #{caption}".html_safe
     end
   end
 

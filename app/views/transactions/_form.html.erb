@@ -1,17 +1,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+    <a href="#" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></a>
     <h3 class="panel-title"><%= form_caption %></h3>
   </div>
   <div class="panel-body">
     <%= form_for transaction, url: submit_url, method: method, remote: true, html: { class: 'form transaction-form' }, builder: SmartBuilder do |form| %>
 
       <div class="row">
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-7 col-md-12">
           <%= form.amount_input %>
           <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
         </div>
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-5 col-md-12">
           <%= form.account_select :account_id %>
           <%= form.currency_select :amount_currency %>
         </div>
