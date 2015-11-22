@@ -2,7 +2,7 @@ class ReconciliationPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
   def icon
-    'check-circle'
+    'check'
   end
 
   def account_title

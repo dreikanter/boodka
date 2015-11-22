@@ -69,7 +69,8 @@ h2:first-of-type {
 
 .emptyness {
   color: #777;
-  margin: 15px 0;
+  margin: 50px 0;
+  text-align: center;
 }
 
 .table-row-actions {
@@ -162,6 +163,11 @@ table.budget-table tr > .table-head {
 .clickable,
 .clickable-rows {
   cursor: pointer;
+}
+
+.clickable {
+  text-decoration: underline;
+  text-decoration-color: #ddd;
 }
 
 .hide-overlapping td,

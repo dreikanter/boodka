@@ -2,7 +2,7 @@ class TransactionPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
   def icon
-    model.outflow? ? 'arrow-circle-down' : 'arrow-circle-up'
+    model.outflow? ? 'arrow-down' : 'arrow-up'
   end
 
   def account_title

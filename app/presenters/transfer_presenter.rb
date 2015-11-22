@@ -2,7 +2,7 @@ class TransferPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
   def icon
-    'arrow-circle-right'
+    'arrow-right'
   end
 
   def account_title
