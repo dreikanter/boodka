@@ -1,10 +1,6 @@
 class TransactionPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
-  def icon
-    model.outflow? ? 'arrow-down' : 'arrow-up'
-  end
-
   def account_title
     model.account.title
   end
@@ -20,8 +16,7 @@ class TransactionPresenter < OperationPresenter
   end
 
   def description
-    classes = "transaction transaction-#{transaction_class}"
-    h.content_tag :span, transaction_type, class: classes
+    model.expense? ? "Exp: #{model.category.try(:title)}" : 'Income'
   end
 
   def actions
@@ -45,12 +40,12 @@ class TransactionPresenter < OperationPresenter
   private
 
   def transaction_class
-    return 'transfer' if model.transfer_id.present?
-    model.inflow? ? 'income' : 'expense'
+    return 'default' if model.transfer_id.present?
+    model.inflow? ? 'success' : 'default'
   end
 
-  def transaction_type
+  def transaction_label_text
     return 'Transfer' if model.transfer_id.present?
-    model.inflow? ? 'Income' : "Expense: #{model.category.try(:title)}"
+    model.inflow? ? 'Income' : 'Expense'
   end
 end

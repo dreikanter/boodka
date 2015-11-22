@@ -1,10 +1,6 @@
 class ReconciliationPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
-  def icon
-    'check'
-  end
-
   def account_title
     model.account.title
   end
@@ -20,16 +16,12 @@ class ReconciliationPresenter < OperationPresenter
     sign_positive: true
   }
 
-  def delta
-    model.delta.format(DELTA_FORMAT)
-  end
-
   def currency
     h.currency_label(model.amount.currency)
   end
 
   def description
-    "Reconciliation: #{delta}"
+    "Rec: #{model.delta.format(DELTA_FORMAT)}"
   end
 
   def actions

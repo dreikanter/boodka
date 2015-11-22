@@ -1,11 +1,10 @@
 class OperationPresenter < BasicPresenter
   COLUMNS = {
-    time_and_icon: 'col-lg-2 op-time text-muted',
+    time:          'col-lg-1 op-time text-muted',
     account_title: 'col-lg-2 op-account',
     amount:        'col-lg-2 op-amount text-right',
     currency:      'col-lg-1 op-currency',
-    description:   'col-lg-2 op-description',
-    memo:          'col-lg-2 op-memo',
+    details:       'col-lg-5 op-description',
     actions:       'col-lg-1 op-actions'
   }
 
@@ -20,13 +19,12 @@ class OperationPresenter < BasicPresenter
 
   MANDATORY_COLUMNS.each { |m| alias_method(m, :not_implemented!)}
 
-  def time_and_icon
-    classes = %Q(fa fa-#{icon} history-icon icon-#{model.class.name.downcase})
-    h.content_tag(:i, '', class: classes) + time
-  end
-
   def time
     h.relative_time(model.created_at)
+  end
+
+  def details
+    [description, memo].reject(&:blank?).join(' &middot; ').html_safe
   end
 
   def description
@@ -34,7 +32,7 @@ class OperationPresenter < BasicPresenter
   end
 
   def memo
-    return unless model.try(:memo)
+    return if model.try(:memo).blank?
     h.content_tag(:span, model.memo, class: 'text-muted')
   end
 

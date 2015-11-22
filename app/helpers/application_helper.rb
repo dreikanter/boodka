@@ -40,20 +40,7 @@ module ApplicationHelper
   end
 
   def cell(object, field, options = {})
-    classes = %w(form-control text-right)
-    classes << classificator(object, field)
-    classes << options[:html].try(:[], :class)
-
-    attrs = {
-      value: object.send(field).to_f,
-      type: :text,
-      class: classes.select(&:present?).join(' '),
-      id: Selector.for(object, field),
-      readonly: options[:readonly],
-      data: (options[:html].try(:[], :data) || {}).merge(autonumeric: true)
-    }
-
-    tag(:input, (options[:html] || {}).merge(attrs))
+    tag(:input, cell_options(object, field, options))
   end
 
   def readonly_cell(object, field, options = {})
@@ -72,10 +59,6 @@ module ApplicationHelper
 
   private
 
-  def classificator(object, field)
-    [object.class.name.underscore, field].join('-').gsub('_', '-')
-  end
-
   NEAR_FRAME = 1.day
 
   def now
@@ -84,5 +67,27 @@ module ApplicationHelper
 
   def recent_time?(value)
     (now > value) && (now - value < NEAR_FRAME)
+  end
+
+  def cell_options(object, field, options)
+    (options[:html] || {}).merge(
+      value: object.send(field).to_f,
+      type: :text,
+      class: cell_classes(object, field, options),
+      id: Selector.for(object, field),
+      readonly: options[:readonly],
+      data: (options[:html].try(:[], :data) || {}).merge(autonumeric: true)
+    )
+  end
+
+  def cell_classes(object, field, options)
+    %w(form-control text-right).tap do |a|
+      a << classificator(object, field)
+      a << options[:html].try(:[], :class)
+    end.select(&:present?).join(' ')
+  end
+
+  def classificator(object, field)
+    [object.class.name.underscore, field].join('-').gsub('_', '-')
   end
 end
