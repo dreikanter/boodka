@@ -41,7 +41,7 @@
     <% if @accounts.totals_per_currency.any? %>
       <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">Total per currency</h3></div>
-        <table class="table table-hover">
+        <table class="table">
           <% @accounts.totals_per_currency.each do |currency, value| %>
             <tr>
               <td>
@@ -60,7 +60,7 @@
     <% if @accounts.converted_equivalent.any? %>
       <div class="panel panel-default">
         <div class="panel-heading"><h3 class="panel-title">Converted equivalent</h3></div>
-        <table class="table table-hover">
+        <table class="table">
           <% @accounts.converted_equivalent.each do |currency, value| %>
             <tr>
               <td>
