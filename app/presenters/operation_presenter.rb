@@ -41,8 +41,9 @@ class OperationPresenter < BasicPresenter
   def row
     h.content_tag(
       :tr, columns.join.html_safe,
-      data: { href: href },
-      id: Selector.for_model(model)
+      data: { href: href, remote: true },
+      id: Selector.for_model(model),
+      class: 'operation-row'
     )
   end
 

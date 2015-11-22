@@ -149,7 +149,8 @@ table.budget-table tr > .table-head {
   padding: 12px;
 }
 
-.budget-table .budget-table-category:hover {
+.budget-table .budget-table-category:hover,
+.ops-table .operation-row:hover {
   background-color: #f8f8f8;
 }
 
