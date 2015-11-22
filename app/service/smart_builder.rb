@@ -92,7 +92,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
       @template.content_tag(:div, class: 'row') do
         @template.content_tag(:div, class: 'col-sm-5') do
           classes = "form-control select-on-focus input-amount"
-          text_field(:amount, placeholder: 'Amount', class: classes, data: { direction: '' })
+          text_field(:amount, placeholder: 'Amount', autofocus: true, class: classes, data: { direction: '' })
         end +
         @template.content_tag(:div, class: 'col-sm-7 text-right') do
           radio_buttons(:direction, options: DIRECTION_OPTIONS)

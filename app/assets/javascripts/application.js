@@ -47,7 +47,7 @@ $(function() {
 
   window.timeElementsUpdateTimer = setInterval(formatTimes, 60 * 1000);
 
-  // Tables with clickable rows
+  // Clickable table rows
 
   var navigateTo = function(url, remote) {
     if (!url) return;
@@ -60,12 +60,19 @@ $(function() {
 
   $(".clickable-rows tr").click(function(event) {
     if ($(event.target).closest("a").length == 0) {
-      console.table($(this).data("href"), $(this).data("remote"));
       navigateTo($(this).data("href"), $(this).data("remote"));
     }
   });
 
+  // Clickable cells
+
   $(".clickable").click(function() {
     navigateTo($(this).data("href"), $(this).data("remote"));
+  });
+
+  // Focus [autofocus] input in Bootstrap modals
+
+  $('.modal').on('shown.bs.modal', function() {
+    $(this).find('[autofocus]').focus();
   });
 });
