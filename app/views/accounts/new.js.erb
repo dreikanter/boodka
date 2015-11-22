@@ -1,11 +1,9 @@
-$("#the-modal .modal-dialog").html("<%=
-  j render(partial: 'form', locals: {
-    account_form: @form,
-    submit_url: accounts_path(format: :js),
-    method: :post,
-    form_caption: 'New account',
-    submit_caption: 'Create new account',
-    edit: false
-  }) %>");
-
-$("#the-modal").modal();
+<%= render partial: 'partials/show_popup', locals: {
+  form: 'accounts/form',
+  account_form: @form,
+  submit_url: accounts_path(format: :js),
+  method: :post,
+  form_caption: 'New account',
+  submit_caption: 'Create new account',
+  edit: false
+} %>

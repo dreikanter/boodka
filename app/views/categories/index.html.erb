@@ -3,7 +3,7 @@
     <div class="panel-heading"><h3 class="panel-title">Budgeting categories</div>
     <table class="table table-hover clickable-rows">
       <% @categories.each do |category| %>
-        <tr data-href="<%= edit_category_path(category, format: :js) %>">
+        <tr data-href="<%= edit_category_path(category, format: :js) %>" id="<%= Selector.for_model(category) %>">
           <td class="col-lg-10">
             <%= category.title %>
             <span class="text-muted"><%= category.memo %></span>

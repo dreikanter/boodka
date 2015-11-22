@@ -30,7 +30,7 @@
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
     <tr class="budget-table-category">
-      <th class="table-head clickable" data-href="<%= edit_category_path(category.id) %>">
+      <th class="table-head clickable" data-href="<%= edit_category_path(category.id, format: :js) %>">
         <span class="text-muted">-</span> <%= category.title %>
       </th>
       <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
@@ -108,7 +108,8 @@
     });
 
     $(".clickable").click(function() {
-      Turbolinks.visit($(this).data("href"));
+      var url = $(this).data("href");
+      if (url) { $.ajax({ url: url }); }
     });
 
     $(".budget-amount").blur();
