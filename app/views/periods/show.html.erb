@@ -12,14 +12,14 @@
   </tr>
   <tr>
     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 table-head">
-      Available to budget
+      Available
     </th>
     <% @periods.each do |period| %>
       <td colspan="3"><%= period.available_to_budget_cell %></td>
     <% end %>
   </tr>
   <tr>
-    <th class="table-head clickable" data-href="<%= categories_path %>">
+    <th class="table-head clickable" data-href="<%= categories_path %>" data-remote="false">
       Category
     </th>
     <% @periods.each do |period| %>
@@ -30,7 +30,7 @@
   </tr>
   <% @categories.each_with_index do |category, category_index| %>
     <tr class="budget-table-category">
-      <th class="table-head clickable" data-href="<%= edit_category_path(category.id, format: :js) %>">
+      <th class="table-head clickable" data-href="<%= edit_category_path(category.id, format: :js) %>" data-remote="true">
         <span class="text-muted">-</span> <%= category.title %>
       </th>
       <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
@@ -105,11 +105,6 @@
       });
 
       $(this).data("handle-blur", "true");
-    });
-
-    $(".clickable").click(function() {
-      var url = $(this).data("href");
-      if (url) { $.ajax({ url: url }); }
     });
 
     $(".budget-amount").blur();

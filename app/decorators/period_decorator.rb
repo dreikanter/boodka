@@ -42,7 +42,8 @@ class PeriodDecorator < Draper::Decorator
 
   def total_expense_cell
     h.readonly_cell(model, :total_expense, html: { class: 'clickable', data: {
-      href: total_expense_cell_href
+      href: total_expense_cell_href,
+      remote: false
     } })
   end
 

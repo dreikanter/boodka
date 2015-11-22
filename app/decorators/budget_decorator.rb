@@ -8,7 +8,7 @@ class BudgetDecorator < Draper::Decorator
   def spent_cell
     h.readonly_cell(model, :spent, html: {
       class: :clickable,
-      data: { href: spent_cell_href }
+      data: { href: spent_cell_href, remote: false }
     })
   end
 

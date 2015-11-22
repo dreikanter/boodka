@@ -5,7 +5,7 @@
         <div class="panel-heading"><h3 class="panel-title">Accounts</h3></div>
         <table class="table table-hover clickable-rows">
           <% @accounts.records.each do |account| %>
-            <tr data-href="<%= edit_account_path(account, format: :js) %>">
+            <tr data-href="<%= edit_account_path(account, format: :js) %>" data-remote="true">
               <td class="col-lg-5">
                 <%= account.title %>
 

@@ -49,12 +49,23 @@ $(function() {
 
   // Tables with clickable rows
 
+  var navigateTo = function(url, remote) {
+    if (!url) return;
+    if (remote) {
+      $.ajax({ url: url })
+    } else {
+      Turbolinks.visit(url)
+    }
+  };
+
   $(".clickable-rows tr").click(function(event) {
     if ($(event.target).closest("a").length == 0) {
-      var url = $(this).data("href");
-      if (url) { $.ajax({
-        url: url
-      }) }
+      console.table($(this).data("href"), $(this).data("remote"));
+      navigateTo($(this).data("href"), $(this).data("remote"));
     }
+  });
+
+  $(".clickable").click(function() {
+    navigateTo($(this).data("href"), $(this).data("remote"));
   });
 });
