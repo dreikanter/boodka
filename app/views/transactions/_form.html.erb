@@ -6,18 +6,26 @@
   <div class="panel-body">
     <%= form_for transaction, url: submit_url, method: method, remote: true, html: { class: 'form transaction-form' }, builder: SmartBuilder do |form| %>
 
+      <%= form.amount_input %>
+
       <div class="row">
-        <div class="col-lg-7 col-md-12">
-          <%= form.amount_input %>
-          <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
-        </div>
-        <div class="col-lg-5 col-md-12">
+        <div class="col-lg-6">
           <%= form.account_select :account_id %>
+        </div>
+        <div class="col-lg-6">
           <%= form.currency_select :amount_currency %>
         </div>
       </div>
 
-      <%= form.datetime :created_at, placeholder: 'Default is now' %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= form.select :category_id, options: options_for_select(Category.ordered.map { |c| [c.title, c.id] }, transaction.category_id) %>
+        </div>
+        <div class="col-md-6">
+          <%= form.datetime :created_at, placeholder: 'Default is now' %>
+        </div>
+      </div>
+
       <%= form.area :memo, placeholder: 'Optional notes' %>
       <%= form.popup_submit_group caption: submit_caption %>
     <% end %>
