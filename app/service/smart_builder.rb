@@ -13,6 +13,10 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     group { popup_submit_button(options) }
   end
 
+  def popup_submit_button(options = {})
+    submit(options[:caption], **SUBMIT_OPTIONS) + ' ' + popup_cancel_button
+  end
+
   def check(field, label, options = {})
     content = check_box(field, {}, 'true', 'false') + " #{label}"
     h.content_tag(:div, class: 'checkbox') { h.content_tag(:label) { content } }
@@ -24,6 +28,12 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
 
   def currency_select(field)
     select(field, options: options_for_currency_select(field))
+  end
+
+  def select(field, options = {})
+    classes = "select select-#{field.to_s.gsub('_', '-')}"
+    params = { data: { width: '100%' }, class: classes }
+    group_for(field) { super(field, options[:options], {}, params) }
   end
 
   def datetime(field, options = {})
@@ -39,7 +49,7 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   end
 
   def amount_input
-    content = amount_text_input + directiod_radios
+    content = amount_text_input + direction_radios
     labeled_group(:amount) { h.content_tag(:div, class: 'row') { content } }
   end
 
@@ -74,26 +84,23 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     data: { disable_with: 'Processing...' }
   }
 
-  def popup_submit_button(options = {})
-    submit(options[:caption], **SUBMIT_OPTIONS) + ' ' + popup_cancel_button
-  end
-
   # TODO: Cache Account#default_id
 
   def account_option(account)
-    caption = account.display_title_with_currency,
     data = { 'data-currency' => account.currency }
-    [caption, account.id, data]
+    [account.display_title_with_currency, account.id, data]
+  end
+
+  def accounts
+    @accounts ||= Account.ordered.decorate.map { |a| account_option(a) }
   end
 
   def options_for_account_select(field)
-    accounts = Account.ordered.decorate.map { |a| account_option(a) }
     h.options_for_select(accounts, @object.send(field))
   end
 
   def options_for_currency_select(field)
-    selected = @object.send(field)
-    h.options_for_select(Const::CURRENCY_CODES, selected)
+    h.options_for_select(Const::CURRENCY_CODES, @object.send(field))
   end
 
   AMOUNT_TEXT_INPUT_PARAMS = {
@@ -109,24 +116,22 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def direction_radios
+    h.content_tag(:div, class: 'col-sm-6') { radio_buttons(:direction) }
+  end
+
   DIRECTION_OPTIONS = {
     inflow: 'Income',
     outflow: 'Expense'
   }
-
-  def direction_radios
-    h.content_tag(:div, class: 'col-sm-6') do
-      radio_buttons(:direction, options: DIRECTION_OPTIONS)
-    end
-  end
 
   RADIO_OPTIONS = {
     class: 'btn-group',
     data: { toggle: 'buttons' }
   }
 
-  def radio_buttons(field, options = {})
-    items = radio_items(field, options[:options], object.send(field))
+  def radio_buttons(field)
+    items = radio_items(field, DIRECTION_OPTIONS, object.send(field))
     group { h.content_tag(:div, **RADIO_OPTIONS) { items } }
   end
 
@@ -135,25 +140,19 @@ class SmartBuilder < ActionView::Helpers::FormBuilder
   end
 
   def radio_item(field, value, caption, checked_value)
-    content = radio_with_caption(field, value, caption)
-    classes = radio_label_classes(value, checked_value)
-    label(field, class: classes) { content }
+    checked = checked_value.to_s == value.to_s
+    content = radio_with_caption(field, value, caption, checked)
+    label(field, class: radio_label_classes(checked)) { content }
   end
 
-  def radio_label_classes(value, checked_value)
-    "btn btn-default#{' active' if (checked_value.to_s == value.to_s)}"
+  def radio_label_classes(checked)
+    "btn btn-default#{' active' if checked}"
   end
 
-  def radio_with_caption(field, value, caption)
+  def radio_with_caption(field, value, caption, checked)
     classes = "radio-#{field} radio-option-#{value}"
     params = { checked: checked, autocomplete: 'off', class: classes }
-    [radio_button(field, value, **params), ' ', caption].map(&:html_safe).join
-  end
-
-  def select(field, options = {})
-    classes = "select select-#{field.to_s.gsub('_', '-')}"
-    params = { data: { width: '100%' }, class: classes }
-    group_for(field) { super(field, options[:options], {}, **params) }
+    [radio_button(field, value, **params), caption].join(' ').html_safe
   end
 
   def popup_cancel_button
