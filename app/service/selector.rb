@@ -1,5 +1,5 @@
 class Selector
-  def self.for(object, field)
+  def self.for(object, field = nil)
     return unless object.respond_to?(:selector)
     parts = [object.try(:selector), field].select(&:present?)
     parts.join('-').gsub('_', '-').downcase
