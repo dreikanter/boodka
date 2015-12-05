@@ -24,10 +24,10 @@ module NavbarHelper
   end
 
   def navbar_item_classes(options)
-    classes = %w()
-    classes += %w(active) if current_page?(options[:path])
-    classes += %w(disabled) if options[:enabled] === false
-    classes.join(' ')
+    Array.new.tap do |classes|
+      classes << 'active' if active?(options)
+      classes << 'disabled' if options[:enabled] === false
+    end.join(' ')
   end
 
   def dropdown_link(caption)
@@ -46,5 +46,9 @@ module NavbarHelper
   def navbar_link(options)
     return link_to(options[:caption], '#') if options[:enabled] === false
     link_to(options[:caption], options[:path], **options)
+  end
+
+  def active?(options)
+    options[:active] and options[:active].call or current_page?(options[:path])
   end
 end
