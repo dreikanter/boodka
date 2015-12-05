@@ -189,6 +189,10 @@ table.budget-table tr > .table-head {
   border-right-color: transparent;
 }
 
+.table-head > a {
+  text-decoration: underline;
+}
+
 /*
     Transaction kinds
 */
@@ -241,4 +245,8 @@ table.budget-table tr > .table-head {
   background-color: $gray;
   color: white;
   border-color: $gray-light;
+}
+
+.period-head {
+  overflow: visible;
 }
