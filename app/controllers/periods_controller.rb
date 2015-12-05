@@ -2,20 +2,26 @@ class PeriodsController < ApplicationController
   include Periodical
 
   before_action :redirect_from_root, only: :show
-  before_action :check_availability, :load_categories, :load_periods
+  before_action :check_availability
 
-  # TODO: Use facade
+  def show
+    @periods = Facade.periods(
+      periods: load_periods,
+      categories: Category.ordered
+    )
+  end
+
+  def update
+    period = Period.at!(year, month)
+    Category.ordered.each { |c| period.budget_for(c).copy_prev! }
+  end
 
   private
 
   def load_periods
     to_date = -> (n) { start_date + n.month }
     to_period = -> (d) { Period.at(d.year, d.month).decorate }
-    @periods = Const::PERIODS_PER_PAGE.times.map(&to_date).map(&to_period)
-  end
-
-  def load_categories
-    @categories = Category.ordered
+    Const::PERIODS_PER_PAGE.times.map(&to_date).map(&to_period)
   end
 
   def check_availability

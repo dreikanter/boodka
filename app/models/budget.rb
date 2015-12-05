@@ -90,8 +90,17 @@ class Budget < ActiveRecord::Base
     "#{super}-#{category_id}"
   end
 
+  def prev_amount
+    prev_existing_budget.try(:amount) || zero
+  end
+
   def prev_balance
     prev_existing_budget.try(:balance) || zero
+  end
+
+  def copy_prev!
+    update!(amount: prev_amount)
+    next_existing_budget.try(:refresh!)
   end
 
   private

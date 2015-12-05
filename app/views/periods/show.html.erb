@@ -4,9 +4,17 @@
 <table class="table table-bordered budget-table hide-overlapping">
   <tr class="table-top">
     <th class="table-head"></th>
-    <% @periods.each do |period| %>
-      <th colspan="3" class="text-center table-head">
-        <%= period.title %>
+    <% @periods.periods.each do |period| %>
+      <th colspan="3" class="text-center table-head period-head">
+        <%=
+          link_to period.title, '#', class: 'period-popover', data: {
+            toggle: 'popover',
+            content: %Q(<a href="#{period_path(period.year, period.month, format: :js, action: 'copy_previous')}" data-remote="true" data-method="patch" class="btn btn-sm btn-default">Budget values used last month</a>),
+            trigger: 'focus',
+            placement: 'bottom',
+            html: true
+          }
+        %>
       </th>
     <% end %>
   </tr>
@@ -14,7 +22,7 @@
     <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2 table-head">
       Available
     </th>
-    <% @periods.each do |period| %>
+    <% @periods.periods.each do |period| %>
       <td colspan="3"><%= period.available_to_budget_cell %></td>
     <% end %>
   </tr>
@@ -22,19 +30,19 @@
     <th class="table-head">
       Category
     </th>
-    <% @periods.each do |period| %>
+    <% @periods.periods.each do |period| %>
       <th class="table-head text-right"><i class="fa fa-edit text-muted"></i> Budgeted</th>
       <th class="table-head text-right">Outflows</th>
       <th class="table-head text-right">Balance</th>
     <% end %>
   </tr>
-  <% @categories.each_with_index do |category, category_index| %>
+  <% @periods.categories.each_with_index do |category, category_index| %>
     <tr class="budget-table-category">
       <th class="table-head clickable" data-href="<%= edit_category_path(category.id, format: :js) %>" data-remote="true">
         <%= category.title %>
       </th>
-      <% @periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
-        <td><%= budget.amount_cell(tabindex: period_index * @categories.count + category_index + 1) %></td>
+      <% @periods.periods.map { |p| p.budget_for(category) }.each_with_index do |budget, period_index| %>
+        <td><%= budget.amount_cell(tabindex: period_index * @periods.categories.count + category_index + 1) %></td>
         <td><%= budget.spent_cell %></td>
         <td><%= budget.balance_cell %></td>
       <% end %>
@@ -42,7 +50,7 @@
   <% end %>
   <tr>
     <th class="table-head">Totals</th>
-    <% @periods.each_with_index do |period, period_index| %>
+    <% @periods.periods.each_with_index do |period, period_index| %>
       <td class="total-value"><%= period.total_budgeted_cell %></td>
       <td class="total-value"><%= period.total_expense_cell %></td>
       <td class="total-value"><%= period.total_balance_cell %></td>
@@ -108,6 +116,7 @@
     });
 
     $(".budget-amount").blur();
+
+    $(".period-popover").popover();
   })
 </script>
-

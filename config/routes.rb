@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'operations' => 'operations#index', as: :current_operations
 
   scope 'budget/:year/:month', defaults: period_defaults do
-    resource :period, only: :show, shallow: true, path: ''
+    resource :period, only: [:show, :update], shallow: true, path: ''
     resources :budgets, only: :update, shallow: true,
               path: 'categories', constraints: { format: /(js|json)/ }
   end
