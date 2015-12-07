@@ -57,7 +57,7 @@ class Pagination
   def link_classes(year, month)
     classes = %w(btn btn-sm)
     classes << 'active' if current?(year, month)
-    classes << (selected?(year, month) ? 'btn-selected' : 'btn-default')
+    classes << (selected?(year, month) ? 'btn-info' : 'btn-default')
     classes.join(' ')
   end
 
