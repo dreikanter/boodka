@@ -156,6 +156,8 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     js-routes (1.1.2)
       railties (>= 3.2)
       sprockets-rails
@@ -371,6 +373,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   js-routes
   meta_request
   minitest-rails

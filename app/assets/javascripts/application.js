@@ -20,6 +20,8 @@
 //= require bootstrap-datetimepicker
 //= require js-routes
 //= require autonumeric
+//= require jquery-ui/core
+//= require jquery-ui/effect-highlight
 
 $(function() {
   "use strict";

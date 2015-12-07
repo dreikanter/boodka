@@ -30,6 +30,7 @@ gem 'font-awesome-rails'
 gem 'seedbank'
 gem 'sassc-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'binding_of_caller'
