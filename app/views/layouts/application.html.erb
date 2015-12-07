@@ -26,8 +26,8 @@
   </div>
   <footer class="footer">
     <div class="container text-muted">
-      <b><%= Const::APP_NAME %></b> is an open source project licensed under the terms of MIT  license.<br>
-      Send your feedback to <a href="http://twitter.com/dreikanter">@dreikanter</a> or project issues <a href="https://github.com/dreikanter/boodka">on GitHub</a>.
+      <% if ENV['demo'] %><p><b>This is a demo instance.</b></p><% end %>
+      <p><%= Const::APP_NAME %> is an open source project licensed under the terms of MIT  license.<br>Send your feedback to <a href="http://twitter.com/dreikanter">@dreikanter</a> or project issues <a href="https://github.com/dreikanter/boodka">on GitHub</a>.</p>
     </div>
   </footer>
 </body>
