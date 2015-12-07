@@ -61,10 +61,21 @@ h2:first-of-type {
     layouts/application
 */
 
+$footer-height: 100px;
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: $footer-height;
+}
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: $footer-height;
   padding: 15px 0;
   text-align: center;
 }
