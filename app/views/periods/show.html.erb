@@ -64,32 +64,28 @@
 
     $(".budget-amount").unbind();
 
-    // TODO: Refactor
-    $(".budget-amount").focus(function() {
-      var cell = $(this);
-      cell.data("handle-change", "false");
-      cell.val(cell.data("value")).select();
-      cell.data("handle-change", "true");
-    }).blur(function() {
-      var cell = $(this);
-      if (cell.data("handle-blur") == "false") { return; }
-      cell.data("handle-change", "false");
-      cell.data('value', cell.autoNumeric('get'))
-      cell.autoNumeric('set', cell.autoNumeric('get'));
-      cell.data("handle-change", "true");
-    });
+    var updateCells = function(data) {
+      $.each(data, function(selector, value) {
+        var element = $("#" + selector);
 
-    $("input.highlight").each(function(_, element) {
-      $(element).removeClass("highlight-positive").removeClass("highlight-negative");
-      var value = $(element).autoNumeric("get");
-      if (value > 0) $(element).addClass("highlight-positive");
-      if (value < 0) $(element).addClass("highlight-negative");
-    });
+        element.data("value", value);
+        if (element.is(":focus")) {
+          element.val(value);
+        } else {
+          element.autoNumeric('set', value);
+        }
 
-    $(".budget-amount").change(function() {
-      var cell = $(this);
-      if (!cell.data("handle-change")) { return; }
-      cell.data("handle-blur", "false");
+        if (element.hasClass("highlight")) {
+          element.removeClass("highlight-positive").removeClass("highlight-negative");
+          if (value > 0) element.addClass("highlight-positive");
+          if (value < 0) element.addClass("highlight-negative");
+        }
+      });
+    };
+
+    var onChange = function(event) {
+      var cell = $(event.target);
+      cell.off('blur');
 
       var catId = cell.data("cat-id");
       var url = Routes.budget_path(cell.data("year"), cell.data("month"),
@@ -99,30 +95,31 @@
         url: url,
         type: "PATCH",
         dataType: "json",
-        success: function(data) {
-          $.each(data, function(selector, value) {
-            var element = $("#" + selector);
-
-            element.data("value", value);
-            if (element.is(":focus")) {
-              element.val(value);
-            } else {
-              element.autoNumeric('set', value);
-            }
-
-            if (element.hasClass("highlight")) {
-              element.removeClass("highlight-positive").removeClass("highlight-negative");
-              if (value > 0) element.addClass("highlight-positive");
-              if (value < 0) element.addClass("highlight-negative");
-            }
-          });
-        }
+        success: updateCells
       });
 
-      $(this).data("handle-blur", "true");
+      cell.blur(onBlur);
+    };
+
+    var onFocus = function(event) {
+      var cell = $(event.target);
+      cell.off('change').val(cell.data("value")).select().change(onChange);
+    };
+
+    var onBlur = function(event) {
+      var cell = $(event.target);
+      var value = cell.autoNumeric('get');
+      cell.off('change').data('value', value).autoNumeric('set', value).change(onChange);
+    };
+
+    $("input.highlight").each(function(_, element) {
+      $(element).removeClass("highlight-positive").removeClass("highlight-negative");
+      var value = $(element).autoNumeric("get");
+      if (value > 0) $(element).addClass("highlight-positive");
+      if (value < 0) $(element).addClass("highlight-negative");
     });
 
-    $(".budget-amount").blur();
+    $(".budget-amount").focus(onFocus).blur(onBlur).change(onChange).blur();
 
     $(".period-popover").popover();
   })
