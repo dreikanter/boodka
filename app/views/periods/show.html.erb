@@ -102,7 +102,14 @@
         success: function(data) {
           $.each(data, function(selector, value) {
             var element = $("#" + selector);
-            element.data("value", value).autoNumeric('set', value);
+
+            element.data("value", value);
+            if (element.is(":focus")) {
+              element.val(value);
+            } else {
+              element.autoNumeric('set', value);
+            }
+
             if (element.hasClass("highlight")) {
               element.removeClass("highlight-positive").removeClass("highlight-negative");
               if (value > 0) element.addClass("highlight-positive");
