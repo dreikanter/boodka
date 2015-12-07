@@ -5,7 +5,7 @@
   <% if content_for? :title %>
     <title><%= yield(:title) %></title>
   <% else %>
-    <title>Boodka</title>
+    <title><%= Const::APP_NAME %></title>
   <% end %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -24,5 +24,11 @@
       </div>
     </div>
   </div>
+  <footer class="footer">
+    <div class="container text-muted">
+      <b><%= Const::APP_NAME %></b> is an open source project licensed under the terms of MIT  license.<br>
+      Send your feedback to <a href="http://twitter.com/dreikanter">@dreikanter</a> or project issues <a href="https://github.com/dreikanter/boodka">on GitHub</a>.
+    </div>
+  </footer>
 </body>
 </html>

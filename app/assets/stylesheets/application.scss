@@ -56,6 +56,18 @@ h2:first-of-type {
 }
 
 /*
+    layouts/application
+*/
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+}
+
+/*
     layouts/popup
 */
 

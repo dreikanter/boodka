@@ -1,4 +1,5 @@
 module Const
+  APP_NAME = 'Boodka'
   CURRENCY_CODES = Money::Currency.all.map(&:iso_code)
   CURRENCY_CODES_SET = Set.new(CURRENCY_CODES)
   RATES_TTL_IN_SECONDS = 86_400
