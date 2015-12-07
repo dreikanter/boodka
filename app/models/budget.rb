@@ -75,7 +75,7 @@ class Budget < ActiveRecord::Base
 
   def next_budget
     date = start_at + 1.month
-    cat_history.where('start_at > ?', date).first || Period.at(date.year, date.month).budget_for(category)
+    Period.at(date.year, date.month).budget_for(category)
   end
 
   def next_existing_budget

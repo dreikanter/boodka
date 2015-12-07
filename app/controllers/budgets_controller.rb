@@ -32,9 +32,9 @@ class BudgetsController < ApplicationController
     budget ? budget_data(budget).merge(period_data(budget.period)) : {}
   end
 
-  def updated_budget(budget)
-    # TODO: Use Const::PERIODS_PER_PAGE
-    new_values(budget).merge(new_values(budget.next_budget))
+  def updated_budget(budget, count = Const::PERIODS_PER_PAGE)
+    return new_values(budget) if count <= 1
+    new_values(budget).merge(updated_budget(budget.next_budget, count - 1))
   end
 
   def budget_data(budget)
