@@ -2,7 +2,8 @@ class TransferPresenter < OperationPresenter
   DESTROY_ICON = '<i class="fa fa-times"></i>'.html_safe
 
   def account_title
-    model.transactions.map { |t| t.account.title }.join(' &rarr; ').html_safe
+    titles = [model.from_account.title, model.to_account.title]
+    titles.join(' &rarr; ').html_safe
   end
 
   def amount
