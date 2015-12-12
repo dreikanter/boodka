@@ -29,6 +29,7 @@ class TransfersController < ApplicationController
     memo
     created_at
     amount
+    amount_currency
     from_account_id
     to_account_id
   )
