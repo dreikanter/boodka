@@ -206,11 +206,7 @@ table.budget-table tr > .table-head {
   cursor: pointer;
 }
 
-.table-top > .table-head {
-  border-top-color: transparent;
-}
-
-.table-top > .table-head:not(:last-child) {
+.budget-table tr:first-child th:not(:last-child) {
   border-right-color: transparent;
 }
 

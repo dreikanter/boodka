@@ -1,10 +1,10 @@
 module PresentersHelper
-  def present(model, presenter_class = nil)
-    yield(presenter(model, presenter_class)) if block_given?
+  def present(object, presenter_class = nil)
+    yield(presenter(object, presenter_class)) if block_given?
   end
 
-  def presenter(model, presenter_class = nil)
-    klass = presenter_class || "#{model.class}Presenter".constantize
-    klass.new(model, self)
+  def presenter(object, presenter_class = nil)
+    klass = presenter_class || "#{object.class}Presenter".constantize
+    klass.new(object, self)
   end
 end

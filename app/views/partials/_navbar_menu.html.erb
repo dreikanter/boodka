@@ -12,9 +12,10 @@
 
     <div class="collapse navbar-collapse" id="the-navbar">
       <%= navbar do %>
-        <%= navbar_item caption: 'Budgeting', path: root_path, active: -> { ['periods', 'operations'].include? controller.controller_name } %>
         <%= navbar_item caption: 'Accounts', path: accounts_path %>
         <%= navbar_item caption: 'Categories', path: categories_path %>
+        <%= navbar_item caption: 'Budgeting', path: current_period_path, active: -> { ['periods'].include? controller.controller_name } %>
+        <%= navbar_item caption: 'Operations', path: current_operations_path %>
       <% end %>
 
       <%= navbar side: :right do %>
