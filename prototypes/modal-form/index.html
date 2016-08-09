@@ -8,11 +8,8 @@
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="vGMxqZqSSC/YNH9GioP06bnUI2W2TksxoCQ40iesRWtAwkM+Sh/Ly+3Jn93BfopUkBtp0JSRtslEeSMYrLqHFw==" />
     <style>
-      /*===========Button custom styles===========*/
       
-
-      /* .modal-fullscreen */
-
+      /* Fullscreen form general styles */
       .modal-fullscreen {
         background: transparent;
       }
@@ -23,15 +20,14 @@
         box-shadow: none;
       }
       .modal-backdrop.modal-backdrop-fullscreen {
-        background: #ffffff;
+        background: #fff;
       }
       .modal-backdrop.modal-backdrop-fullscreen.in {
         opacity: .97;
         filter: alpha(opacity=97);
       }
 
-      /* .modal-fullscreen size: we use Bootstrap media query breakpoints */
-
+      /* Fullscreen form size: using Bootstrap media query breakpoints */
       .modal-fullscreen .modal-dialog {
         margin: 0;
         margin-right: auto;
@@ -45,17 +41,11 @@
       }
       @media (min-width: 992px) {
         .modal-fullscreen .modal-dialog {
-                      width: 970px;
-        }
-      }
-      @media (min-width: 1200px) {
-        .modal-fullscreen .modal-dialog {
-                       width: 1170px;
+                      width: 768px;
         }
       }
       
-      
-      /*==========Modal form custom styles===========*/
+      /* Fullscreen form elements */
       .dropdown > .btn {
         width: 100%;
         text-align: left;
@@ -134,7 +124,7 @@
                       <span id="helpBlock" class="help-block">A block of help text</span></div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccounts"
@@ -153,7 +143,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <div class="btn-group" role="group">
                           <button type="button" class="btn btn-default">RUB</button> 
@@ -163,12 +153,12 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Paxee" />
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCategory"
@@ -189,12 +179,12 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <input placeholder="Default is now" class="form-control date-time-picker" type="text" />
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Memo" />
                         </div>
