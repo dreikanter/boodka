@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Boodka</title>
+    <link rel="stylesheet" media="all" href="assets/application.css" data-turbolinks-track="true" />
+    <script src="assets/application.js" data-turbolinks-track="true"></script>
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="vGMxqZqSSC/YNH9GioP06bnUI2W2TksxoCQ40iesRWtAwkM+Sh/Ly+3Jn93BfopUkBtp0JSRtslEeSMYrLqHFw==" />
+    <style>
+      
+      /* Fullscreen form general styles */
+      .modal-fullscreen {
+        background: transparent;
+      }
+      .modal-fullscreen .modal-content {
+        background: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .modal-backdrop.modal-backdrop-fullscreen {
+        background: #fff;
+      }
+      .modal-backdrop.modal-backdrop-fullscreen.in {
+        opacity: .97;
+        filter: alpha(opacity=97);
+      }
+
+      /* Fullscreen form size: using Bootstrap media query breakpoints */
+      .modal-fullscreen .modal-dialog {
+        margin: 0;
+        margin-right: auto;
+        margin-left: auto;
+        width: 100%;
+      }
+      @media (min-width: 768px) {
+        .modal-fullscreen .modal-dialog {
+                      width: 750px;
+        }
+      }
+      @media (min-width: 992px) {
+        .modal-fullscreen .modal-dialog {
+                      width: 768px;
+        }
+      }
+      
+      /* Fullscreen form elements */
+      .dropdown > .btn {
+        width: 100%;
+        text-align: left;
+      }
+        
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#the-navbar"
+          aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+          </button> 
+          <a class="navbar-brand" href="/">Boodka</a>
+        </div>
+        <div class="collapse navbar-collapse" id="the-navbar">
+          <ul class="nav navbar-nav navbar-menu">
+            <li class="">
+              <a caption="Accounts" path="/accounts" href="/accounts">Accounts</a>
+            </li>
+            <li class="">
+              <a caption="Categories" path="/categories" href="/categories">Categories</a>
+            </li>
+            <li class="">
+              <a caption="Budgeting" path="/budget"
+              active="#<Proc:0x007fa6dd408810@/app/app/views/partials/_navbar_menu.html.erb:17 (lambda)>"
+              href="/budget">Budgeting</a>
+            </li>
+            <li class="active">
+              <a caption="Operations" path="/operations" href="/operations">Operations</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-menu navbar-right">
+            <li class="">
+              <a caption="New transaction" path="/transactions/new.js" enabled="true" data-remote="true"
+              href="/transactions/new.js">New transaction</a>
+            </li>
+            <li class="">
+              <a caption="Transfer" path="/transfers/new.js" enabled="true" data-remote="true"
+              href="/transfers/new.js">Transfer</a>
+            </li>
+            <li class="">
+              <a caption="Reconcile" path="/reconciliations/new.js" enabled="true" data-remote="true"
+              href="/reconciliations/new.js">Reconcile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+        <!-- Button modal fullscreen -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-fullscreen">Launch modal
+        fullscreen</button> 
+        <!-- Modal fullscreen -->
+        <div class="modal modal-fullscreen fade" id="modal-fullscreen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span> 
+                <span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Form title</h4>
+              </div>
+              
+              <div class="modal-body">
+                <form>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                      <input type="text" class="form-control" aria-describedby="helpBlock" placeholder="Text field" /> 
+                      <span id="helpBlock" class="help-block">A block of help text</span></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccounts"
+                            data-toggle="dropdown" aria-haspopup="true">Accounts</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownAccounts">
+                              <li>
+                                <a href="#">Sber</a>
+                              </li>
+                              <li>
+                                <a href="#">Raif</a>
+                              </li>
+                              <li>
+                                <a href="#">Alpha</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-default">RUB</button> 
+                          <button type="button" class="btn btn-default">USD</button> 
+                          <button type="button" class="btn btn-default">EUR</button></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Paxee" />
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownCategory"
+                            data-toggle="dropdown" aria-haspopup="true">Category</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownCategory">
+                              <li>
+                                <a href="#">1</a>
+                              </li>
+                              <li>
+                                <a href="#">2</a>
+                              </li>
+                              <li>
+                                <a href="#">3</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <input placeholder="Default is now" class="form-control date-time-picker" type="text" />
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Memo" />
+                        </div>
+                      </div>
+                    </div>
+                    <input class="btn btn-default pull-right" type="submit" value="Submit" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="the-modal" role="dialog" tabindex="-1">
+          <div class="modal-dialog" role="document"></div>
+        </div></div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container text-muted">
+        <p>
+          <b>This is a demo instance.</b>
+        </p>
+        <p>Boodka is an open source project licensed under the terms of MIT license.
+        <br />Send your feedback to 
+        <a href="http://twitter.com/dreikanter">@dreikanter</a> or project issues 
+        <a href="https://github.com/dreikanter/boodka">on GitHub</a>.</p>
+      </div>
+    </footer>
+    <script>
+      try {
+
+        $(".modal-fullscreen").on('show.bs.modal', function () {
+          setTimeout( function() {
+            $(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+          }, 0);
+        });
+        $(".modal-fullscreen").on('hidden.bs.modal', function () {
+          $(".modal-backdrop").addClass("modal-backdrop-fullscreen");
+        });
+      } catch (error) { throw error; }
+
+      $(function () {
+        $('.date-time-picker').datetimepicker();
+      });
+ 
+    </script>
+  </body>
+</html>
