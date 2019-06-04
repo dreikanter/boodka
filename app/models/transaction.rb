@@ -4,7 +4,7 @@
 #
 #  id                         :integer          not null, primary key
 #  account_id                 :integer          not null
-#  direction                  :integer          default(0), not null
+#  direction                  :integer          default("outflow"), not null
 #  amount_cents               :integer          default(0), not null
 #  amount_currency            :string           default("USD"), not null
 #  calculated_amount_cents    :integer          default(0), not null

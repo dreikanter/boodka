@@ -1,4 +1,4 @@
-class AddDeltaToReconciliations < ActiveRecord::Migration
+class AddDeltaToReconciliations < ActiveRecord::Migration[4.2]
   def change
     add_column :reconciliations, :delta_cents, :integer, null: false, default: 0
 

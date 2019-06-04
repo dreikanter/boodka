@@ -1,4 +1,4 @@
-class AddDetailsToTransfer < ActiveRecord::Migration
+class AddDetailsToTransfer < ActiveRecord::Migration[4.2]
   def change
     add_monetize :transfers, :amount
     add_column :transfers, :from_account_id, :integer

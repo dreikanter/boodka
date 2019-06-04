@@ -1,4 +1,4 @@
-class CreateRates < ActiveRecord::Migration
+class CreateRates < ActiveRecord::Migration[4.2]
   def change
     create_table :rates do |t|
       t.float :ask, null: false
