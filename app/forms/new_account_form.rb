@@ -3,6 +3,7 @@ class NewAccountForm < BasicAccountForm
 
   model :account
 
+  property :title, on: :account
   property :amount, on: :reconciliation
   property :reconciled_at, on: :reconciliation, from: :created_at
 

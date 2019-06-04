@@ -7,7 +7,8 @@ gem 'uglifier', '~> 4.1', '>= 4.1.20'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'turbolinks', '~> 5.2'
 gem 'jbuilder', '~> 2.0'
-gem 'bootsnap', '~> 1.4', '>= 1.4.4', require: false
+# gem 'bootsnap', '~> 1.4', '>= 1.4.4', require: false
+gem 'puma', '~> 3.12', '>= 3.12.1'
 
 gem 'awesome_print', '~> 1.8'
 gem 'money-rails', '~> 1.13', '>= 1.13.2'
@@ -17,6 +18,7 @@ gem 'httparty', '~> 0.17.0'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'draper', '~> 3.1'
 gem 'reform', '~> 2.2', '>= 2.2.4'
+gem 'reform-rails', '~> 0.1.7'
 gem 'virtus', '~> 1.0', '>= 1.0.5'
 gem 'jquery-turbolinks', '~> 2.1'
 gem 'js-routes', '~> 1.4', '>= 1.4.6'
@@ -30,6 +32,7 @@ gem 'seedbank', '~> 0.5.0'
 gem 'sassc-rails', '~> 2.1', '>= 2.1.1'
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
+gem 'eu_central_bank', '~> 1.4', '>= 1.4.2'
 
 group :development, :test do
   gem 'binding_of_caller', '~> 0.8.0'
@@ -38,7 +41,7 @@ group :development, :test do
   gem 'meta_request', '~> 0.7.0'
   gem 'pry-rails', '~> 0.3.9'
   gem 'spring', '~> 2.0', '>= 2.0.2'
-  gem 'web-console', '~> 2.0'
+  # gem 'web-console', '~> 2.0'
   gem 'minitest-rails', '~> 3.0'
   gem 'minitest-reporters', '~> 1.3', '>= 1.3.6'
   gem 'guard', '~> 2.15', require: false
