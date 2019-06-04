@@ -19,18 +19,18 @@
 
 FactoryBot.define do
   factory :inflow_transaction, class: Transaction do
-    direction Const::INFLOW
-    amount_cents 10000
-    amount_currency 'USD'
-    calculated_amount_cents 1000
-    calculated_amount_currency 'USD'
-    rate 1
-    association :account, factory: :account, strategy: :create
-    association :category, factory: :category, strategy: :create
-    transfer_id nil
+    direction { Const::INFLOW }
+    amount_cents { 10000 }
+    amount_currency { 'USD' }
+    calculated_amount_cents { 1000 }
+    calculated_amount_currency { 'USD' }
+    rate { 1 }
+    account
+    category
+    transfer_id { nil }
   end
 
   factory :outflow_transaction, parent: :inflow_transaction do
-    direction Const::OUTFLOW
+    direction { Const::OUTFLOW }
   end
 end

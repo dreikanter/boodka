@@ -22,9 +22,9 @@ FactoryBot.define do
   factory :budget do
     period_id { FactoryBot.create(:current_period).id }
     category_id { FactoryBot.create(:valid_category).id }
-    amount_cents 10000
-    amount_currency ENV['base_currency']
-    memo 'Sample budget'
+    amount_cents { 10000 }
+    amount_currency { ENV['base_currency'] }
+    memo { 'Sample budget' }
   end
 
   factory :previous_budget, parent: :budget do

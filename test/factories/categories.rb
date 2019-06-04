@@ -11,7 +11,7 @@
 
 FactoryBot.define do
   factory :category, class: Category do
-    title 'Groceries'
-    memo 'A sample budgeting category'
+    title { 'Groceries' }
+    memo { 'A sample budgeting category' }
   end
 end
