@@ -22,11 +22,11 @@ class Minitest::Spec
     DatabaseCleaner.clean
   end
 
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 end
 
 class MiniTest::Unit::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 end
 
 Minitest::Reporters.use! [ Minitest::Reporters::SpecReporter.new ]

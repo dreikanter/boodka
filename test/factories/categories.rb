@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :category, class: Category do
     title 'Groceries'
     memo 'A sample budgeting category'

@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :current_period, class: Period do
     initialize_with do
       today = Date.today

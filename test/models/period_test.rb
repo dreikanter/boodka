@@ -16,12 +16,12 @@ require 'test_helper'
 
 describe Period do
   let(:period) { Period.new }
-  let(:current_period) { FactoryGirl.build :current_period }
-  let(:previous_period) { FactoryGirl.build :previous_period }
-  let(:ancient_period) { FactoryGirl.build :ancient_period }
+  let(:current_period) { FactoryBot.build :current_period }
+  let(:previous_period) { FactoryBot.build :previous_period }
+  let(:ancient_period) { FactoryBot.build :ancient_period }
   let(:today) { Date.today }
-  let(:valid_category) { FactoryGirl.build :valid_category }
-  let(:amount) { FactoryGirl.build :sample_amount_of_money }
+  let(:valid_category) { FactoryBot.build :valid_category }
+  let(:amount) { FactoryBot.build :sample_amount_of_money }
 
   it 'must be valid' do
     value(period).must_be :valid?

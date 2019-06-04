@@ -14,9 +14,9 @@
 require "test_helper"
 
 describe Account do
-  let(:new_account) { FactoryGirl.build :account }
-  let(:new_default_account) { FactoryGirl.build :default_account }
-  let(:persisted_account) { FactoryGirl.create :account }
+  let(:new_account) { FactoryBot.build :account }
+  let(:new_default_account) { FactoryBot.build :default_account }
+  let(:persisted_account) { FactoryBot.create :account }
 
   it 'must be valid' do
     new_account.must_be :valid?
@@ -46,14 +46,14 @@ describe Account do
 
   it 'must have only one default' do
     Account.destroy_all
-    3.times { FactoryGirl.create(:default_account) }
+    3.times { FactoryBot.create(:default_account) }
     Account.where(default: true).count.must_equal 1
   end
 
   it 'should update default flag' do
-    initial_default = FactoryGirl.create(:default_account)
+    initial_default = FactoryBot.create(:default_account)
     Account.where(default: true).first.must_equal initial_default
-    new_default = FactoryGirl.create(:default_account)
+    new_default = FactoryBot.create(:default_account)
     Account.where(default: true).first.must_equal new_default
   end
 end

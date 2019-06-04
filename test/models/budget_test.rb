@@ -21,17 +21,17 @@
 require 'test_helper'
 
 describe Budget do
-  let(:budget) { FactoryGirl.build :budget }
-  let(:previous_budget) { FactoryGirl.build :previous_budget }
-  let(:ancient_budget) { FactoryGirl.build :ancient_budget }
+  let(:budget) { FactoryBot.build :budget }
+  let(:previous_budget) { FactoryBot.build :previous_budget }
+  let(:ancient_budget) { FactoryBot.build :ancient_budget }
 
-  let(:usd_account) { FactoryGirl.create :usd_account }
-  let(:eur_account) { FactoryGirl.create :eur_account }
-  let(:rub_account) { FactoryGirl.create :rub_account }
+  let(:usd_account) { FactoryBot.create :usd_account }
+  let(:eur_account) { FactoryBot.create :eur_account }
+  let(:rub_account) { FactoryBot.create :rub_account }
 
-  let(:current_period) { FactoryGirl.create :current_period }
-  let(:previous_period) { FactoryGirl.create :previous_period }
-  let(:category) { FactoryGirl.create :valid_category }
+  let(:current_period) { FactoryBot.create :current_period }
+  let(:previous_period) { FactoryBot.create :previous_period }
+  let(:category) { FactoryBot.create :valid_category }
 
   EXPENSES = [100, 200, 300]
   DELTA_PERCENTAGE = 0.1

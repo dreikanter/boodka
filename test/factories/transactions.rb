@@ -17,7 +17,7 @@
 #  updated_at                 :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :inflow_transaction, class: Transaction do
     direction Const::INFLOW
     amount_cents 10000

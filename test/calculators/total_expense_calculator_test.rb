@@ -1,9 +1,9 @@
 require "test_helper"
 
 describe TotalExpenseCalculator do
-  let(:outflow_transaction) { FactoryGirl.build(:outflow_transaction) }
-  let(:current_period) { FactoryGirl.build(:current_period) }
-  let(:zero) { FactoryGirl.build(:zero) }
+  let(:outflow_transaction) { FactoryBot.build(:outflow_transaction) }
+  let(:current_period) { FactoryBot.build(:current_period) }
+  let(:zero) { FactoryBot.build(:zero) }
 
   it 'is zero when there are not transactions' do
     Transaction.destroy_all

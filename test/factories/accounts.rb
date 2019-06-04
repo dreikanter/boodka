@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :account, class: Account do
     title 'Sample Account'
     memo 'A description for the account'
