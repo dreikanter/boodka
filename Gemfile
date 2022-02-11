@@ -8,7 +8,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'turbolinks', '~> 5.2'
 gem 'jbuilder', '~> 2.0'
 # gem 'bootsnap', '~> 1.4', '>= 1.4.4', require: false
-gem 'puma', '~> 3.12', '>= 3.12.1'
+gem 'puma', '~> 4.3'
 
 gem 'awesome_print', '~> 1.8'
 gem 'money-rails', '~> 1.13', '>= 1.13.2'
